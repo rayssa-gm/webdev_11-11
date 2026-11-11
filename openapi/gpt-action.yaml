@@ -1,0 +1,84 @@
+openapi: 3.1.0
+info:
+  title: WebDev 11-11 Google Sheets
+  version: 1.0.0
+  description: Create spreadsheets and read or edit authorized Google Sheets through the WebDev 11-11 gateway.
+servers:
+  - url: https://YOUR-WORKER.workers.dev
+paths:
+  /:
+    post:
+      operationId: manageGoogleSheets
+      summary: Create or manage Google Sheets
+      description: |
+        Execute one spreadsheet operation. Supported actions:
+        createSpreadsheet (title);
+        listSheets (spreadsheetId);
+        readRange (spreadsheetId, sheetName optional, range optional);
+        appendRows (spreadsheetId, sheetName optional, values);
+        updateRange (spreadsheetId, sheetName optional, range, values).
+        For all operations other than createSpreadsheet, spreadsheetId is required.
+        For appendRows and updateRange, values must be a rectangular array of cell values.
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - action
+              properties:
+                action:
+                  type: string
+                  enum: [createSpreadsheet, listSheets, readRange, appendRows, updateRange]
+                title:
+                  type: string
+                  description: Title used when creating a spreadsheet.
+                spreadsheetId:
+                  type: string
+                  description: Google Sheets spreadsheet ID.
+                sheetName:
+                  type: string
+                  description: Tab name; defaults to the first tab.
+                range:
+                  type: string
+                  description: A1 notation, for example A1:D20.
+                values:
+                  type: array
+                  description: Rectangular matrix of strings, numbers, booleans, or nulls.
+                  items:
+                    type: array
+                    items:
+                      oneOf:
+                        - type: string
+                        - type: number
+                        - type: boolean
+                        - type: "null"
+      responses:
+        "200":
+          description: Operation result.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  result:
+                    type: object
+                    additionalProperties: true
+                  error:
+                    type: string
+        "400":
+          description: Invalid request.
+        "401":
+          description: Invalid API key.
+        "502":
+          description: Apps Script gateway error.
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
