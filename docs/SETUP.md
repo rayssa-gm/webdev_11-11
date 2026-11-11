@@ -85,7 +85,15 @@ npm install -g @google/clasp
 clasp login
 ```
 
-Create a local Apps Script project or clone the Script ID, then use `clasp push` to upload and `clasp pull` to download. Keep Script IDs, deployment URLs, API keys, and bridge secrets out of Git.
+From the repository root, install clasp and sign in. Then create the standalone Apps Script project from the source directory:
+
+```bash
+cd apps-script
+clasp create --type standalone --title "WebDev 11-11 Sheets API"
+clasp push
+```
+
+The command creates a local `.clasp.json` containing the Script ID; it is excluded from Git. Later, use `clasp push` to publish local changes and `clasp pull` to retrieve changes made in the Apps Script editor. Keep Script IDs, deployment URLs, API keys, and bridge secrets out of Git.
 
 ## Security notes
 
