@@ -1,0 +1,10 @@
+name = "webdev-11-11-gpt-bridge"
+main = "src/index.js"
+compatibility_date = "2026-11-11"
+
+# Configure the following secrets with:
+# npx wrangler secret put GPT_ACTION_KEY
+# npx wrangler secret put BRIDGE_SECRET
+#
+# Set APPS_SCRIPT_URL after deploying the Apps Script web app:
+# npx wrangler secret put APPS_SCRIPT_URL
