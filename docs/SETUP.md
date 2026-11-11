@@ -53,6 +53,8 @@ After deployment, copy the Worker URL (for example, `https://webdev-11-11-gpt-br
 
 ## 4. Configure the Custom GPT Action
 
+> **Availability note (November 2026):** OpenAI currently says personal ChatGPT accounts (Free, Go, Plus, and Pro) cannot create or publish new GPTs. This route is usable only if you have an eligible managed workspace or an existing GPT that your account is allowed to edit. See the [OpenAI availability guidance](https://help.openai.com/en/articles/8554397-creating-and-editing-gpts). If not, use an external web app with the OpenAI API instead; that is a separate integration path and API usage is billed separately.
+
 1. Open the GPT editor and create or edit a GPT.
 2. In **Actions**, choose **Create new action**.
 3. Set Authentication to **API Key → Bearer** and enter the value of `GPT_ACTION_KEY`.
