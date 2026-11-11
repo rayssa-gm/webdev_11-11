@@ -1,0 +1,13 @@
+# Local Apps Script project metadata
+.clasp.json
+
+# Node / Cloudflare local files
+node_modules/
+.wrangler/
+.dev.vars
+.env
+.env.*
+
+# OS/editor
+.DS_Store
+.vscode/
