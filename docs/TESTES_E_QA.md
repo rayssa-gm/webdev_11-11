@@ -7,8 +7,8 @@
 - Backend: funções de voto aplicam validação no servidor, hash do token, lock e idempotência; execute teste conectado após setup.
 
 ## Roteiro de homologação conectada (obrigatório)
-1. Criar planilha privada com `initializeSpreadsheet_()` (manual, pela equipe).
-2. Adicionar um código sintético aleatório na aba `Codigos` usando `registerVoteCode('TOKEN-SINTETICO-LONGO')` no editor Apps Script; não usar token de produção.
+1. Criar planilha privada executando `initializeSpreadsheet()` no editor Apps Script (manual, pela equipe).
+2. Gerar um código sintético aleatório executando `registerSyntheticTestCode()` no editor Apps Script; copiar o token exibido no log de execução. Não usar token de produção.
 3. Na aba `Configuracao`, mudar `STATUS_VOTACAO` para `ABERTA`.
 4. Implantar Web App como proprietário; permitir acesso anônimo somente após autorização da equipe e política Google Workspace. Se indisponível, marcar `BLOQUEADO_ACESSO_PUBLICO`.
 5. Em navegador anônimo, submeter o token para NAC-001. Confirmar recibo.
