@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - feat/universo-if-avalia-mvp
-    paths:
-      - .github/workflows/import-universo.yml
   workflow_dispatch:
 
 permissions:
