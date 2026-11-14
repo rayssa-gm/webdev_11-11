@@ -23,6 +23,8 @@ jobs:
       - run: npm ci --no-audit --no-fund
       - run: npm run typecheck
       - run: npm test
+      - run: node scripts/validar_catalogo.mjs
+      - run: node --check < backend/Code.gs
       - run: npm run build
         env:
           GITHUB_PAGES: 'true'
