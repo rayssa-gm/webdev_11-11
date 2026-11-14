@@ -64,11 +64,6 @@ function initializeSpreadsheet_() {
   return {ok:true, spreadsheetId:ss.getId(), url:ss.getUrl(), sheets:Object.keys(SHEETS)};
 }
 
-// Função pública para aparecer no menu Executar do editor Apps Script.
-function initializeSpreadsheet() {
-  return initializeSpreadsheet_();
-}
-
 function registerVoteCode_(token) {
   const raw = String(token || '').trim();
   if (raw.length < 20) throw new Error('Token sintético/aleatório deve ter pelo menos 20 caracteres.');
@@ -79,16 +74,6 @@ function registerVoteCode_(token) {
   if (rows.some(function(r) { return String(r[0]) === hash; })) throw new Error('Código já cadastrado.');
   sh.appendRow([hash,true,new Date()]);
   return {ok:true, message:'Código habilitado; somente o hash foi armazenado.'};
-}
-
-// Gera um token aleatório exclusivamente para homologação. O token puro
-// aparece apenas no log de execução; somente seu hash é salvo na planilha.
-function registerSyntheticTestCode() {
-  const token = Utilities.getUuid().replace(/-/g, '') +
-    Utilities.getUuid().replace(/-/g, '');
-  const result = registerVoteCode_(token);
-  Logger.log('TOKEN SINTÉTICO DE HOMOLOGAÇÃO (não usar em produção): ' + token);
-  return result;
 }
 
 function getUiBootstrap() {
@@ -195,7 +180,7 @@ function readConfig_() {
 }
 function spreadsheet_() {
   const id = PropertiesService.getScriptProperties().getProperty('SPREADSHEET_ID');
-  if (!id) throw new Error('Execute initializeSpreadsheet() como proprietário.');
+  if (!id) throw new Error('Execute a função privada initializeSpreadsheet_() por meio do procedimento temporário descrito em docs/CONFIGURAR_GOOGLE.md.');
   return SpreadsheetApp.openById(id);
 }
 function hashToken_(token) {
