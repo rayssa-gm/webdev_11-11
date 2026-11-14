@@ -41,3 +41,14 @@ O roteiro operacional atualizado está em `docs/TESTES_E_QA.md` e a configuraç�
 - O artefato `github-pages` contém a URL `/exec` real do Apps Script.
 - As mensagens de fallback “Integração ainda não configurada” / “Integração pendente” não aparecem no bundle final.
 - O job de deploy permaneceu **skipped**, pois a branch é de desenvolvimento.
+
+
+## Tentativa de homologação conectada — 14/11/2026
+
+- Autorização explícita recebida para teste sintético conectado.
+- Planilha real preparada temporariamente com `STATUS_VOTACAO=ABERTA` e um código sintético exclusivo.
+- O código previamente ativo foi desabilitado durante a janela de teste para evitar votos não controlados.
+- Esta integração não consegue preencher/submeter o formulário HTML do Apps Script via `google.script.run`; por isso, nenhum voto foi enviado ao runtime.
+- A janela foi encerrada imediatamente: `STATUS_VOTACAO=FECHADA`, código original reativado e código sintético desabilitado.
+- A aba `Avaliacoes` permaneceu sem registros.
+- G4 continua pendente apenas para a submissão real do formulário, recibo, readback e testes de duplicidade/concorrência no runtime Google.
