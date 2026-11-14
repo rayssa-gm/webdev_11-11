@@ -39,7 +39,7 @@ class Spreadsheet {
   getSheetByName(name){return this.sheets.find(s=>s.name===name)||null;}
   insertSheet(name){const s=new Sheet(name);this.sheets.push(s);return s;}
 }
-function makeRuntime({activeSpreadsheet=null}={}){
+function makeRuntime({activeSpreadsheet=null,openVoting=true}={}){
   const props=new Map(), cache=new Map(), sheets=new Map();
   let serial=0;
   if(activeSpreadsheet) sheets.set(activeSpreadsheet.id,activeSpreadsheet);
@@ -68,9 +68,21 @@ function makeRuntime({activeSpreadsheet=null}={}){
   const ss=sheets.get(ssResult.spreadsheetId);
   const config=ss.getSheetByName('Configuracao');
   const statusRow=config.values.findIndex(r=>r[0]==='STATUS_VOTACAO')+1;
-  config.getRange(statusRow,2,1,1).setValues([['ABERTA']]);
+  if(openVoting) config.getRange(statusRow,2,1,1).setValues([['ABERTA']]);
   return {context,ss,cache,props};
 }
+
+
+
+test('getUiBootstrap retorna catálogo completo e votação fechada',()=>{
+  const {context}=makeRuntime({openVoting:false});
+  const bootstrap=context.getUiBootstrap();
+  assert.equal(bootstrap.status,'FECHADA');
+  assert.equal(bootstrap.minRanking,5);
+  assert.equal(bootstrap.projects.length,46);
+  assert.equal(bootstrap.projects.filter(p=>p.modalidade==='Mostra Nacional').length,24);
+  assert.equal(bootstrap.projects.filter(p=>p.modalidade==='Mostra de Extensão').length,22);
+});
 
 test('Apps Script reutiliza a planilha vinculada durante a configuração inicial',()=>{
   const bound=new Spreadsheet('bound-sheet');
