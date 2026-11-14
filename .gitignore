@@ -11,3 +11,20 @@ node_modules/
 # Universo IF Avalia build output
 dist/
 *.log
+
+# BEGIN Universo IF Avalia ignores
+# Existing repository rules
+.clasp.json
+node_modules/
+.wrangler/
+.dev.vars
+.env
+.env.*
+.DS_Store
+.vscode/
+
+# Universo IF Avalia build output
+dist/
+*.log
+
+# END Universo IF Avalia ignores
