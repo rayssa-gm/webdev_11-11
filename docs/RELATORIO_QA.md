@@ -6,7 +6,7 @@
 | G1 — Catálogo | PASS | Validador aprovou 46 IDs únicos: 24 NAC + 22 EXT, campos obrigatórios, datas e proveniência. A conferência visual independente dos 46 títulos nos PDFs permanece como etapa de QA humano documentada em `AUDITORIA_CATALOGO.md`. |
 | G2 — Interface, testes e build | PASS | GitHub Actions run **43632389191**: `npm ci`, typecheck, **17/17 testes**, validador do catálogo, `node --check` do Apps Script e build Vite concluídos com sucesso. |
 | G3 — Backend offline | PASS | Testes automatizados exercitam Modelo B, repetição, token inválido, validação das notas, idempotência, ranking agregado e corrida simulada com mocks dos serviços Google. Isso não substitui o runtime real do Apps Script/Sheets. |
-| G4 — Voto real + readback | BLOCKED_CONNECTED_VOTE | Ainda falta planilha privada configurada, implantação real do Apps Script e autorização específica para executar voto sintético conectado e conferir o readback no Sheets. |
+| G4 — Voto real + readback | PARTIAL / BLOCKED_CONNECTED_VOTE | A equipe informou que a planilha e o projeto Apps Script reais já existem e que o Web App abre em janela anônima com a votação fechada. Ainda não há evidência verificada de gravação, recibo, readback, duplicidade e concorrência no Sheets real. A versão /dev foi relatada com erro de sintaxe e precisa ser sincronizada com a branch. |
 | G5 — GitHub Actions / Pages | PASS_BUILD / NOT_DEPLOYED | O build e o artefato do Pages foram gerados com sucesso no run **43632389191**. O job de deploy foi **skipped** por projeto porque a branch atual é de desenvolvimento; publicação em `main` ainda não foi autorizada. |
 | G6 — QA independente | NOT_RUN | Exige outra pessoa da equipe, conferência documental e teste completo em smartphone. |
 
@@ -28,6 +28,6 @@
 
 O código está em estado **MVP_READY_FOR_REVIEW**, mas ainda não deve ser classificado como `PUBLICADO_HOMOLOGADO`.
 
-Para atingir homologação, ainda é obrigatório concluir G4 e G6: criar/configurar o Google Sheets privado, implantar o Apps Script com a política de acesso autorizada, executar voto sintético com recibo e readback, verificar duplicidade e concorrência no ambiente real e realizar QA independente/mobile.
+Para atingir homologação, ainda é obrigatório concluir G4 e G6: sincronizar o código do Apps Script real com a branch, eliminar o erro relatado na versão /dev, executar voto sintético com recibo e readback, verificar duplicidade e concorrência no ambiente real e realizar QA independente/mobile. A existência da planilha, do projeto Apps Script e do acesso anônimo ao Web App foi informada pela equipe, mas ainda não foi verificada diretamente por este agente.
 
 O roteiro operacional atualizado está em `docs/TESTES_E_QA.md` e a configuração manual do Google em `docs/CONFIGURAR_GOOGLE.md`.
