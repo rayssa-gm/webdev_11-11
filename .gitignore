@@ -1,13 +1,13 @@
-# Local Apps Script project metadata
+# Existing repository rules
 .clasp.json
-
-# Node / Cloudflare local files
 node_modules/
 .wrangler/
 .dev.vars
 .env
 .env.*
-
-# OS/editor
 .DS_Store
 .vscode/
+
+# Universo IF Avalia build output
+dist/
+*.log

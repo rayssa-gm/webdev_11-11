@@ -16,3 +16,37 @@ Este repositório inclui um ponto de partida para um GPT personalizado criar pla
 - Guia de instalação: `docs/SETUP.md`
 
 **Importante:** a integração ainda precisa ser configurada nas suas contas Google, Cloudflare e ChatGPT. Nenhuma planilha ou implantação foi criada automaticamente nesta etapa. Siga o [guia de instalação](docs/SETUP.md).
+
+---
+
+## Projeto Universo IF Avalia
+
+MVP acadêmico responsivo para catálogo e avaliação educativa dos 46 projetos da Mostra Nacional e da Mostra de Extensão do IFMA 2026.2. **Não é votação ou julgamento oficial do evento.**
+
+- Frontend: React + Vite + TypeScript (`src/`).
+- Catálogo versionado: `public/data/catalogo.json`.
+- Backend específico do projeto: `backend/Code.gs` + `backend/Index.html`.
+- Google Sheets: abas privadas Projetos, Codigos, Avaliacoes e Configuracao.
+- GitHub Pages: workflow `.github/workflows/pages.yml`.
+- Regras, pesos e QA: `docs/`.
+
+O projeto anterior de integração genérica (Apps Script + Cloudflare Worker + GPT Action) foi preservado sem alterações. O backend em `backend/` é separado e exclusivo do Universo IF Avalia.
+
+### Desenvolvimento do Universo IF Avalia
+
+```bash
+npm install
+npm run typecheck
+npm test
+npm run build
+npm run dev
+```
+
+Consulte:
+- [Configuração Google do Universo IF Avalia](docs/CONFIGURAR_GOOGLE.md)
+- [Auditoria do catálogo](docs/AUDITORIA_CATALOGO.md)
+- [Backlog](docs/BACKLOG.md)
+- [Testes e QA](docs/TESTES_E_QA.md)
+- [Relatório de gates](docs/RELATORIO_QA.md)
+
+**Status:** código preparado para revisão. A homologação conectada depende de planilha privada, implantação Apps Script autorizada, teste de voto sintético e readback.
