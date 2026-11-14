@@ -28,7 +28,7 @@ jobs:
       - run: npm run build
         env:
           GITHUB_PAGES: 'true'
-          VITE_APPS_SCRIPT_URL: ${{ vars.VITE_APPS_SCRIPT_URL }}
+          VITE_APPS_SCRIPT_URL: ${{ vars.VITE_APPS_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbydHsI_vFZdPun-cwrk7Pz7Bkoua_T2kKsOMIizu67gJCTcyKTD1QXRS10ISrlDyc6i/exec' }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
