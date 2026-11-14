@@ -39,9 +39,10 @@ class Spreadsheet {
   getSheetByName(name){return this.sheets.find(s=>s.name===name)||null;}
   insertSheet(name){const s=new Sheet(name);this.sheets.push(s);return s;}
 }
-function makeRuntime(){
+function makeRuntime({activeSpreadsheet=null}={}){
   const props=new Map(), cache=new Map(), sheets=new Map();
   let serial=0;
+  if(activeSpreadsheet) sheets.set(activeSpreadsheet.id,activeSpreadsheet);
   const context={
     console,
     Date,
@@ -50,6 +51,7 @@ function makeRuntime(){
     PropertiesService:{getScriptProperties:()=>({getProperty:k=>props.get(k)||null,setProperty:(k,v)=>props.set(k,v)})},
     SpreadsheetApp:{
       create:()=>{const ss=new Spreadsheet('sheet-'+(++serial));sheets.set(ss.id,ss);return ss;},
+      getActiveSpreadsheet:()=>activeSpreadsheet,
       openById:id=>{const ss=sheets.get(id);if(!ss)throw Error('missing spreadsheet');return ss;},
       flush:()=>{}
     },
@@ -67,8 +69,19 @@ function makeRuntime(){
   const config=ss.getSheetByName('Configuracao');
   const statusRow=config.values.findIndex(r=>r[0]==='STATUS_VOTACAO')+1;
   config.getRange(statusRow,2,1,1).setValues([['ABERTA']]);
-  return {context,ss,cache};
+  return {context,ss,cache,props};
 }
+
+test('Apps Script reutiliza a planilha vinculada durante a configuração inicial',()=>{
+  const bound=new Spreadsheet('bound-sheet');
+  const {ss,props}=makeRuntime({activeSpreadsheet:bound});
+  assert.equal(ss,bound);
+  assert.equal(props.get('SPREADSHEET_ID'),'bound-sheet');
+  assert.ok(ss.getSheetByName('Projetos'));
+  assert.ok(ss.getSheetByName('Codigos'));
+  assert.ok(ss.getSheetByName('Avaliacoes'));
+  assert.ok(ss.getSheetByName('Configuracao'));
+});
 const token='TOKEN-SINTETICO-NAO-PRODUCAO-123456789';
 const payload=(id,project='NAC-001',code=token)=>({id_requisicao:id,codigo:code,id_projeto:project,notas:[4,5,4,3]});
 

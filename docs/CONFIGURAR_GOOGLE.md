@@ -3,9 +3,9 @@
 **Não cole tokens, senhas, IDs privados ou URLs privadas nesta conversa ou no GitHub.** A planilha e a administração devem permanecer privadas.
 
 ## 1. Criar projeto
-1. A equipe cria uma planilha privada no Google Drive.
-2. Abra Extensões → Apps Script.
-3. Copie `backend/Code.gs` e `backend/Index.html` para o projeto.
+1. A equipe cria uma planilha privada no Google Drive, por exemplo **Universo IF Avalia — dados privados**.
+2. Nessa própria planilha, abra **Extensões → Apps Script**. O backend reutiliza a planilha vinculada e grava seu ID em `SPREADSHEET_ID`; ele não cria uma segunda planilha quando a configuração é feita dessa forma.
+3. Copie `backend/Code.gs` e `backend/Index.html` para o projeto. Se a equipe optar por um projeto Apps Script independente, a rotina de inicialização criará uma nova planilha privada automaticamente.
 4. Salve. Para inicializar a planilha e criar um token sintético, cole temporariamente no final de `Code.gs` a função abaixo e execute `setupForHomologation()` no editor:
    ```javascript
    function setupForHomologation() {
