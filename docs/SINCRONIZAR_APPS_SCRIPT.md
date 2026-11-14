@@ -1,5 +1,16 @@
 # Sincronizar o Apps Script real com a branch
 
+## Versão canônica para sincronização
+
+- Branch: `feat/universo-if-avalia-mvp`
+- Commit de referência: `7db7c09c83bc0745130583bb8edc923211e8671d`
+- `backend/Code.gs` blob SHA: `cca33eff6d13ebfbb8b37bf82d75f48b79dc0b6f`
+- `backend/Index.html` blob SHA: `b6deacf4ca97267cd68d903446f9d64bf2f1ef65`
+- Linha 21 esperada em `backend/Code.gs`: `template.initialModality = (e && e.parameter && e.parameter.modalidade) || 'Mostra Nacional';`
+- O arquivo `backend/Code.gs` dessa versão passou na checagem de sintaxe do CI.
+
+Use estes valores somente para confirmar que o conteúdo copiado para o Apps Script é o mesmo conteúdo versionado. Não salve IDs do Apps Script, da planilha ou tokens neste documento.
+
 Este procedimento existe para resolver divergências entre o código versionado em `feat/universo-if-avalia-mvp` e o projeto Google Apps Script já criado pela equipe, sem recriar a planilha e sem abrir a votação oficial.
 
 ## Estado de referência
