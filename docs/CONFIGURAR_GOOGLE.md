@@ -6,8 +6,8 @@
 1. A equipe cria uma planilha privada no Google Drive.
 2. Abra Extensões → Apps Script.
 3. Copie `backend/Code.gs` e `backend/Index.html` para o projeto.
-4. Salve. Execute `initializeSpreadsheet_()` como proprietário e autorize as permissões solicitadas. A função cria abas e registra `SPREADSHEET_ID` nas Script Properties.
-5. Execute `registerVoteCode_('TOKEN-SINTETICO-LONGO-E-ALEATORIO')` apenas para homologação. O código em texto puro não é armazenado; só o SHA-256 entra em `Codigos`.
+4. Salve. Execute `initializeSpreadsheet()` como proprietário e autorize as permissões solicitadas. A função cria abas e registra `SPREADSHEET_ID` nas Script Properties.
+5. No menu de funções, execute `registerSyntheticTestCode()` apenas para homologação. Abra o registro de execução e copie o token sintético exibido no log para o teste. O token em texto puro não é armazenado; só o SHA-256 entra em `Codigos`. Não compartilhe esse token.
 6. Na aba `Configuracao`, mantenha `STATUS_VOTACAO=FECHADA` até a aprovação da equipe. Para teste, altere para `ABERTA`.
 
 ## 2. Implantar
