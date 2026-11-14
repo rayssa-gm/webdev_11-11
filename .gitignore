@@ -12,6 +12,7 @@ node_modules/
 dist/
 *.log
 
+
 # BEGIN Universo IF Avalia ignores
 # Existing repository rules
 .clasp.json
