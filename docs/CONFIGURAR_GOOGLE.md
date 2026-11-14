@@ -6,9 +6,20 @@
 1. A equipe cria uma planilha privada no Google Drive.
 2. Abra Extensões → Apps Script.
 3. Copie `backend/Code.gs` e `backend/Index.html` para o projeto.
-4. Salve. Execute `initializeSpreadsheet()` como proprietário e autorize as permissões solicitadas. A função cria abas e registra `SPREADSHEET_ID` nas Script Properties.
-5. No menu de funções, execute `registerSyntheticTestCode()` apenas para homologação. Abra o registro de execução e copie o token sintético exibido no log para o teste. O token em texto puro não é armazenado; só o SHA-256 entra em `Codigos`. Não compartilhe esse token.
-6. Na aba `Configuracao`, mantenha `STATUS_VOTACAO=FECHADA` até a aprovação da equipe. Para teste, altere para `ABERTA`.
+4. Salve. Para inicializar a planilha e criar um token sintético, cole temporariamente no final de `Code.gs` a função abaixo e execute `setupForHomologation()` no editor:
+   ```javascript
+   function setupForHomologation() {
+     const setup = initializeSpreadsheet_();
+     const token = Utilities.getUuid().replace(/-/g, '') +
+       Utilities.getUuid().replace(/-/g, '');
+     registerVoteCode_(token);
+     Logger.log('PLANILHA: ' + setup.url);
+     Logger.log('TOKEN SINTÉTICO (somente para homologação): ' + token);
+   }
+   ```
+   Autorize as permissões solicitadas. Copie o token do registro de execução para o teste e mantenha-o privado. Somente o hash SHA-256 é armazenado na aba `Codigos`.
+5. **Apague a função temporária `setupForHomologation()` de `Code.gs` antes de implantar o Web App.** Ela é apenas uma rotina administrativa de configuração e não pode ficar publicada.
+6. Na aba `Configuracao`, mantenha `STATUS_VOTACAO=FECHADA` durante a configuração. Altere para `ABERTA` somente durante o teste com token sintético autorizado e volte imediatamente para `FECHADA` ao terminar.
 
 ## 2. Implantar
 1. Implantar → Nova implantação → Aplicativo da Web.
