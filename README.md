@@ -49,4 +49,4 @@ Consulte:
 - [Testes e QA](docs/TESTES_E_QA.md)
 - [Relatório de gates](docs/RELATORIO_QA.md)
 
-**Status:** código preparado para revisão. A homologação conectada depende de planilha privada, implantação Apps Script autorizada, teste de voto sintético e readback.
+**Status:** `MVP_READY_FOR_REVIEW`. Planilha real e Web App `/exec` estão configurados, 18/18 testes passam e o QA responsivo automatizado passou em 320/375/768/1280 px. Ainda faltam a submissão conectada de homologação com recibo/readback, QA humano independente e aprovação final antes de merge em `main`/publicação definitiva.

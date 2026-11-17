@@ -5,7 +5,7 @@
 - Domínio: busca acento-insensível e cálculo [4,5,4,3] = 4,15.
 - Validação de escala: notas ausentes, decimais e fora de 1–5 rejeitadas.
 - Backend: validação no servidor, hash do token, Modelo B, LockService, idempotência, ranking agregado e corrida simulada.
-- CI da branch: GitHub Actions executa `npm ci`, typecheck, 17 testes automatizados, validador do catálogo, verificação de sintaxe do Apps Script e build de produção.
+- CI da branch: GitHub Actions executa `npm ci`, typecheck, 18 testes automatizados, validador do catálogo, verificação de sintaxe do Apps Script e build de produção.
 
 ## Roteiro de homologação conectada (obrigatório)
 1. Siga `docs/CONFIGURAR_GOOGLE.md`: crie/configure a planilha privada usando temporariamente a função administrativa `setupForHomologation()` indicada naquele guia.
@@ -23,8 +23,12 @@
 13. Ao terminar, retorne `STATUS_VOTACAO` para `FECHADA` até existir autorização explícita para qualquer demonstração pública.
 
 ## Estado de execução
-- Último CI verificado na branch `feat/universo-if-avalia-mvp`: run **43632389191**, concluído com sucesso.
-- Testes automatizados: **17 aprovados, 0 falhas**.
+- Último CI verificado na branch `feat/universo-if-avalia-mvp`: run **44159031990**, concluído com sucesso.
+- Testes automatizados: **18 aprovados, 0 falhas**.
 - Validador do catálogo: **PASS — 46 projetos únicos (24 Mostra Nacional, 22 Mostra de Extensão)**.
 - Typecheck, sintaxe de `backend/Code.gs` e build Vite: **PASS**.
-- Homologação real: **NOT_RUN / BLOCKED_CONNECTED_VOTE** até a equipe criar a planilha privada, implantar o Apps Script e autorizar o voto sintético conectado.
+- QA responsivo automatizado: **PASS** em 320, 375, 768 e 1280 px, sem overflow horizontal; navegação e links Apps Script válidos; sem erros de JavaScript.
+- Planilha real: verificada com 4 abas, 46 projetos, `MIN_RANKING=5`, `STATUS_VOTACAO=FECHADA` em 17/11/2026 e nenhuma avaliação registrada.
+- Web App `/exec`: validado e integrado ao build.
+- Homologação conectada: **PARTIAL / BLOCKED_CONNECTED_SUBMISSION** — o envio real via `google.script.run`, recibo/readback, duplicidade, Modelo B e concorrência ainda precisam ser executados no navegador real.
+- Sincronização GitHub → Apps Script: workflow manual com `clasp` preparado; execução remota depende dos secrets privados `APPS_SCRIPT_ID` e `CLASPRC_JSON`.
