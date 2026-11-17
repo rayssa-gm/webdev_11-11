@@ -1,63 +1,72 @@
 # Sincronizar o Apps Script real com a branch
 
-## Versão canônica para sincronização
+## Fonte de verdade
 
 - Branch: `feat/universo-if-avalia-mvp`
-- Commit de referência: `7db7c09c83bc0745130583bb8edc923211e8671d`
-- `backend/Code.gs` blob SHA: `cca33eff6d13ebfbb8b37bf82d75f48b79dc0b6f`
-- `backend/Index.html` blob SHA: `b6deacf4ca97267cd68d903446f9d64bf2f1ef65`
-- Linha 21 esperada em `backend/Code.gs`: `template.initialModality = (e && e.parameter && e.parameter.modalidade) || 'Mostra Nacional';`
-- O arquivo `backend/Code.gs` dessa versão passou na checagem de sintaxe do CI.
+- Backend: `backend/Code.gs` e `backend/Index.html`
+- Manifesto Apps Script: `backend/appsscript.json`
+- O CI valida a sintaxe de `backend/Code.gs`.
+- IDs, tokens e credenciais não devem ser versionados.
 
-Use estes valores somente para confirmar que o conteúdo copiado para o Apps Script é o mesmo conteúdo versionado. Não salve IDs do Apps Script, da planilha ou tokens neste documento.
+## Estado atual
 
-Este procedimento existe para resolver divergências entre o código versionado em `feat/universo-if-avalia-mvp` e o projeto Google Apps Script já criado pela equipe, sem recriar a planilha e sem abrir a votação oficial.
-
-## Estado de referência
-
-- Fonte de verdade do backend: `backend/Code.gs` e `backend/Index.html` na branch `feat/universo-if-avalia-mvp`.
-- O `backend/Code.gs` versionado passa na verificação de sintaxe do CI.
-- A equipe informou que o Web App já foi implantado e abre em janela anônima, com votação fechada.
-- A equipe também relatou `SyntaxError: Unexpected token ';'` na versão `/dev`. Como a linha correspondente do arquivo versionado é válida, trate o projeto online como potencialmente divergente até a comparação.
-- Não recrie a planilha existente e não execute uma nova inicialização destrutiva.
+A planilha real e a implantação `/exec` já existem. A URL pública do Web App está integrada ao build da branch. A sincronização via `clasp` foi preparada no workflow `.github/workflows/sync-apps-script.yml`, mas não faz push automaticamente.
 
 ## Sincronização manual segura
 
-1. No Apps Script real, confirme que a votação continua `FECHADA`.
-2. Crie uma versão/cópia de segurança do código atual antes de substituir arquivos.
-3. Substitua integralmente o conteúdo do arquivo de servidor pelo conteúdo de `backend/Code.gs` da branch.
-4. Substitua integralmente o HTML pelo conteúdo de `backend/Index.html`.
-5. Salve e confirme que o editor não apresenta erro de sintaxe.
-6. Execute uma função de leitura não destrutiva, como `getUiBootstrap()`, e confirme que ela retorna o catálogo e `status: FECHADA`.
-7. Abra a implantação de teste/`dev` novamente. O formulário e o ranking devem carregar sem erro de sintaxe.
-8. Só depois disso crie uma nova versão da implantação `/exec`. Não abra a votação ainda.
+1. Mantenha `STATUS_VOTACAO=FECHADA`.
+2. Faça uma cópia/versão de segurança do Apps Script online.
+3. Compare o código online com `backend/Code.gs` e `backend/Index.html`.
+4. Salve e confirme ausência de erro de sintaxe.
+5. Execute `getUiBootstrap()` no editor e confirme catálogo com 46 projetos e votação fechada.
+6. Valide a implantação de teste e somente depois atualize a versão `/exec`.
 
-## Verificação da planilha existente
+## Sincronização via GitHub Actions + clasp
 
-Antes do primeiro voto de homologação, confirme visualmente que existem as abas:
+O workflow é apenas manual (`workflow_dispatch`) e possui dois modos:
 
-- `Projetos`
-- `Codigos`
-- `Avaliacoes`
-- `Configuracao`
+- `status`: mostra os arquivos locais que o clasp considera para sincronização.
+- `push`: envia o conteúdo de `backend/` ao projeto Apps Script. Para executar push é obrigatório informar `SYNC` no campo de confirmação.
 
-Na aba `Projetos`, confirme 46 registros de projeto além do cabeçalho. Na aba `Configuracao`, mantenha `STATUS_VOTACAO=FECHADA` até o teste controlado.
+Configure no GitHub, em **Settings → Secrets and variables → Actions**, estes secrets:
 
-Não publique nem cole no repositório IDs da planilha, URL administrativa, tokens de voto ou dados privados.
+- `APPS_SCRIPT_ID`: ID do projeto Apps Script. Não use a URL `/exec`.
+- `CLASPRC_JSON`: conteúdo completo do arquivo de credenciais gerado por `clasp login`.
 
-## Teste conectado seguinte
+O workflow cria `.clasp.json` somente durante a execução. O arquivo real permanece ignorado pelo Git. O exemplo `.clasp.json.example` não contém IDs reais.
 
-Depois da sincronização:
+### Como obter CLASPRC_JSON
 
-1. Gere ou habilite um código sintético somente para homologação.
-2. Altere temporariamente `STATUS_VOTACAO` para `ABERTA`.
-3. Vote em `NAC-001` e guarde o recibo.
-4. Confira a linha correspondente em `Avaliacoes`.
-5. Tente novamente o mesmo código em `NAC-001`: deve retornar `VOTO_DUPLICADO`.
-6. Use o mesmo código em `NAC-002`: deve aceitar.
-7. Volte `STATUS_VOTACAO` para `FECHADA`.
-8. Registre a evidência em `docs/RELATORIO_QA.md`.
+Em uma máquina da equipe:
 
-## Sincronização automática futura
+1. Instale Node.js 22+.
+2. Execute `npm install -g @google/clasp@3.4.1`.
+3. Ative a Google Apps Script API na conta usada pelo projeto.
+4. Execute `clasp login`.
+5. Copie o conteúdo de `~/.clasprc.json` para o secret `CLASPRC_JSON`.
+6. Não envie esse conteúdo por chat nem faça commit.
 
-Somente após a sincronização manual e o teste conectado passarem, configurar `clasp`/GitHub Actions para reduzir divergências entre GitHub e Apps Script. Credenciais OAuth, tokens e IDs privados devem ficar em secrets/variables do ambiente e nunca em arquivos versionados.
+### Primeiro uso recomendado
+
+1. Rode o workflow em modo `status`.
+2. Revise a lista de arquivos.
+3. Confirme que a votação está `FECHADA`.
+4. Só então rode em modo `push` com confirmação `SYNC`.
+5. Depois do push, abra o Apps Script e valide `getUiBootstrap()` antes de criar/atualizar qualquer implantação.
+
+## Homologação conectada
+
+Após a sincronização do código online:
+
+1. Use somente código sintético autorizado.
+2. Abra `STATUS_VOTACAO` apenas durante o teste controlado.
+3. Vote em `NAC-001` e valide recibo/readback.
+4. Repita no mesmo projeto para confirmar `VOTO_DUPLICADO`.
+5. Reutilize o mesmo código em `NAC-002` para confirmar Modelo B.
+6. Teste idempotência e concorrência.
+7. Gere pelo menos cinco avaliações sintéticas para validar o ranking.
+8. Ao terminar, retorne `STATUS_VOTACAO=FECHADA`.
+
+## Segurança
+
+O `clasp push --force` substitui o conteúdo remoto do projeto Apps Script pelos arquivos locais selecionados. Por isso o workflow nunca roda em push de Git, nunca publica automaticamente uma implantação e exige acionamento manual.
