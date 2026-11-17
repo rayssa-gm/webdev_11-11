@@ -23,11 +23,11 @@
 13. Ao terminar, retorne `STATUS_VOTACAO` para `FECHADA` até existir autorização explícita para qualquer demonstração pública.
 
 ## Estado de execução
-- Último CI verificado na branch `feat/universo-if-avalia-mvp`: run **44159031990**, concluído com sucesso.
+- Último CI verificado na branch `feat/universo-if-avalia-mvp`: run **44159557349**, concluído com sucesso.
 - Testes automatizados: **18 aprovados, 0 falhas**.
 - Validador do catálogo: **PASS — 46 projetos únicos (24 Mostra Nacional, 22 Mostra de Extensão)**.
 - Typecheck, sintaxe de `backend/Code.gs` e build Vite: **PASS**.
-- QA responsivo automatizado: **PASS** em 320, 375, 768 e 1280 px, sem overflow horizontal; navegação e links Apps Script válidos; sem erros de JavaScript.
+- QA responsivo/acessibilidade automatizado: **PASS** em 320, 375, 768 e 1280 px, sem overflow horizontal; navegação e links Apps Script válidos; sem erros de JavaScript; navegação por Tab e abertura de projeto com Enter validadas; contraste principal atende AA após ajuste do texto muted.
 - Planilha real: verificada com 4 abas, 46 projetos, `MIN_RANKING=5`, `STATUS_VOTACAO=FECHADA` em 17/11/2026 e nenhuma avaliação registrada.
 - Web App `/exec`: validado e integrado ao build.
 - Homologação conectada: **PARTIAL / BLOCKED_CONNECTED_SUBMISSION** — o envio real via `google.script.run`, recibo/readback, duplicidade, Modelo B e concorrência ainda precisam ser executados no navegador real.

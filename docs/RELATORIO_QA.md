@@ -4,16 +4,16 @@
 |---|---|---|
 | G0 — GitHub e autorização | PASS | Repositório `rayssa-gm/webdev_11-11` identificado; branch `feat/universo-if-avalia-mvp` ativa; escrita autorizada nesta conversa. |
 | G1 — Catálogo | PASS | Validador aprovou 46 IDs únicos: 24 NAC + 22 EXT, campos obrigatórios, datas e proveniência. A conferência visual independente dos 46 títulos nos PDFs permanece como etapa de QA humano documentada em `AUDITORIA_CATALOGO.md`. |
-| G2 — Interface, testes e build | PASS | GitHub Actions run **44159031990**: `npm ci`, typecheck, **18/18 testes**, validador do catálogo, `node --check` do Apps Script e build Vite concluídos com sucesso. QA responsivo automatizado passou em 320/375/768/1280 px. |
+| G2 — Interface, testes e build | PASS | GitHub Actions run **44159557349**: `npm ci`, typecheck, **18/18 testes**, validador do catálogo, `node --check` do Apps Script e build Vite concluídos com sucesso. QA responsivo automatizado passou em 320/375/768/1280 px. |
 | G3 — Backend offline | PASS | Testes automatizados exercitam Modelo B, repetição, token inválido, validação das notas, idempotência, ranking agregado e corrida simulada com mocks dos serviços Google. Isso não substitui o runtime real do Apps Script/Sheets. |
 | G4 — Voto real + readback | PARTIAL / BLOCKED_CONNECTED_SUBMISSION | Planilha real verificada em 17/11/2026: abas `Projetos`, `Codigos`, `Avaliacoes`, `Configuracao`; 46 projetos; `STATUS_VOTACAO=FECHADA`; `MIN_RANKING=5`; três hashes cadastrados (um habilitado, dois desabilitados); nenhuma avaliação registrada. A URL `/exec` está ativa e integrada. Faltam submissão real via formulário, recibo/readback, duplicidade, Modelo B, idempotência/concorrência e ranking conectado. |
 | G5 — GitHub Actions / Pages | PASS_BUILD / URL_INTEGRATED / NOT_DEPLOYED | A URL `/exec` real está integrada ao build. GitHub Actions run **44159031990** passou com 18/18 testes, catálogo, sintaxe e build. O deploy continua corretamente `skipped` porque a branch não é `main`. O workflow manual de sincronização Apps Script via `clasp` foi preparado no commit `1a0ba2c583494808b4dad2facbf110a012e08f44`. |
-| G6 — QA independente | PARTIAL / AUTOMATED_PASS / HUMAN_PENDING | QA técnico automatizado passou em 320/375/768/1280 px sem overflow, com links e navegação válidos. Ainda exige teste humano independente em smartphone e conferência documental final. |
+| G6 — QA independente | PARTIAL / AUTOMATED_PASS / HUMAN_PENDING | QA técnico automatizado passou em 320/375/768/1280 px sem overflow, com links/navegação válidos, teclado funcional e contraste AA corrigido. Ainda exige teste humano independente em smartphone e conferência documental final. |
 
 ## Evidências verificadas no CI
 
 - Workflow: **Build and deploy GitHub Pages**.
-- Run: **44159031990**.
+- Run: **44159557349**.
 - Commit verificado pelo run: `1a0ba2c583494808b4dad2facbf110a012e08f44`.
 - Job `build`: **success**.
 - `npm ci --no-audit --no-fund`: **PASS**.
@@ -68,3 +68,14 @@ O roteiro operacional atualizado está em `docs/TESTES_E_QA.md` e a configuraç�
 ## Segurança após tentativa de homologação
 
 Em 17/11/2026 foi constatado que a janela de homologação havia permanecido `ABERTA` desde 14/11. A configuração foi corrigida imediatamente: `STATUS_VOTACAO=FECHADA`, código sintético desabilitado, código original restaurado e a aba `Avaliacoes` permaneceu vazia.
+
+
+## QA de teclado e contraste — 17/11/2026
+
+- Ordem de foco por Tab validada em 375 px e 1280 px.
+- Cartões de projeto abrem por teclado com Enter.
+- Nenhum foco visível apontou para elemento com dimensão zero.
+- Contraste verde/branco: 12,04:1.
+- Contraste lima/verde: 9,49:1.
+- Contraste do texto muted sobre fundo claro passou de 4,24:1 para aproximadamente 4,61:1 após o commit `43cd9c93f9caf4c0791a1f56d02b502510b03d3b`.
+- GitHub Actions run **44159557349**: build **success**; deploy **skipped** por permanecer na branch de desenvolvimento.
