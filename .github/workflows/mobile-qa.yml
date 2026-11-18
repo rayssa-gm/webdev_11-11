@@ -1,0 +1,43 @@
+name: Independent mobile QA
+
+on:
+  push:
+    branches:
+      - feat/universo-if-avalia-mvp
+    paths:
+      - '.github/workflows/mobile-qa.yml'
+      - 'scripts/probe_mobile_qa.mjs'
+
+permissions:
+  contents: read
+
+jobs:
+  mobile-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install project
+        run: npm ci --no-audit --no-fund
+      - name: Build branch
+        env:
+          VITE_APPS_SCRIPT_URL: https://script.google.com/macros/s/AKfycbydHsI_vFZdPun-cwrk7Pz7Bkoua_T2kKsOMIizu67gJCTcyKTD1QXRS10ISrlDyc6i/exec
+        run: npm run build
+      - name: Install browser QA dependencies
+        run: |
+          npm install --no-save playwright@1.65.1 axe-core@4.10.3
+          npx playwright install --with-deps chromium
+      - name: Start local preview
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4173 >/tmp/universo-preview.log 2>&1 &
+          for i in {1..30}; do
+            curl -fsS http://127.0.0.1:4173/ >/dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/universo-preview.log
+          exit 1
+      - name: Run independent smartphone QA
+        run: node scripts/probe_mobile_qa.mjs
