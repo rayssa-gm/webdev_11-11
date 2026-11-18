@@ -1,4 +1,5 @@
 name: Build and deploy GitHub Pages
+# Temporary homologation deployment authorized
 on:
   push:
     branches: [main, feat/universo-if-avalia-mvp]
