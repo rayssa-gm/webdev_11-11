@@ -6,7 +6,7 @@
 | G1 — Catálogo | PASS | Validador aprovou 46 IDs únicos: 24 NAC + 22 EXT, campos obrigatórios, datas e proveniência. A conferência visual independente dos 46 títulos nos PDFs permanece como etapa de QA humano documentada em `AUDITORIA_CATALOGO.md`. |
 | G2 — Interface, testes e build | PASS | GitHub Actions run **44159557349**: `npm ci`, typecheck, **18/18 testes**, validador do catálogo, `node --check` do Apps Script e build Vite concluídos com sucesso. QA responsivo automatizado passou em 320/375/768/1280 px. |
 | G3 — Backend offline | PASS | Testes automatizados exercitam Modelo B, repetição, token inválido, validação das notas, idempotência, ranking agregado e corrida simulada com mocks dos serviços Google. Isso não substitui o runtime real do Apps Script/Sheets. |
-| G4 — Voto real + readback | PARTIAL / CONNECTED_VOTE_PASS | Em 17/11/2026 o voto real sintético em `NAC-001` foi aceito com notas 4/5/4/3, nota ponderada 4,15 e estado `VALIDO`; nova tentativa no mesmo projeto não criou segunda linha; o mesmo código foi aceito em `NAC-002`, comprovando o Modelo B. Após cada janela, `STATUS_VOTACAO` voltou para `FECHADA`, código normal foi restaurado e código sintético desabilitado. Faltam idempotência e ranking conectado com amostra mínima. |
+| G4 — Voto real + readback | PARTIAL / CORE_RUNTIME_PASS / RANKING_PENDING | Voto real, readback, duplicidade, Modelo B, concorrência e idempotência foram comprovados no runtime Google real. A idempotência retornou `idempotent:true`, o mesmo recibo e a mesma nota sem abrir votação ou habilitar código. Falta homologar o ranking conectado com a amostra mínima de 5 avaliações para um projeto. |
 | G5 — GitHub Actions / Pages | PASS_BUILD / URL_INTEGRATED / NOT_DEPLOYED | A URL `/exec` real está integrada ao build. GitHub Actions run **44159031990** passou com 18/18 testes, catálogo, sintaxe e build. O deploy continua corretamente `skipped` porque a branch não é `main`. O workflow manual de sincronização Apps Script via `clasp` foi preparado no commit `1a0ba2c583494808b4dad2facbf110a012e08f44`. |
 | G6 — QA independente | PARTIAL / AUTOMATED_PASS / HUMAN_PENDING | QA técnico automatizado passou em 320/375/768/1280 px sem overflow, com links/navegação válidos, teclado funcional e contraste AA corrigido. Ainda exige teste humano independente em smartphone e conferência documental final. |
 
@@ -28,7 +28,7 @@
 
 O código está em estado **MVP_READY_FOR_REVIEW**, mas ainda não deve ser classificado como `PUBLICADO_HOMOLOGADO`.
 
-Para atingir homologação, ainda é obrigatório concluir G4 e G6: validar idempotência no runtime Google real, validar o ranking conectado com amostra mínima e realizar QA humano independente/mobile. A URL `/exec` real já foi validada e integrada ao build da branch; a URL `/dev` não é acessível por esta ferramenta e pode exigir sessão de editor.
+Para atingir homologação, ainda é obrigatório concluir G4 e G6: validar o ranking conectado com amostra mínima e realizar QA humano independente/mobile.
 
 O roteiro operacional atualizado está em `docs/TESTES_E_QA.md` e a configuração manual do Google em `docs/CONFIGURAR_GOOGLE.md`.
 
@@ -91,7 +91,7 @@ Em 17/11/2026 foi constatado que a janela de homologação havia permanecido `AB
 - Segunda tentativa do mesmo código em `NAC-001`: **PASS — duplicidade bloqueada**, sem nova linha.
 - Mesmo código reutilizado em `NAC-002`: **PASS — Modelo B comprovado**, com segunda linha válida.
 - Estado de segurança ao final: `STATUS_VOTACAO=FECHADA`, código normal restaurado e código sintético desabilitado.
-- Pendências restantes do G4: idempotência e ranking conectado com mínimo de 5 avaliações.
+- Pendência restante do G4: ranking conectado com mínimo de 5 avaliações.
 
 
 ## Homologação conectada — concorrência — 17/11/2026
@@ -105,3 +105,16 @@ Em 17/11/2026 foi constatado que a janela de homologação havia permanecido `AB
 - Evidência operacional: não houve gravação dupla para o mesmo par código/projeto durante as tentativas concorrentes.
 - Estado de segurança ao final: `STATUS_VOTACAO=FECHADA`, código normal restaurado e código sintético de concorrência desabilitado.
 - A idempotência exata permanece pendente porque o teste exige repetir o mesmo `id_requisicao` no runtime real.
+
+
+## Homologação conectada — idempotência — 17/11/2026
+
+- Teste executado contra o Web App público no runtime Google real.
+- A votação permaneceu **FECHADA** durante todo o teste.
+- Foi usada uma fixture temporária com estado `TESTE_IDEMPOTENCIA`, que não entra no ranking público.
+- A mesma combinação de `id_requisicao`, código sintético e projeto foi reenviada ao `submitVote`.
+- GitHub Actions run **44209294761**: **success**.
+- Resposta do runtime: `ok=true`, `idempotent=true`, mesmo recibo e nota **4,15**.
+- A fixture foi removida imediatamente após a validação.
+- Nenhum voto válido adicional foi criado pelo teste de idempotência.
+- Estado de segurança ao final: `STATUS_VOTACAO=FECHADA`; apenas o código normal permanece habilitado.
