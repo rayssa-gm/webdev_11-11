@@ -40,6 +40,8 @@ Neste momento, os principais bloqueios restantes são externos à implementaçã
 - Filtros por modalidade, área temática e data: implementados.
 - Detalhes, horários e locais: implementados.
 - Layout responsivo: implementado.
+- Consistência catálogo versionado × aba `Projetos` do Google Sheets: **46/46 projetos, 0 divergências em 9 campos públicos**.
+- `src/catalogo.json`, `public/data/catalogo.json` e `universo_if_catalogo_46_projetos_v1.0.json`: **idênticos, 46 projetos em cada cópia**.
 
 Pendência documental:
 - os PDFs `trabalhos-mostra-nacional-extensao.pdf` e `trabalhos-mostra-nacional.pdf` não estão acessíveis nesta conversa/biblioteca;
@@ -218,7 +220,9 @@ Situação:
 - GitHub Pages foi habilitado pela proprietária;
 - o build passa;
 - o deploy ainda depende da regra do ambiente `github-pages` permitir a branch `feat/universo-if-avalia-mvp`;
-- uma nova tentativa/reexecução foi disparada em 18/11/2026.
+- o workflow foi corrigido para separar a concorrência de runs `push` e `pull_request`, evitando que o PR cancele o run de publicação;
+- commit da correção de concorrência: `23ff73718001a942320347095c24163ccc8dd3e5`;
+- após a correção, o build do run de `push` passou, mas o job de deploy continuou recusado pelo ambiente, indicando que a regra administrativa ainda não havia sido aplicada/propagada naquele momento.
 
 A publicação temporária é somente para QA; não equivale a abrir a votação oficial.
 
