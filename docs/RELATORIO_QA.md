@@ -6,7 +6,7 @@
 | G1 — Catálogo | PASS | Validador aprovou 46 IDs únicos: 24 NAC + 22 EXT, campos obrigatórios, datas e proveniência. A conferência visual independente dos 46 títulos nos PDFs permanece como etapa de QA humano documentada em `AUDITORIA_CATALOGO.md`. |
 | G2 — Interface, testes e build | PASS | GitHub Actions run **44159557349**: `npm ci`, typecheck, **18/18 testes**, validador do catálogo, `node --check` do Apps Script e build Vite concluídos com sucesso. QA responsivo automatizado passou em 320/375/768/1280 px. |
 | G3 — Backend offline | PASS | Testes automatizados exercitam Modelo B, repetição, token inválido, validação das notas, idempotência, ranking agregado e corrida simulada com mocks dos serviços Google. Isso não substitui o runtime real do Apps Script/Sheets. |
-| G4 — Voto real + readback | PARTIAL / CORE_RUNTIME_PASS / RANKING_PENDING | Voto real, readback, duplicidade, Modelo B, concorrência e idempotência foram comprovados no runtime Google real. A idempotência retornou `idempotent:true`, o mesmo recibo e a mesma nota sem abrir votação ou habilitar código. Falta homologar o ranking conectado com a amostra mínima de 5 avaliações para um projeto. |
+| G4 — Voto real + readback | PASS / CONNECTED_HOMOLOGATED | Runtime Google real homologado: voto e readback, bloqueio de duplicidade, Modelo B, concorrência, idempotência e ranking conectado. O ranking foi validado com 5 avaliações em `NAC-004`: média 4,36, critérios 4,20/4,40/4,60/4,20, elegível e posição #1; a interface pública exibiu o agregado esperado. Os 5 votos/códigos exclusivos desse teste foram removidos após a evidência e a votação voltou a `FECHADA`. |
 | G5 — GitHub Actions / Pages | PASS_BUILD / URL_INTEGRATED / NOT_DEPLOYED | A URL `/exec` real está integrada ao build. GitHub Actions run **44159031990** passou com 18/18 testes, catálogo, sintaxe e build. O deploy continua corretamente `skipped` porque a branch não é `main`. O workflow manual de sincronização Apps Script via `clasp` foi preparado no commit `1a0ba2c583494808b4dad2facbf110a012e08f44`. |
 | G6 — QA independente | PARTIAL / AUTOMATED_PASS / HUMAN_PENDING | QA técnico automatizado passou em 320/375/768/1280 px sem overflow, com links/navegação válidos, teclado funcional e contraste AA corrigido. Ainda exige teste humano independente em smartphone e conferência documental final. |
 
@@ -28,7 +28,7 @@
 
 O código está em estado **MVP_READY_FOR_REVIEW**, mas ainda não deve ser classificado como `PUBLICADO_HOMOLOGADO`.
 
-Para atingir homologação, ainda é obrigatório concluir G4 e G6: validar o ranking conectado com amostra mínima e realizar QA humano independente/mobile.
+G4 está concluído no runtime conectado. Para a liberação final ainda faltam G6 (QA humano independente/mobile) e a autorização da equipe para merge/publicação definitiva.
 
 O roteiro operacional atualizado está em `docs/TESTES_E_QA.md` e a configuração manual do Google em `docs/CONFIGURAR_GOOGLE.md`.
 
@@ -51,7 +51,7 @@ O roteiro operacional atualizado está em `docs/TESTES_E_QA.md` e a configuraç�
 - Esta integração não consegue preencher/submeter o formulário HTML do Apps Script via `google.script.run`; por isso, nenhum voto foi enviado ao runtime.
 - A janela foi encerrada imediatamente: `STATUS_VOTACAO=FECHADA`, código original reativado e código sintético desabilitado.
 - A aba `Avaliacoes` permaneceu sem registros.
-- G4 continua pendente apenas para a submissão real do formulário, recibo, readback e testes de duplicidade/concorrência no runtime Google.
+- Esta tentativa histórica foi posteriormente superada: o G4 foi concluído em 17/11/2026 com voto real, duplicidade, Modelo B, concorrência, idempotência e ranking conectado.
 
 
 ## QA responsivo automatizado — 17/11/2026
@@ -91,7 +91,7 @@ Em 17/11/2026 foi constatado que a janela de homologação havia permanecido `AB
 - Segunda tentativa do mesmo código em `NAC-001`: **PASS — duplicidade bloqueada**, sem nova linha.
 - Mesmo código reutilizado em `NAC-002`: **PASS — Modelo B comprovado**, com segunda linha válida.
 - Estado de segurança ao final: `STATUS_VOTACAO=FECHADA`, código normal restaurado e código sintético desabilitado.
-- Pendência restante do G4: ranking conectado com mínimo de 5 avaliações.
+- G4 concluído após a homologação conectada do ranking com 5 avaliações.
 
 
 ## Homologação conectada — concorrência — 17/11/2026
@@ -104,7 +104,7 @@ Em 17/11/2026 foi constatado que a janela de homologação havia permanecido `AB
 - Estado: **VALIDO**.
 - Evidência operacional: não houve gravação dupla para o mesmo par código/projeto durante as tentativas concorrentes.
 - Estado de segurança ao final: `STATUS_VOTACAO=FECHADA`, código normal restaurado e código sintético de concorrência desabilitado.
-- A idempotência exata permanece pendente porque o teste exige repetir o mesmo `id_requisicao` no runtime real.
+- A idempotência foi posteriormente comprovada no runtime real no GitHub Actions run **44209294761**.
 
 
 ## Homologação conectada — idempotência — 17/11/2026
@@ -118,3 +118,21 @@ Em 17/11/2026 foi constatado que a janela de homologação havia permanecido `AB
 - A fixture foi removida imediatamente após a validação.
 - Nenhum voto válido adicional foi criado pelo teste de idempotência.
 - Estado de segurança ao final: `STATUS_VOTACAO=FECHADA`; apenas o código normal permanece habilitado.
+
+
+## Homologação conectada — ranking público — 17/11/2026
+
+- Teste executado contra o Web App público e a planilha real.
+- Foram usados 5 códigos sintéticos exclusivos, com o código normal desabilitado durante a janela.
+- Projeto-alvo: `NAC-004`.
+- Notas ponderadas gravadas: **5,00 / 4,00 / 4,15 / 3,95 / 4,70**.
+- Total do projeto no ranking: **5 avaliações**.
+- Média agregada: **4,36**.
+- Médias por critério: **4,20 / 4,40 / 4,60 / 4,20**.
+- Elegibilidade: **true**, atendendo `MIN_RANKING=5`.
+- Posição calculada: **#1** entre os projetos elegíveis.
+- A interface pública do ranking exibiu **4,36 / 5 · 5 avaliações**.
+- GitHub Actions run **44210018945**: **success**.
+- Resultado do probe: `RANKING_HOMOLOGATION_PASS`.
+- Após a evidência, a votação voltou para `FECHADA`, o código normal foi restaurado, os 5 códigos sintéticos foram desabilitados e os 5 votos/códigos exclusivos do ranking foram removidos da planilha.
+- **G4: PASS / CONNECTED_HOMOLOGATED**.
