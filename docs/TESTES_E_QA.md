@@ -23,12 +23,12 @@
 13. Ao terminar, retorne `STATUS_VOTACAO` para `FECHADA` até existir autorização explícita para qualquer demonstração pública.
 
 ## Estado de execução
-- Último CI verificado na branch `feat/universo-if-avalia-mvp`: run **44159557349**, concluído com sucesso.
+- CI da branch segue obrigatório após cada atualização; a homologação conectada do ranking passou no run **44210018945**.
 - Testes automatizados: **18 aprovados, 0 falhas**.
 - Validador do catálogo: **PASS — 46 projetos únicos (24 Mostra Nacional, 22 Mostra de Extensão)**.
 - Typecheck, sintaxe de `backend/Code.gs` e build Vite: **PASS**.
 - QA responsivo/acessibilidade automatizado: **PASS** em 320, 375, 768 e 1280 px, sem overflow horizontal; navegação e links Apps Script válidos; sem erros de JavaScript; navegação por Tab e abertura de projeto com Enter validadas; contraste principal atende AA após ajuste do texto muted.
-- Planilha real: verificada com 4 abas, 46 projetos, `MIN_RANKING=5`, `STATUS_VOTACAO=FECHADA` em 17/11/2026 e nenhuma avaliação registrada.
+- Planilha real: verificada com 4 abas, 46 projetos, `MIN_RANKING=5` e `STATUS_VOTACAO=FECHADA`; após a homologação do ranking, os 5 votos/códigos exclusivos desse teste foram removidos. Permanecem apenas as 3 avaliações anteriores de homologação.
 - Web App `/exec`: validado e integrado ao build.
-- Homologação conectada: **PARTIAL / BLOCKED_CONNECTED_SUBMISSION** — o envio real via `google.script.run`, recibo/readback, duplicidade, Modelo B e concorrência ainda precisam ser executados no navegador real.
+- Homologação conectada: **PASS / CONNECTED_HOMOLOGATED** — voto e recibo/readback, duplicidade, Modelo B, concorrência, idempotência e ranking com 5 avaliações foram comprovados no runtime Google real. Ranking de `NAC-004`: média 4,36, critérios 4,20/4,40/4,60/4,20, elegível, posição #1 e interface pública validada. GitHub Actions run **44210018945**: success.
 - Sincronização GitHub → Apps Script: workflow manual com `clasp` preparado; execução remota depende dos secrets privados `APPS_SCRIPT_ID` e `CLASPRC_JSON`.
