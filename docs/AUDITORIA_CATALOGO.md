@@ -15,3 +15,13 @@ Campos provenientes da programação: título, modalidade, área temática, data
 **Limite documental:** os PDFs foram incluídos no kit e a auditoria fornecida com o kit registra inspeção visual manual. Nesta execução automatizada, a validação estrutural e de proveniência do JSON foi feita; não foi refeita uma conferência visual independente de todos os 46 títulos nas páginas. QA humano deverá conferir pelo menos 10 registros e corrigir eventuais transcrições antes de uso institucional.
 
 Comando independente: `node scripts/validar_catalogo.mjs`.
+
+
+## Consistência catálogo versionado × Google Sheets — 18/11/2026
+
+- Catálogo da branch: **46 projetos**.
+- Aba `Projetos` da planilha real: **46 projetos**.
+- Campos comparados por ID: `id`, `titulo`, `modalidade`, `area_tematica`, `data`, `inicio`, `fim`, `formato`, `local`.
+- Divergências encontradas: **0**.
+- As três cópias JSON versionadas (`src/catalogo.json`, `public/data/catalogo.json` e `universo_if_catalogo_46_projetos_v1.0.json`) são estruturalmente idênticas e contêm os mesmos 46 projetos.
+- A conferência visual contra os PDFs originais continua pendente porque os dois PDFs não estão acessíveis nesta conversa/biblioteca.
