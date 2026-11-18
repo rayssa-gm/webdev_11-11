@@ -6,7 +6,7 @@
 | G1 — Catálogo | PASS | Validador aprovou 46 IDs únicos: 24 NAC + 22 EXT, campos obrigatórios, datas e proveniência. A conferência visual independente dos 46 títulos nos PDFs permanece como etapa de QA humano documentada em `AUDITORIA_CATALOGO.md`. |
 | G2 — Interface, testes e build | PASS | GitHub Actions run **44159557349**: `npm ci`, typecheck, **18/18 testes**, validador do catálogo, `node --check` do Apps Script e build Vite concluídos com sucesso. QA responsivo automatizado passou em 320/375/768/1280 px. |
 | G3 — Backend offline | PASS | Testes automatizados exercitam Modelo B, repetição, token inválido, validação das notas, idempotência, ranking agregado e corrida simulada com mocks dos serviços Google. Isso não substitui o runtime real do Apps Script/Sheets. |
-| G4 — Voto real + readback | PARTIAL / BLOCKED_CONNECTED_SUBMISSION | Planilha real verificada em 17/11/2026: abas `Projetos`, `Codigos`, `Avaliacoes`, `Configuracao`; 46 projetos; `STATUS_VOTACAO=FECHADA`; `MIN_RANKING=5`; três hashes cadastrados (um habilitado, dois desabilitados); nenhuma avaliação registrada. A URL `/exec` está ativa e integrada. Faltam submissão real via formulário, recibo/readback, duplicidade, Modelo B, idempotência/concorrência e ranking conectado. |
+| G4 — Voto real + readback | PARTIAL / CONNECTED_VOTE_PASS | Em 17/11/2026 o voto real sintético em `NAC-001` foi aceito com notas 4/5/4/3, nota ponderada 4,15 e estado `VALIDO`; nova tentativa no mesmo projeto não criou segunda linha; o mesmo código foi aceito em `NAC-002`, comprovando o Modelo B. Após cada janela, `STATUS_VOTACAO` voltou para `FECHADA`, código normal foi restaurado e código sintético desabilitado. Faltam idempotência/concorrência e ranking conectado com amostra mínima. |
 | G5 — GitHub Actions / Pages | PASS_BUILD / URL_INTEGRATED / NOT_DEPLOYED | A URL `/exec` real está integrada ao build. GitHub Actions run **44159031990** passou com 18/18 testes, catálogo, sintaxe e build. O deploy continua corretamente `skipped` porque a branch não é `main`. O workflow manual de sincronização Apps Script via `clasp` foi preparado no commit `1a0ba2c583494808b4dad2facbf110a012e08f44`. |
 | G6 — QA independente | PARTIAL / AUTOMATED_PASS / HUMAN_PENDING | QA técnico automatizado passou em 320/375/768/1280 px sem overflow, com links/navegação válidos, teclado funcional e contraste AA corrigido. Ainda exige teste humano independente em smartphone e conferência documental final. |
 
@@ -28,7 +28,7 @@
 
 O código está em estado **MVP_READY_FOR_REVIEW**, mas ainda não deve ser classificado como `PUBLICADO_HOMOLOGADO`.
 
-Para atingir homologação, ainda é obrigatório concluir G4 e G6: executar voto sintético com recibo e readback no runtime Google real, verificar duplicidade e concorrência, validar o ranking conectado e realizar QA independente/mobile. A URL `/exec` real já foi validada e integrada ao build da branch; a URL `/dev` não é acessível por esta ferramenta e pode exigir sessão de editor.
+Para atingir homologação, ainda é obrigatório concluir G4 e G6: validar idempotência/concorrência no runtime Google real, validar o ranking conectado com amostra mínima e realizar QA humano independente/mobile. A URL `/exec` real já foi validada e integrada ao build da branch; a URL `/dev` não é acessível por esta ferramenta e pode exigir sessão de editor.
 
 O roteiro operacional atualizado está em `docs/TESTES_E_QA.md` e a configuração manual do Google em `docs/CONFIGURAR_GOOGLE.md`.
 
@@ -79,3 +79,16 @@ Em 17/11/2026 foi constatado que a janela de homologação havia permanecido `AB
 - Contraste lima/verde: 9,49:1.
 - Contraste do texto muted sobre fundo claro passou de 4,24:1 para aproximadamente 4,61:1 após o commit `43cd9c93f9caf4c0791a1f56d02b502510b03d3b`.
 - GitHub Actions run **44159557349**: build **success**; deploy **skipped** por permanecer na branch de desenvolvimento.
+
+
+## Homologação conectada — voto real, duplicidade e Modelo B — 17/11/2026
+
+- Voto sintético real em `NAC-001`: **PASS**.
+- Notas gravadas: 4 / 5 / 4 / 3.
+- Nota ponderada gravada: **4,15**.
+- Estado da avaliação: **VALIDO**.
+- Readback da linha na aba privada `Avaliacoes`: **PASS**.
+- Segunda tentativa do mesmo código em `NAC-001`: **PASS — duplicidade bloqueada**, sem nova linha.
+- Mesmo código reutilizado em `NAC-002`: **PASS — Modelo B comprovado**, com segunda linha válida.
+- Estado de segurança ao final: `STATUS_VOTACAO=FECHADA`, código normal restaurado e código sintético desabilitado.
+- Pendências restantes do G4: idempotência/concorrência e ranking conectado com mínimo de 5 avaliações.
