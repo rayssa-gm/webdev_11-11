@@ -1,0 +1,936 @@
+{
+  "schema": "universo-if-catalogo-v1.0",
+  "evento": "Universo IF 2026",
+  "total": 46,
+  "total_por_modalidade": {
+    "Mostra de Extensão": 22,
+    "Mostra Nacional": 24
+  },
+  "extracao": "transcricao_visual_conferida",
+  "projetos": [
+    {
+      "id": "EXT-001",
+      "titulo": "CONSTRUINDO UMA COMUNIDADE DE LEITORES: A Leitura Como Meio De Inclusão De Pessoas Em Processo De Reintegração Social Da ACBS",
+      "modalidade": "Mostra de Extensão",
+      "area_tematica": "Ciências Sociais Aplicadas",
+      "data": "2026-11-17",
+      "inicio": "14:00",
+      "fim": "15:45",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 1
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "EXT-002",
+      "titulo": "PROJETO DE EXTENSÃO: LEITURA E CULTURA: CONECTANDO SABERES NAS TRILHAS DO CONHECIMENTO",
+      "modalidade": "Mostra de Extensão",
+      "area_tematica": "Linguísticas, Letras e Artes",
+      "data": "2026-11-17",
+      "inicio": "14:00",
+      "fim": "15:45",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 1
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "EXT-003",
+      "titulo": "II Jornada Da Consciência Negra: Identidade, História E Oralidade Dos Povos Negros",
+      "modalidade": "Mostra de Extensão",
+      "area_tematica": "Ciências Humanas",
+      "data": "2026-11-17",
+      "inicio": "14:00",
+      "fim": "15:45",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 1
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "EXT-004",
+      "titulo": "VIAJANDO NO UNIVERSO DA LEITURA: Projeto De Mediação Literária Para Os Filhos Das Estudantes Do PROEJA.",
+      "modalidade": "Mostra de Extensão",
+      "area_tematica": "Ciências Humanas",
+      "data": "2026-11-17",
+      "inicio": "14:00",
+      "fim": "15:45",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 1
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "EXT-005",
+      "titulo": "IDENTIDADE NEGRA: Experiências De Um Projeto De Extensão No Instituto Federal Do Maranhão - Campus Carolina",
+      "modalidade": "Mostra de Extensão",
+      "area_tematica": "Ciências Humanas",
+      "data": "2026-11-17",
+      "inicio": "14:00",
+      "fim": "15:45",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 1
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "EXT-006",
+      "titulo": "III NEABI EM AÇÃO: SABERES E EDUCAÇÃO ANTIRRACISTA NAS ESCOLAS:\"NEGRITUDE E EDUCAÇÃO: LUTA POLÍTICA E VALORIZAÇÃO DA CULTURA NEGRA\"",
+      "modalidade": "Mostra de Extensão",
+      "area_tematica": "Ciências Humanas",
+      "data": "2026-11-17",
+      "inicio": "14:00",
+      "fim": "15:45",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 1
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "EXT-007",
+      "titulo": "TECNOARTE: Robótica, Programação E Cultura Por Meio De Mangás Educativos",
+      "modalidade": "Mostra de Extensão",
+      "area_tematica": "Ciência, Inovação e Protagonismo Estudantil",
+      "data": "2026-11-17",
+      "inicio": "16:00",
+      "fim": "17:45",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 2
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "EXT-008",
+      "titulo": "IV SIMPÓSIO DE BIOLOGIA",
+      "modalidade": "Mostra de Extensão",
+      "area_tematica": "Ciências Biológicas",
+      "data": "2026-11-17",
+      "inicio": "16:00",
+      "fim": "17:45",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 2
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "EXT-009",
+      "titulo": "A MEDITAÇÃO COMO ESTRATÉGIA PEDAGÓGICA NO DESENVOLVIMENTO DE HABILIDADES COGNITIVAS E SOCIOEMOCIONAIS COM CRIANÇAS NO PROJETO ROBIN HOOD.",
+      "modalidade": "Mostra de Extensão",
+      "area_tematica": "Ciências Humanas",
+      "data": "2026-11-17",
+      "inicio": "16:00",
+      "fim": "17:45",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 2
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "EXT-010",
+      "titulo": "CIÊNCIA CIDADÃ NA ESCOLA: BIOMONITORAMENTO DO RIO TOCANTINS COMO FERRAMENTA DE EDUCAÇÃO",
+      "modalidade": "Mostra de Extensão",
+      "area_tematica": "Ciências Biológicas",
+      "data": "2026-11-17",
+      "inicio": "16:00",
+      "fim": "17:45",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 2
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "EXT-011",
+      "titulo": "ConsCIÊNCIA CLIMÁTICA: EDUCAÇÃO PARA MUDANÇAS CLIMÁTICAS EM ESCOLAS PÚBLICAS DE VIANA-MA",
+      "modalidade": "Mostra de Extensão",
+      "area_tematica": "Ciências Humanas",
+      "data": "2026-11-17",
+      "inicio": "16:00",
+      "fim": "17:45",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 2
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "EXT-012",
+      "titulo": "IFMA DE PORTAS ABERTAS 2.0: CONECTANDO JOVENS DA BAIXADA MARANHENSE À EDUCAÇÃO PROFISSIONAL E TECNOLÓGICA",
+      "modalidade": "Mostra de Extensão",
+      "area_tematica": "Ciência, Inovação e Protagonismo Estudantil",
+      "data": "2026-11-17",
+      "inicio": "16:00",
+      "fim": "17:45",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 2
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "EXT-013",
+      "titulo": "EDUCAÇÃO EM SAÚDE E EMPODERAMENTO FEMININO: PROMOVENDO PRÁTICAS DE HIGIENE ÍNTIMA E AUTOESTIMA ENTRE ESTUDANTES DA REDE PÚBLICA MUNICIPAL",
+      "modalidade": "Mostra de Extensão",
+      "area_tematica": "Ciências Biológicas",
+      "data": "2026-11-17",
+      "inicio": "16:00",
+      "fim": "17:45",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 2
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "EXT-014",
+      "titulo": "Projeto De Extensão: Jiu-Jitsu Para Todas: Mulheres Em Movimento",
+      "modalidade": "Mostra de Extensão",
+      "area_tematica": "Ciências da Saúde",
+      "data": "2026-11-18",
+      "inicio": "14:00",
+      "fim": "15:45",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 2
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "EXT-015",
+      "titulo": "PLATEIA IFMA: FORMAÇÃO DE PLATEIA E VALORIZAÇÃO DAS MODINHAS BRASILEIRAS EM AÇAILÂNDIA – MA",
+      "modalidade": "Mostra de Extensão",
+      "area_tematica": "Linguísticas, Letras e Artes",
+      "data": "2026-11-18",
+      "inicio": "14:00",
+      "fim": "15:45",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 2
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "EXT-016",
+      "titulo": "PARTIU REAGIR: A QUÍMICA EM AÇÃO COM OS ALUNOS DO PARTIU IF DO IFMA CAMPUS TIMON",
+      "modalidade": "Mostra de Extensão",
+      "area_tematica": "Ciências Exatas e da Terra",
+      "data": "2026-11-18",
+      "inicio": "14:00",
+      "fim": "15:45",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 2
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "EXT-017",
+      "titulo": "CURSO DE IDIOMAS BÁSICO I EM LÍNGUA ESTRANGEIRA (INGLÊS E ESPANHOL)",
+      "modalidade": "Mostra de Extensão",
+      "area_tematica": "Linguísticas, Letras e Artes",
+      "data": "2026-11-18",
+      "inicio": "14:00",
+      "fim": "15:45",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 2
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "EXT-018",
+      "titulo": "Extensão Universitária Em Redes De Computadores Para Laboratórios Escolares E Comunidades Tradicionais",
+      "modalidade": "Mostra de Extensão",
+      "area_tematica": "Ciências Exatas e da Terra",
+      "data": "2026-11-18",
+      "inicio": "14:00",
+      "fim": "15:45",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 2
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "EXT-019",
+      "titulo": "Setembro Azul: Celebrando A Semana Do Surdo No IFMA - Campus Barra Do Corda",
+      "modalidade": "Mostra de Extensão",
+      "area_tematica": "Linguísticas, Letras e Artes",
+      "data": "2026-11-18",
+      "inicio": "16:00",
+      "fim": "17:45",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 2
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "EXT-020",
+      "titulo": "SANTA FILOMENA VIVA: RESGATE CULTURAL E AÇÕES AMBIENTAIS PARTICIPATIVAS",
+      "modalidade": "Mostra de Extensão",
+      "area_tematica": "Ciências Agrárias",
+      "data": "2026-11-18",
+      "inicio": "16:00",
+      "fim": "17:45",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 2
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "EXT-021",
+      "titulo": "Inclusão Digital No Ensino De Ciências Para Alunos Do 9º Ano Do Ensino Fundamental Em Comunidades Afrodescendentes De São Luís",
+      "modalidade": "Mostra de Extensão",
+      "area_tematica": "Ciência, Inovação e Protagonismo Estudantil",
+      "data": "2026-11-18",
+      "inicio": "16:00",
+      "fim": "17:45",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 3
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "EXT-022",
+      "titulo": "EVENTO GEEK ARENA: PROMOVENDO A CULTURA GEEK E TECNOLÓGICA ENTRE A COMUNIDADE ACADÊMICA E A SOCIEDADE EM GERAL",
+      "modalidade": "Mostra de Extensão",
+      "area_tematica": "Linguísticas, Letras e Artes",
+      "data": "2026-11-18",
+      "inicio": "16:00",
+      "fim": "17:45",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 3
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "NAC-001",
+      "titulo": "TRANSFERÊNCIA ENTRE DESENVOLVIMENTO AO TESTE E PERFIL DE ERROS NO RECONHECIMENTO MULTIRRÓTULO DE EMOÇÕES EM PT-BR",
+      "modalidade": "Mostra Nacional",
+      "area_tematica": "Ciências Exatas e da Terra",
+      "data": "2026-11-17",
+      "inicio": "17:00",
+      "fim": "19:15",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional.pdf",
+          "pagina": 1
+        },
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 3
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "NAC-002",
+      "titulo": "Flora: Desenvolvimento Inicial De Um Sistema Adaptativo Para Integração Humano-Planta",
+      "modalidade": "Mostra Nacional",
+      "area_tematica": "Ciências Exatas e da Terra",
+      "data": "2026-11-17",
+      "inicio": "17:00",
+      "fim": "19:15",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional.pdf",
+          "pagina": 1
+        },
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 3
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "NAC-003",
+      "titulo": "EXTRAÇÃO DE NANOCELULOSE A PARTIR DA FIBRA DO AÇAÍ",
+      "modalidade": "Mostra Nacional",
+      "area_tematica": "Ciências Exatas e da Terra",
+      "data": "2026-11-17",
+      "inicio": "17:00",
+      "fim": "19:15",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional.pdf",
+          "pagina": 1
+        },
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 3
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "NAC-004",
+      "titulo": "AGROSENTINELA: DESENVOLVIMENTO E AVALIAÇÃO EXPLORATÓRIA DE UM PROTÓTIPO AUDITÁVEL PARA CONTAGEM DE BOVINOS EM VÍDEO",
+      "modalidade": "Mostra Nacional",
+      "area_tematica": "Ciências Exatas e da Terra",
+      "data": "2026-11-17",
+      "inicio": "17:00",
+      "fim": "19:15",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional.pdf",
+          "pagina": 1
+        },
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 3
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "NAC-005",
+      "titulo": "TRAÇO VIVO: INTERAÇÃO CONVERSACIONAL E ANIMAÇÃO EXPRESSIVA DE DESENHOS BIDIMENSIONAIS COM CONTROLE SEMÂNTICO",
+      "modalidade": "Mostra Nacional",
+      "area_tematica": "Ciências Exatas e da Terra",
+      "data": "2026-11-17",
+      "inicio": "17:00",
+      "fim": "19:15",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional.pdf",
+          "pagina": 1
+        },
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 3
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "NAC-006",
+      "titulo": "ZEÓLITAS FAU E LTA DERIVADAS DE BIOSSÍLICA MODIFICADAS COM CÉRIO PARA REDUÇÃO ELETROQUÍMICA DE OXIGÊNIO",
+      "modalidade": "Mostra Nacional",
+      "area_tematica": "Ciências Exatas e da Terra",
+      "data": "2026-11-17",
+      "inicio": "17:00",
+      "fim": "19:15",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional.pdf",
+          "pagina": 1
+        },
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 3
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "NAC-007",
+      "titulo": "LIPOTALE: RELATO DE IMPLEMENTAÇÃO DE UM JOGO DIGITAL PARA O ENSINO DE BIOQUÍMICA NO ENSINO SUPERIOR",
+      "modalidade": "Mostra Nacional",
+      "area_tematica": "Ciência, Inovação e Protagonismo Estudantil",
+      "data": "2026-11-17",
+      "inicio": "17:00",
+      "fim": "19:15",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional.pdf",
+          "pagina": 1
+        },
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 3
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "NAC-008",
+      "titulo": "A QUÍMICA DOS ALIMENTOS NO COTIDIANO: EXPERIÊNCIA EXTENSIONISTA COM ESTUDANTES DA EDUCAÇÃO DE JOVENS E ADULTOS",
+      "modalidade": "Mostra Nacional",
+      "area_tematica": "Outros",
+      "data": "2026-11-17",
+      "inicio": "17:00",
+      "fim": "19:15",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional.pdf",
+          "pagina": 2
+        },
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 3
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "NAC-009",
+      "titulo": "SÍNTESE E CARACTERIZAÇÃO DE AZUL DA PRÚSSIA PARA APLICAÇÕES FOTOTÉRMICAS",
+      "modalidade": "Mostra Nacional",
+      "area_tematica": "Engenharias",
+      "data": "2026-11-17",
+      "inicio": "17:00",
+      "fim": "19:15",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional.pdf",
+          "pagina": 2
+        },
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 3
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "NAC-010",
+      "titulo": "DESENVOLVIMENTO E APLICAÇÃO DE UM SISTEMA EMBARCADO INTERATIVO PARA ROBÓTICA EDUCACIONAL NOS ANOS INICIAIS",
+      "modalidade": "Mostra Nacional",
+      "area_tematica": "Engenharias",
+      "data": "2026-11-17",
+      "inicio": "17:00",
+      "fim": "19:15",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional.pdf",
+          "pagina": 2
+        },
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 4
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "NAC-011",
+      "titulo": "SUSTENTABILIDADE AMBIENTAL EM UMA ESCOLA PÚBLICA DO MARANHÃO: ESTUDO SITUACIONAL E DIAGNÓSTICO",
+      "modalidade": "Mostra Nacional",
+      "area_tematica": "Ciências Humanas",
+      "data": "2026-11-17",
+      "inicio": "17:00",
+      "fim": "19:15",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional.pdf",
+          "pagina": 2
+        },
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 4
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "NAC-012",
+      "titulo": "IDENTIDADE E PERTENCIMENTO: VIVÊNCIAS AFRO-BRASILEIRAS NA COMUNIDADE QUILOMBOLA DE CAJAZEIRAS EM ITAPECURU-MIRIM – MARANHÃO",
+      "modalidade": "Mostra Nacional",
+      "area_tematica": "Ciências Sociais Aplicadas",
+      "data": "2026-11-17",
+      "inicio": "17:00",
+      "fim": "19:15",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional.pdf",
+          "pagina": 2
+        },
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 4
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "NAC-013",
+      "titulo": "ATIVIDADE ANTAGONISTA DE Trichoderma Harzianum CONTRA Fusarium Solani: UMA POSSÍVEL ESTRATÉGIA DE BIOCONTROLE DA FUSARIOSE NA CULTURA DA MANDIOCA",
+      "modalidade": "Mostra Nacional",
+      "area_tematica": "Ciências Agrárias",
+      "data": "2026-11-18",
+      "inicio": "17:00",
+      "fim": "19:15",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional.pdf",
+          "pagina": 2
+        },
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 4
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "NAC-014",
+      "titulo": "DESENVOLVIMENTO DE BISCOITO COM FARINHA DE “ARROZ DO BARRO” E AVALIAÇÃO DE SUA ACEITABILIDADE SENSORIAL PARA A ALIMENTAÇÃO ESCOLAR",
+      "modalidade": "Mostra Nacional",
+      "area_tematica": "Ciências Agrárias",
+      "data": "2026-11-18",
+      "inicio": "17:00",
+      "fim": "19:15",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional.pdf",
+          "pagina": 2
+        },
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 4
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "NAC-015",
+      "titulo": "PESCADO NA FEIRA LIVRE: UM DIAGNÓSTICO DAS CONDIÇÕES HIGIÊNICO-SANITÁRIAS DA COMERCIALIZAÇÃO EM BOM JARDIM-MA.",
+      "modalidade": "Mostra Nacional",
+      "area_tematica": "Ciências Agrárias",
+      "data": "2026-11-18",
+      "inicio": "17:00",
+      "fim": "19:15",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional.pdf",
+          "pagina": 2
+        },
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 4
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "NAC-016",
+      "titulo": "INIBIÇÃO FÚNGICA E REDUÇÃO DE AFLATOXINAS POR EXTRATOS VEGETAIS NÃO VOLÁTEIS: REVISÃO INTEGRATIVA",
+      "modalidade": "Mostra Nacional",
+      "area_tematica": "Ciências Biológicas",
+      "data": "2026-11-18",
+      "inicio": "17:00",
+      "fim": "19:15",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional.pdf",
+          "pagina": 2
+        },
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 4
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "NAC-017",
+      "titulo": "ABELHAS NATIVAS DOS LENÇÓIS MARANHENSES: DIVERSIDADE DE FONTES FLORAIS E QUALIDADE MICROBIOLÓGICA DO MEL",
+      "modalidade": "Mostra Nacional",
+      "area_tematica": "Ciências Biológicas",
+      "data": "2026-11-18",
+      "inicio": "17:00",
+      "fim": "19:15",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional.pdf",
+          "pagina": 2
+        },
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 4
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "NAC-018",
+      "titulo": "AS CONTRIBUIÇÕES DE FLORENCE NIGHTINGALE PARA A CONSOLIDAÇÃO DA ENFERMAGEM COMO CIÊNCIA: REVISÃO DE ESCOPO",
+      "modalidade": "Mostra Nacional",
+      "area_tematica": "Ciências da Saúde",
+      "data": "2026-11-18",
+      "inicio": "17:00",
+      "fim": "19:15",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional.pdf",
+          "pagina": 2
+        },
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 4
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "NAC-019",
+      "titulo": "AUTOCUIDADO E SAÚDE SEXUAL NA GESTAÇÃO ADOLESCENTE: RELATO DE EXPERIÊNCIA DE UMA OFICINA EDUCATIVA",
+      "modalidade": "Mostra Nacional",
+      "area_tematica": "Ciências da Saúde",
+      "data": "2026-11-18",
+      "inicio": "17:00",
+      "fim": "19:15",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional.pdf",
+          "pagina": 2
+        },
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 4
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "NAC-020",
+      "titulo": "MEDICAL HELP: SISTEMA DIGITAL PICTOGRÁFICO PARA ACESSIBILIDADE DE ORIENTAÇÕES MEDICAMENTOSAS",
+      "modalidade": "Mostra Nacional",
+      "area_tematica": "Ciências da Saúde",
+      "data": "2026-11-18",
+      "inicio": "17:00",
+      "fim": "19:15",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional.pdf",
+          "pagina": 2
+        },
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 4
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "NAC-021",
+      "titulo": "INTELIGÊNCIA ARTIFICIAL GENERATIVA E PRODUTIVIDADE ACADÊMICA: UM ESTUDO SOBRE O USO DE FERRAMENTAS DE IA POR ESTUDANTES DO IFMA",
+      "modalidade": "Mostra Nacional",
+      "area_tematica": "Ciências Sociais Aplicadas",
+      "data": "2026-11-18",
+      "inicio": "17:00",
+      "fim": "19:15",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional.pdf",
+          "pagina": 3
+        },
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 4
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "NAC-022",
+      "titulo": "A PRÁTICA TEATRAL INCLUSIVA E O PROTAGONISMO DE MENINAS NA CIÊNCIA, TECNOLOGIA E INOVAÇÃO.",
+      "modalidade": "Mostra Nacional",
+      "area_tematica": "Linguísticas, Letras e Artes",
+      "data": "2026-11-18",
+      "inicio": "17:00",
+      "fim": "19:15",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional.pdf",
+          "pagina": 3
+        },
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 4
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "NAC-023",
+      "titulo": "PLANETA ÁGUA, SENTIR PARA CUIDAR: RELATO DE EXPERIÊNCIA DE UMA INSTALAÇÃO MULTISSENSORIAL",
+      "modalidade": "Mostra Nacional",
+      "area_tematica": "Linguísticas, Letras e Artes",
+      "data": "2026-11-18",
+      "inicio": "17:00",
+      "fim": "19:15",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional.pdf",
+          "pagina": 3
+        },
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 5
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    },
+    {
+      "id": "NAC-024",
+      "titulo": "CONEXÃO TENETEHARA: TECNOLOGIA E CULTURA NA VALORIZAÇÃO DA LÍNGUA GUAJAJARA",
+      "modalidade": "Mostra Nacional",
+      "area_tematica": "Linguísticas, Letras e Artes",
+      "data": "2026-11-18",
+      "inicio": "17:00",
+      "fim": "19:15",
+      "formato": "Exposição de pôster",
+      "local": "Área de vivência",
+      "fontes": [
+        {
+          "arquivo": "trabalhos-mostra-nacional.pdf",
+          "pagina": 3
+        },
+        {
+          "arquivo": "trabalhos-mostra-nacional-extensao.pdf",
+          "pagina": 5
+        }
+      ],
+      "conferencia": "transcricao_visual_dos_pdfs"
+    }
+  ]
+}

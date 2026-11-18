@@ -1,0 +1,56 @@
+name: Sync Google Apps Script
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Ação"
+        required: true
+        default: "status"
+        type: choice
+        options:
+          - status
+          - push
+      confirm:
+        description: "Para push, digite SYNC"
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: universo-if-apps-script-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    if: ${{ inputs.mode == 'status' || inputs.confirm == 'SYNC' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Instalar clasp
+        run: npm install --global @google/clasp@3.4.1
+
+      - name: Preparar credenciais privadas
+        env:
+          APPS_SCRIPT_ID: ${{ secrets.APPS_SCRIPT_ID }}
+          CLASPRC_JSON: ${{ secrets.CLASPRC_JSON }}
+        run: |
+          test -n "$APPS_SCRIPT_ID" || (echo "Secret APPS_SCRIPT_ID ausente" && exit 1)
+          test -n "$CLASPRC_JSON" || (echo "Secret CLASPRC_JSON ausente" && exit 1)
+          printf '%s' "$CLASPRC_JSON" > "$HOME/.clasprc.json"
+          printf '{"scriptId":"%s","rootDir":"backend"}\n' "$APPS_SCRIPT_ID" > .clasp.json
+          chmod 600 "$HOME/.clasprc.json" .clasp.json
+
+      - name: Mostrar arquivos que serão sincronizados
+        run: clasp show-file-status
+
+      - name: Sincronizar código com Apps Script
+        if: ${{ inputs.mode == 'push' && inputs.confirm == 'SYNC' }}
+        run: clasp push --force
