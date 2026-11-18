@@ -8,7 +8,7 @@
 | G3 — Backend offline | PASS | Testes automatizados exercitam Modelo B, repetição, token inválido, validação das notas, idempotência, ranking agregado e corrida simulada com mocks dos serviços Google. Isso não substitui o runtime real do Apps Script/Sheets. |
 | G4 — Voto real + readback | PASS / CONNECTED_HOMOLOGATED | Runtime Google real homologado: voto e readback, bloqueio de duplicidade, Modelo B, concorrência, idempotência e ranking conectado. O ranking foi validado com 5 avaliações em `NAC-004`: média 4,36, critérios 4,20/4,40/4,60/4,20, elegível e posição #1; a interface pública exibiu o agregado esperado. Os 5 votos/códigos exclusivos desse teste foram removidos após a evidência e a votação voltou a `FECHADA`. |
 | G5 — GitHub Actions / Pages | PASS_BUILD / URL_INTEGRATED / NOT_DEPLOYED | A URL `/exec` real está integrada ao build. GitHub Actions run **44159031990** passou com 18/18 testes, catálogo, sintaxe e build. O deploy continua corretamente `skipped` porque a branch não é `main`. O workflow manual de sincronização Apps Script via `clasp` foi preparado no commit `1a0ba2c583494808b4dad2facbf110a012e08f44`. |
-| G6 — QA independente | PARTIAL / AUTOMATED_PASS / HUMAN_PENDING | QA técnico automatizado passou em 320/375/768/1280 px sem overflow, com links/navegação válidos, teclado funcional e contraste AA corrigido. Ainda exige teste humano independente em smartphone e conferência documental final. |
+| G6 — QA independente | PARTIAL / INDEPENDENT_AUTOMATED_PASS / PHYSICAL_DEVICE_PENDING | QA móvel independente no GitHub Actions run **44211122128** passou em 320x800, 360x800, 390x844 e 430x932 com contexto touch/mobile: sem overflow, filtros e detalhes funcionais, links do Apps Script corretos, alvos da navegação inferior com 46 px de altura, foco visível por teclado, zero erros JS e zero violações axe WCAG A/AA. O probe encontrou e levou à correção de um contraste insuficiente nos rótulos pequenos. Ainda falta teste humano em aparelho físico Android/iOS e conferência documental final. |
 
 ## Evidências verificadas no CI
 
@@ -28,7 +28,7 @@
 
 O código está em estado **MVP_READY_FOR_REVIEW**, mas ainda não deve ser classificado como `PUBLICADO_HOMOLOGADO`.
 
-G4 está concluído no runtime conectado. Para a liberação final ainda faltam G6 (QA humano independente/mobile) e a autorização da equipe para merge/publicação definitiva.
+G4 está concluído no runtime conectado. O QA móvel independente automatizado de G6 também passou; para a liberação final ainda faltam o teste humano em aparelho físico Android/iOS, a conferência documental final e a autorização da equipe para merge/publicação definitiva.
 
 O roteiro operacional atualizado está em `docs/TESTES_E_QA.md` e a configuração manual do Google em `docs/CONFIGURAR_GOOGLE.md`.
 
@@ -136,3 +136,22 @@ Em 17/11/2026 foi constatado que a janela de homologação havia permanecido `AB
 - Resultado do probe: `RANKING_HOMOLOGATION_PASS`.
 - Após a evidência, a votação voltou para `FECHADA`, o código normal foi restaurado, os 5 códigos sintéticos foram desabilitados e os 5 votos/códigos exclusivos do ranking foram removidos da planilha.
 - **G4: PASS / CONNECTED_HOMOLOGATED**.
+
+
+## QA móvel independente ampliado — 17/11/2026
+
+- Execução independente no GitHub Actions run **44211122128**: **PASS**.
+- Build local da branch testado sem deploy e com a URL real do Apps Script injetada.
+- Contexto de navegador móvel/touch validado em **320x800**, **360x800**, **390x844** e **430x932**.
+- Sem overflow horizontal em nenhuma largura.
+- Navegação inferior móvel visível e navegação desktop oculta nas larguras testadas.
+- Alvos da navegação inferior medidos com **46 px de altura**.
+- Busca por título validada; busca por `AGROSENTINELA` retornou 1 de 46.
+- Filtro `Mostra de Extensão` retornou **22 projetos**.
+- Abertura de detalhes e CTA `Avaliar este projeto` validados.
+- Links de avaliação e ranking confirmados apontando para o Web App real, com projeto/modalidade preservados.
+- Sequência de Tab confirmou foco visível nos controles e cartões.
+- Varredura axe WCAG A/AA: **0 violações** nas quatro larguras após correção.
+- Erros JavaScript/console: **0**.
+- O primeiro probe detectou contraste insuficiente em `.prototype` / `.eyebrow` (`#6e866e` sobre fundo claro, ~3,68:1). Corrigido no commit `fcbbcf95220a228b9926494623650939dbfebaa1` para `var(--muted)`, ~4,61:1 no fundo claro.
+- Limitação restante: esta evidência usa emulação Chromium; não substitui interação humana em aparelho físico Android/iOS.
