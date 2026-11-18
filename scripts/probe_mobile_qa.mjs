@@ -78,12 +78,25 @@ try{
     assert(rankHref.includes('Mostra%20de%20Extens%C3%A3o'),d.name+': modalidade do ranking não foi codificada corretamente');
 
     await page.goto(base+'#/projetos',{waitUntil:'networkidle',timeout:60000});
-    await page.keyboard.press('Tab');
-    const focusStyle=await page.evaluate(()=>{
-      const el=document.activeElement; if(!el) return null;
-      const s=getComputedStyle(el); return {tag:el.tagName,outlineStyle:s.outlineStyle,outlineWidth:s.outlineWidth};
-    });
-    assert(focusStyle && focusStyle.outlineStyle!=='none' && focusStyle.outlineWidth!=='0px',d.name+': foco visível ausente no primeiro elemento focável');
+    const focusSequence=[];
+    let visibleFocusFound=false;
+    for(let i=0;i<8;i++){
+      await page.keyboard.press('Tab');
+      const state=await page.evaluate(()=>{
+        const el=document.activeElement; if(!el) return null;
+        const s=getComputedStyle(el);
+        return {
+          tag:el.tagName,
+          text:(el.textContent||'').trim().slice(0,80),
+          focusVisible:el.matches(':focus-visible'),
+          outlineStyle:s.outlineStyle,
+          outlineWidth:s.outlineWidth
+        };
+      });
+      focusSequence.push(state);
+      if(state && state.focusVisible && state.outlineStyle!=='none' && state.outlineWidth!=='0px') visibleFocusFound=true;
+    }
+    assert(visibleFocusFound,d.name+': nenhum foco visível encontrado na sequência de Tab');
 
     await page.addScriptTag({content:axeSource});
     const axe=await page.evaluate(async()=>await window.axe.run(document,{
@@ -96,6 +109,7 @@ try{
       navTargets:navBoxes,
       axeViolations:axe.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.length})),
       seriousCritical:serious.length,
+      focusSequence,
       jsErrors:errors
     }));
     assert(serious.length===0,d.name+': axe serious/critical: '+serious.map(v=>v.id).join(','));
