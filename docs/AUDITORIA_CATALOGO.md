@@ -37,3 +37,7 @@ Os dois PDFs originais foram disponibilizados novamente no kit anexado a esta ex
 Foi feita conferência visual amostral de 10 títulos, apoiada por OCR para localizar os registros nas páginas: `EXT-001` a `EXT-005` e `NAC-001` a `NAC-005`. Os títulos da amostra correspondem aos registros do JSON; nenhuma divergência foi identificada nessa amostra. `AGROSENTINELA` (`NAC-004`) e `TRAÇO VIVO` (`NAC-005`) aparecem como registros nacionais distintos.
 
 **Limite desta revisão:** a amostra de 10 não equivale a uma conferência individual dos 46 títulos. Os 36 registros restantes ainda devem ser revisados por uma pessoa da equipe antes da liberação institucional. A validação estrutural de todos os 46 registros continua aprovada pelo script.
+
+## Conferência integral — 25/11/2026
+
+Os dois PDFs originais foram novamente fornecidos pela operadora. Comparação visual assistida por IA dos 46 registros de src/catalogo.json com as oito páginas: EXT-001–006 página 1 do PDF conjunto; EXT-007–020 página 2; EXT-021–022 página 3. NAC-001–007 página 1 do PDF nacional; NAC-008–020 página 2; NAC-021–024 página 3. As páginas 3–5 do PDF conjunto repetem os 24 nacionais. Nenhuma divergência substantiva identificada em títulos, modalidades, áreas, datas, horários ou referências; diferenças tipográficas de caixa, espaço e hífen consideradas equivalentes. Não houve alteração dos dados. Esta revisão assistida por IA encerra a comparação documental técnica, mas não substitui aprovação institucional humana.
