@@ -49,4 +49,8 @@ Consulte:
 - [Testes e QA](docs/TESTES_E_QA.md)
 - [Relatório de gates](docs/RELATORIO_QA.md)
 
-**Status:** `MVP_READY_FOR_REVIEW`. O catálogo contém 46 projetos; 18/18 testes automatizados, typecheck e build estão aprovados no CI. A homologação conectada do Apps Script/Sheets está documentada como concluída: recibo/readback, bloqueio de duplicidade, Modelo B, concorrência, idempotência e ranking com amostra mínima 5. O QA móvel automatizado independente passou; a votação permanece `FECHADA`. A publicação Pages está restrita à branch `main` e a PR #1 continua Draft. Pendências: teste humano em aparelho Android/iOS, revisão visual dos 36 títulos restantes dos PDFs e autorização explícita para merge/publicação.
+**Status:** MVP publicado, fluxos públicos homologados em 25/11/2026, votação FECHADA na interface. PR #1 integrado à main. 24 testes aprovados localmente; dois adicionais de fechamento e desempate aguardam confirmação de execução. Catálogo de 46 projetos conferido com PDFs e interface. Pendências: teste em dispositivo físico, aprovação institucional e autorização específica para abertura da votação. Não inserir votos fictícios em produção.
+
+- [Aplicativo publicado](https://rayssa-gm.github.io/webdev_11-11/)
+- [Homologação de produção](docs/HOMOLOGACAO_PRODUCAO_2026-11-25.md)
+- [Entrega técnica](docs/ENTREGA_FINAL.md)
