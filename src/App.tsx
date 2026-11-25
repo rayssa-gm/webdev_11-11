@@ -101,7 +101,7 @@ function ServiceAccess({href,label}:{href:string;label:string}) {
     <a className="button primary" href={href} target="_blank" rel="noopener noreferrer">{label} <ArrowUpRight size={17}/></a>
     <details className="access-help">
       <summary>Problemas para acessar?</summary>
-      <p>Se o Google mostrar “Não foi possível abrir o arquivo”, tente abrir nesta mesma guia. Se o erro continuar, copie o link e abra em uma guia anônima ou privada do navegador. Não é necessário fazer login.</p>
+      <p>Se o Google mostrar “Não foi possível abrir o arquivo”, no Android isso pode ocorrer por um problema conhecido de roteamento entre Apps Script e Google Drive. Primeiro, copie o link e cole diretamente na barra de endereços do Chrome. Se o Android continuar abrindo a tela do Drive, abra as Configurações do aparelho &gt; Apps &gt; Drive &gt; Abrir por padrão (ou Definir como padrão) e desative “Abrir links compatíveis”; depois tente novamente no Chrome. Não é necessário fazer login.</p>
       <div className="access-actions"><a className="button secondary" href={href}>Abrir nesta guia</a><button type="button" className="button secondary" onClick={copyLink}>Copiar link</button></div>
       <label className="access-address">Endereço direto<input aria-label="Endereço direto do serviço" readOnly value={href} onFocus={e=>e.currentTarget.select()}/></label>
       <span role="status">{message}</span>
