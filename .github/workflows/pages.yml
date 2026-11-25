@@ -1,5 +1,5 @@
 name: Build and deploy GitHub Pages
-# Public deployment is restricted to main; merge/publication requires team approval.
+# Temporary Pages deployment for QA is allowed from the team feature branch and main.
 on:
   push:
     branches: [main, feat/universo-if-avalia-mvp]
@@ -34,7 +34,7 @@ jobs:
         with:
           path: ./dist
   deploy:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/feat/universo-if-avalia-mvp'
     needs: build
     environment:
       name: github-pages
