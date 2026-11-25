@@ -60,3 +60,18 @@ Resultados:
 Conclusão: o contorno por guia anônima não resolve neste aparelho Android. O problema ocorre antes da interface do Apps Script carregar e não depende apenas do estado de login da sessão. O frontend do GitHub Pages permanece funcional; a incompatibilidade está no acesso móvel ao endpoint `script.google.com/macros/.../exec` neste dispositivo/contexto.
 
 Manter votação **FECHADA**. Não classificar o acesso móvel ao formulário/ranking como homologado até haver correção ou alternativa confirmada em aparelho físico.
+
+
+## Diagnóstico provável — bug conhecido Google/Android
+
+A evidência física corresponde a um bug público do Google Issue Tracker em que URLs de Web Apps do Apps Script no Android são interceptadas/roteadas incorretamente pelo ecossistema Google Drive, exibindo a mensagem **“Não foi possível abrir o arquivo”** antes de o Web App carregar.
+
+Referências públicas:
+- Google Issue Tracker #520300212 — Apps Script Web App URLs on Android incorrectly opened by the Drive app.
+- Google Issue Tracker #574946511 — Web App com acesso público exibindo “unable to open file” para usuários não proprietários, inclusive em dispositivos móveis.
+
+O comportamento observado neste projeto é compatível: desktop e automação Chromium carregam o `/exec`, enquanto o Android físico falha antes de renderizar a interface do Apps Script.
+
+Mitigação adicionada ao frontend no commit `23cf5467c3b77e19c965d128645f4053205621b0`: instrução específica para Android, orientando colar o link diretamente na barra do Chrome e, se necessário, desativar a abertura automática de links compatíveis pelo app Google Drive em **Configurações > Apps > Drive > Abrir por padrão/Definir como padrão**.
+
+Essa mitigação ainda precisa ser retestada em aparelho físico.
