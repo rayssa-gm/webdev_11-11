@@ -27,3 +27,10 @@ O código revisado elimina os redirecionamentos, mantém o formulário desabilit
 1. Antes da liberação, registre o último commit e a execução saudável do GitHub Pages, a versão ativa do Worker de produção e a versão da implantação do Apps Script. Confirme FECHADA antes da mudança.
 2. Em caso de regressão do frontend, reverta o commit de publicação e publique o conteúdo correspondente à execução saudável anterior. Se o problema estiver no Worker, restaure sua implantação anterior. No Apps Script, em **Implantar → Gerenciar implantações**, edite a implantação existente para voltar à versão anterior. Preserve a URL da implantação, as propriedades e a planilha.
 3. Verifique o catálogo, o formulário público e os dois rankings em leitura. Confirme novamente FECHADA na interface e no gateway, quando disponível. Registre o motivo da reversão e as versões restauradas. A reversão de código não reverte dados da planilha.
+
+
+## Retomada da homologação
+
+- Commit `186c621` acrescentou três testes do Worker com respostas sintéticas: preflight CORS, bootstrap fechado e rankings por modalidade, e falha do serviço a montante. Resultado local: 30 testes aprovados, build e catálogo de 46 projetos validados.
+- A leitura no navegador confirmou QA `FECHADA` e botão de envio desabilitado no formulário público de produção.
+- A guia administrativa do navegador do Work continuou na tela de login. Uma nova abertura do endereço do projeto redirecionou à documentação do Apps Script. A duplicidade no projeto remoto e a implantação QA seguem sem verificação. Nenhum dado foi gravado e a publicação de produção continua condicionada à homologação QA.
