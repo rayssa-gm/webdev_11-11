@@ -194,3 +194,24 @@ function hashToken_(token) {
   const bytes = Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, token, Utilities.Charset.UTF_8);
   return bytes.map(function(b){const v=(b+256)%256;return ('0'+v.toString(16)).slice(-2);}).join('');
 }
+
+/** API exclusiva do gateway; segredo em Script Properties, nunca no frontend. */
+function doPost(e) {
+  function reply(data) { return ContentService.createTextOutput(JSON.stringify(data)).setMimeType(ContentService.MimeType.JSON); }
+  try {
+    const body = JSON.parse(e.postData.contents);
+    const secret = PropertiesService.getScriptProperties().getProperty('AVALIA_GATEWAY_SECRET');
+    if (!secret || secret.length < 32 || typeof body.secret !== 'string' || body.secret !== secret) return reply({ok:false,error:'NAO_AUTORIZADO'});
+    if (body.action === 'bootstrap') {
+      const cfg = getUiBootstrap();
+      return reply({ok:true,data:{status:cfg.status,minRanking:cfg.minRanking}});
+    }
+    if (body.action === 'ranking') return reply({ok:true,data:getPublicRanking(body.modality)});
+    if (body.action === 'vote') return reply({ok:true,data:submitVote(body.payload)});
+    return reply({ok:false,error:'ACAO_INVALIDA'});
+  } catch (err) {
+    const message = String(err.message || '');
+    const allowed = ['VOTACAO_FECHADA','VOTO_DUPLICADO','CODIGO_INVALIDO_OU_DESABILITADO','ID_REQUISICAO_REUTILIZADO','LIMITE_DE_TAXA_TEMPORARIO'];
+    return reply({ok:false,error:allowed.indexOf(message)>=0?message:'REQUISICAO_INVALIDA'});
+  }
+}
