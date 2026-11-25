@@ -31,3 +31,9 @@ Não publicar códigos, hashes, recibos ou identificadores privados. Não sincro
 - Auditoria posterior: captura confirma nove registros, sem novas linhas indevidas.
 - Votação QA novamente FECHADA segundo confirmação da operadora.
 - Permanecem pendentes testes de limiar 2–4, regressão automatizada, revisão do catálogo e aprovação final.
+
+## Regressão final — 25/11/2026
+
+Execução local informada pela operadora no commit 8915e9b: npm ci concluído; npm test: 24 aprovados, 0 falhas, 0 ignorados; npm run build: TypeScript e Vite 6.4.6 aprovados; npm audit: 0 vulnerabilidades detectadas. Aviso de autorização do postinstall do esbuild não impediu o build.
+
+Limiar de 0 a 5 avaliações aprovado em ambiente simulado, incluindo separação de modalidades e privacidade dos hashes. Pendências anteriores de regressão e limiar encerradas. Permanecem conferência documental dos 36 títulos restantes, verificação de alternância rápida do ranking em navegador e autorização de entrega/implantação. Não houve merge nem abertura de votação.
