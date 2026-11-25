@@ -12,4 +12,4 @@ Fonte: relatório de execução em navegador fornecido pela operadora.
 
 ## Limites
 
-Não houve teste de envio no servidor de produção, nem classificação com amostra suficiente em produção. Testes adicionais simulados de fechamento e desempate foram adicionados no commit 978649a; execução ainda a confirmar. Dispositivos físicos e aprovação institucional permanecem pendentes. Manter votação fechada até autorização específica.
+Não houve teste de envio no servidor de produção, nem classificação com amostra suficiente em produção. Testes adicionais simulados de fechamento e desempate foram adicionados no commit 978649a; execução local confirmada no commit 749b162: 26/26 testes aprovados. Dispositivos físicos e aprovação institucional permanecem pendentes. Manter votação fechada até autorização específica.
