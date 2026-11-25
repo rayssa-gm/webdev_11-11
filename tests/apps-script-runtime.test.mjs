@@ -125,7 +125,12 @@ test('Apps Script emite recibo idempotente e ranking sem hash de token',()=>{
   assert.equal(retry.receipt,first.receipt);
   const ranking=context.getPublicRanking('Mostra Nacional');
   assert.equal(ranking.items.length,24);
-  assert.equal(ranking.items.find(x=>x.id==='NAC-001').total,1);
+  const underSample=ranking.items.find(x=>x.id==='NAC-001');
+  assert.equal(underSample.total,1);
+  assert.equal(underSample.elegivel,false);
+  assert.equal(underSample.media,null);
+  assert.equal(underSample.criterios,null);
+  assert.equal(underSample.posicao,null);
   assert.equal(JSON.stringify(ranking).includes(token),false);
 });
 
