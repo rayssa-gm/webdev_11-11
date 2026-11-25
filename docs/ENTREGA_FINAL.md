@@ -24,3 +24,7 @@
 4. Verificar catálogo, formulário fechado, ranking e impressão no ambiente definitivo; manter votação fechada até autorização específica.
 
 Nenhuma implantação definitiva ou merge realizado nesta etapa. Os testes QA não substituem a verificação pós-implantação.
+
+## Atualização após publicação — 25/11/2026
+
+PR #1 integrado à main (8b8408e), publicação e sincronização confirmadas pela operadora. Implantação existente atualizada conforme relato. Fluxos públicos homologados conforme docs/HOMOLOGACAO_PRODUCAO_2026-11-25.md. Votação fechada na interface. Testes adicionais de servidor fechado e desempate adicionados em 978649a, aguardando execução. Pendências: teste físico, aprovação institucional, confirmação de classificação com dados reais quando houver amostra e autorização específica de abertura. Não inserir votos fictícios em produção. As etapas de liberação acima são histórico, não instrução para repetir merge ou implantação.
