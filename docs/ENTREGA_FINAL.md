@@ -27,4 +27,8 @@ Nenhuma implantação definitiva ou merge realizado nesta etapa. Os testes QA n�
 
 ## Atualização após publicação — 25/11/2026
 
-PR #1 integrado à main (8b8408e), publicação e sincronização confirmadas pela operadora. Implantação existente atualizada conforme relato. Fluxos públicos homologados conforme docs/HOMOLOGACAO_PRODUCAO_2026-11-25.md. Votação fechada na interface. Testes adicionais de servidor fechado e desempate adicionados em 978649a, aguardando execução. Pendências: teste físico, aprovação institucional, confirmação de classificação com dados reais quando houver amostra e autorização específica de abertura. Não inserir votos fictícios em produção. As etapas de liberação acima são histórico, não instrução para repetir merge ou implantação.
+PR #1 integrado à main (8b8408e), publicação e sincronização confirmadas pela operadora. Implantação existente atualizada conforme relato. Fluxos públicos homologados conforme docs/HOMOLOGACAO_PRODUCAO_2026-11-25.md. Votação fechada na interface. Testes adicionais de servidor fechado e desempate adicionados em 978649a e aprovados na execução local do commit 749b162. Pendências: teste físico, aprovação institucional, confirmação de classificação com dados reais quando houver amostra e autorização específica de abertura. Não inserir votos fictícios em produção. As etapas de liberação acima são histórico, não instrução para repetir merge ou implantação.
+
+## Evidência final de execução local
+
+Saída do terminal fornecida pela operadora para main em 749b162: npm ci instalou 72 pacotes; npm test: 26 aprovados, zero falhas; typecheck e build Vite 6.4.6 aprovados (3,07 s); npm audit: zero vulnerabilidades detectadas. Aviso de allowScripts do esbuild não bloqueou execução. Fechamento no servidor e desempate aprovados em ambiente simulado, não por envio em produção. Teste físico e aprovação institucional permanecem pendentes; votação deve permanecer fechada.
