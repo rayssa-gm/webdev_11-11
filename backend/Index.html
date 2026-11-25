@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <base target="_top">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root{font-family:Arial,sans-serif;color:#173b34;background:#f4f7f2}body{margin:0;padding:18px}.wrap{max-width:760px;margin:auto}.head{background:#123d35;color:#fff;border-radius:18px;padding:22px;margin-bottom:18px}.head small{color:#d8ef7b;letter-spacing:1px}.head h1{margin:8px 0;font-size:25px}.head p{color:#dce8e1;font-size:13px;line-height:1.5}.panel{background:#fff;border:1px solid #dce5df;border-radius:16px;padding:20px;margin-bottom:15px}label{display:block;font-size:13px;font-weight:700;margin:14px 0 6px}input,select{width:100%;box-sizing:border-box;border:1px solid #cbd8cf;border-radius:9px;padding:12px;font:inherit;background:#fff;color:#173b34}button{border:0;border-radius:9px;background:#123d35;color:#fff;padding:13px 17px;font-weight:700;cursor:pointer;margin-top:16px;width:100%}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #88a849;outline-offset:2px}.criteria{display:grid;grid-template-columns:1fr 1fr;gap:10px}.status{padding:12px;border-radius:9px;background:#edf4e8;color:#315c30;font-size:13px;margin-top:14px;display:none}.error{background:#fff0eb;color:#943b25}.muted{font-size:12px;color:#65776e;line-height:1.5}.item{border-top:1px solid #e7eee8;padding:14px 0}.item strong{display:block}.item small{color:#687b72}.pill{display:inline-block;background:#eef3e8;padding:5px 8px;border-radius:99px;font-size:11px}.nav{display:flex;gap:8px}.nav button{width:auto;flex:1;background:#e9f0e8;color:#173b34}.nav button.active{background:#123d35;color:#fff}.score{font-weight:bold;color:#426d2e}@media(max-width:480px){.criteria{grid-template-columns:1fr}body{padding:12px}.panel{padding:15px}}
+  .print-modality{display:none}
+  @media print{.print-modality{display:block}label[for="modality"]{display:none}body{background:#fff;padding:0}.head,.nav,#vote,#modality,#rank>button{display:none!important}#rank{display:block!important}.panel{border:0}.item{break-inside:avoid}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <header class="head"><small>IFMA · 2026.2 · PROTÓTIPO ACADÊMICO</small><h1>Universo IF Avalia</h1><p>Participação popular educativa. Não é votação ou julgamento oficial do evento.</p></header>
+  <div class="nav"><button id="tab-vote" class="active" onclick="show('avaliar')">Avaliar</button><button id="tab-rank" onclick="show('ranking')">Ranking</button></div>
+  <section id="vote" class="panel">
+    <h2>Avalie um projeto</h2><p class="muted">Um código pode avaliar projetos diferentes, mas apenas uma vez cada projeto.</p>
+    <label for="project">Projeto</label><select id="project"></select>
+    <label for="code">Código de avaliação</label><input id="code" autocomplete="off" maxlength="200" placeholder="Informe seu código">
+    <div class="criteria" id="criteria"></div>
+    <p class="muted">Pesos: criatividade 30%, clareza 30%, relevância 25%, demonstração 15%. A nota é recalculada no servidor.</p>
+    <p id="preview" class="score" aria-live="polite">Nota prévia: —</p>
+    <button onclick="sendVote()">Enviar avaliação</button><div id="vote-status" class="status" role="status"></div>
+  </section>
+  <section id="rank" class="panel" style="display:none">
+    <h2>Ranking público</h2><label for="modality">Modalidade</label><select id="modality" onchange="loadRanking()"><option>Mostra Nacional</option><option>Mostra de Extensão</option></select>
+    <p id="print-modality" class="print-modality"></p>
+    <button onclick="window.print()" style="width:auto;margin:0 0 12px">Imprimir relatório</button>
+    <div id="ranking-list"><p class="muted">Carregando resultados agregados…</p></div>
+    <div id="project-detail" class="panel" style="display:none"></div>
+  </section>
+</div>
+<script>
+const INITIAL_PROJECT = <?!= JSON.stringify(initialProject) ?>;
+const INITIAL_VIEW = <?!= JSON.stringify(initialView) ?>;
+const INITIAL_MODALITY = <?!= JSON.stringify(initialModality) ?>;
+const CRITERIA = ['Criatividade e inovação','Clareza da apresentação','Relevância e impacto','Demonstração e resultados'];
+const WEIGHTS = [0.30,0.30,0.25,0.15];
+let projects = [];
+let pendingVote = null;
+function status(id,msg,error){const el=document.getElementById(id);el.style.display='block';el.className='status'+(error?' error':'');el.textContent=msg;}
+function show(view){document.getElementById('vote').style.display=view==='avaliar'?'block':'none';document.getElementById('rank').style.display=view==='ranking'?'block':'none';document.getElementById('tab-vote').className=view==='avaliar'?'active':'';document.getElementById('tab-rank').className=view==='ranking'?'active':'';if(view==='ranking')loadRanking();}
+function init(data){projects=data.projects||[];document.getElementById('modality').value=INITIAL_MODALITY;const send=document.querySelector('#vote button');if(data.status!=='ABERTA'){send.disabled=true;send.textContent='Votação fechada';status('vote-status','A votação está fechada. O envio será habilitado pela equipe após a configuração.',true);}const sel=document.getElementById('project');sel.innerHTML=projects.map(p=>'<option value="'+p.id+'">'+escapeHtml(p.id+' · '+p.titulo)+'</option>').join('');if(INITIAL_PROJECT)sel.value=INITIAL_PROJECT;document.getElementById('criteria').innerHTML=CRITERIA.map((c,i)=>'<div><label for="score'+i+'">'+escapeHtml(c)+' ('+[30,30,25,15][i]+'%)</label><select id="score'+i+'" onchange="preview()"><option value="">Selecione</option>'+[1,2,3,4,5].map(n=>'<option value="'+n+'">'+n+' — '+['Muito ruim','Ruim','Regular','Bom','Excelente'][n-1]+'</option>').join('')+'</select></div>').join('');}
+function preview(){const values=CRITERIA.map((_,i)=>Number(document.getElementById('score'+i).value));if(values.some(n=>!n)){document.getElementById('preview').textContent='Nota prévia: —';return;}document.getElementById('preview').textContent='Nota prévia: '+values.reduce((s,n,i)=>s+n*WEIGHTS[i],0).toFixed(2).replace('.',',');}
+function voteError(err){const message=String(err.message||err);const messages={VOTO_DUPLICADO:'Você já avaliou este projeto. Selecione outro projeto para continuar.',CODIGO_INVALIDO_OU_DESABILITADO:'Código inválido ou desabilitado. Confira o código informado.',VOTACAO_FECHADA:'A votação está fechada.',LIMITE_DE_TAXA_TEMPORARIO:'Muitas avaliações neste momento. Aguarde alguns segundos e tente novamente.'};return Object.keys(messages).map(key=>message.includes(key)?messages[key]:null).find(Boolean)||'Não foi possível enviar a avaliação. Tente novamente.';}
+function sendVote(){const code=document.getElementById('code').value.trim();const projectId=document.getElementById('project').value;const notas=CRITERIA.map((_,i)=>Number(document.getElementById('score'+i).value));if(!code||notas.some(n=>!Number.isInteger(n)||n<1||n>5)){status('vote-status','Informe o código e as quatro notas de 1 a 5.',true);return;}if(!pendingVote||pendingVote.codigo!==code||pendingVote.id_projeto!==projectId||pendingVote.notas.join(',')!==notas.join(',')){pendingVote={codigo:code,id_projeto:projectId,notas:notas,id_requisicao:UtilitiesId()};}const payload=pendingVote;const btn=document.querySelector('#vote button');btn.disabled=true;btn.textContent='Enviando…';google.script.run.withSuccessHandler(res=>{pendingVote=null;status('vote-status','Avaliação recebida. Recibo: '+res.receipt+' · Nota: '+Number(res.score).toFixed(2).replace('.',','),false);document.getElementById('code').value='';CRITERIA.forEach((_,i)=>document.getElementById('score'+i).value='');preview();btn.disabled=false;btn.textContent='Enviar avaliação';}).withFailureHandler(err=>{status('vote-status',voteError(err),true);btn.disabled=false;btn.textContent='Tentar novamente';}).submitVote(payload);}
+function UtilitiesId(){return 'req_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,14);}
+function loadRanking(){const modality=document.getElementById('modality').value;document.getElementById('print-modality').textContent='Modalidade: '+modality;const list=document.getElementById('ranking-list');list.textContent='Consultando agregados…';google.script.run.withSuccessHandler(data=>{if(document.getElementById('modality').value!==modality)return;list.innerHTML='';if(!data.items.length){list.innerHTML='<p class="muted">Ainda não há avaliações válidas nesta modalidade.</p>';return;}data.items.forEach(item=>{const div=document.createElement('div');div.className='item';div.tabIndex=0;div.setAttribute('role','button');div.setAttribute('aria-label','Ver detalhes de '+item.titulo);const title=document.createElement('strong');title.textContent=(item.posicao?'#'+item.posicao+' · ':'Aguardando amostra · ')+item.titulo;const detail=document.createElement('small');detail.textContent=(item.elegivel?item.media.toFixed(2).replace('.',','):'—')+' / 5 · '+item.total+' avaliações · '+(item.elegivel?'classificado':'aguardando mínimo '+data.minimum)+(item.elegivel?' · critérios '+item.criterios.map(n=>n.toFixed(2).replace('.',',')).join(' / '):'');div.appendChild(title);div.appendChild(detail);div.addEventListener('click',()=>showProjectDetails(item.id));div.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();showProjectDetails(item.id);}});list.appendChild(div);});}).withFailureHandler(err=>{if(document.getElementById('modality').value!==modality)return;list.textContent='Não foi possível consultar o ranking: '+String(err.message||err);}).getPublicRanking(modality);}
+function showProjectDetails(id){const p=projects.find(x=>x.id===id);const box=document.getElementById('project-detail');box.innerHTML='';box.style.display='block';const h=document.createElement('h3');h.textContent=p.titulo;box.appendChild(h);const meta=document.createElement('p');meta.className='muted';meta.textContent=p.id+' · '+p.modalidade+' · '+p.area_tematica+' · '+p.data+' · '+p.inicio+'–'+p.fim+' · '+p.local+' · '+p.formato;box.appendChild(meta);const btn=document.createElement('button');btn.textContent='Avaliar este projeto';btn.addEventListener('click',()=>{document.getElementById('project').value=p.id;show('avaliar');});box.appendChild(btn);box.scrollIntoView({behavior:'smooth',block:'start'});}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+google.script.run.withSuccessHandler(data=>{init(data);show(INITIAL_VIEW==='ranking'?'ranking':'avaliar');}).withFailureHandler(err=>status('vote-status','Falha ao carregar catálogo: '+String(err.message||err),true)).getUiBootstrap();
+</script>
+</body>
+</html>
