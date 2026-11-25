@@ -49,7 +49,7 @@ Consulte:
 - [Testes e QA](docs/TESTES_E_QA.md)
 - [Relatório de gates](docs/RELATORIO_QA.md)
 
-**Status:** MVP publicado, fluxos públicos homologados em 25/11/2026, votação FECHADA na interface. PR #1 integrado à main. 24 testes aprovados localmente; dois adicionais de fechamento e desempate aguardam confirmação de execução. Catálogo de 46 projetos conferido com PDFs e interface. Pendências: teste em dispositivo físico, aprovação institucional e autorização específica para abertura da votação. Não inserir votos fictícios em produção.
+**Status:** MVP publicado, fluxos públicos homologados em 25/11/2026, votação FECHADA na interface. PR #1 integrado à main. 26/26 testes aprovados localmente no commit 749b162, incluindo fechamento e desempate; build e typecheck aprovados, npm audit sem vulnerabilidades detectadas. Catálogo de 46 projetos conferido com PDFs e interface. Pendências: teste em dispositivo físico, aprovação institucional e autorização específica para abertura da votação. Não inserir votos fictícios em produção.
 
 - [Aplicativo publicado](https://rayssa-gm.github.io/webdev_11-11/)
 - [Homologação de produção](docs/HOMOLOGACAO_PRODUCAO_2026-11-25.md)
