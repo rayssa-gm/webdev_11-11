@@ -14,3 +14,16 @@
 O código revisado elimina os redirecionamentos, mantém o formulário desabilitado sem confirmação de abertura, exibe os agregados e evita ler a configuração da planilha uma vez por projeto. A validação em navegador remoto do novo build local encontrou conexão recusada.
 
 **Pendentes:** implantar a versão revisada no Apps Script QA e testar os painéis contra essa versão no navegador, inclusive responsividade e sessão com múltiplas contas. Validação de gravação pelo Worker com código sintético e revalidação de produção dependem dessa homologação. A conta Cloudflare conectada listou somente o Worker de QA para o projeto. O editor autenticado do Apps Script QA não estava disponível. A produção preserva a implantação publicada. Nenhum voto real foi enviado e nenhuma planilha de produção foi alterada.
+
+## Revalidação do PR nº 2
+
+- Commit de código verificado: `10dff7277a423e516cedfd637d6286f1a8ef3961`. PR nº 2 em rascunho, sem merge. O comentário técnico registra execução bem-sucedida do GitHub Actions no run `45617609867`.
+- Nova execução: 27 testes aprovados, `npm audit` com zero vulnerabilidades, build com URL QA, verificação de sintaxe do Apps Script e auditoria dos 46 projetos aprovados.
+- Worker QA: `/bootstrap` exibiu FECHADA e mínimo 5. HTTP 200 e cabeçalho CORS para `http://localhost:5173`. A origem do GitHub Pages recebeu HTTP 403 `ORIGEM_INVALIDA` em QA. Uma primeira tentativa de ranking recebeu HTTP 403 pelo cliente Python. A nova verificação via curl com a origem QA retornou HTTP 200 nas duas modalidades, 24 e 22 projetos.
+- A pasta `backend/` versionada contém uma única declaração de `doPost`, em `Code.gs`. Os links com e sem seleção de conta redirecionaram para a documentação do Google. O conteúdo de `Gateway.gs` no editor remoto, a publicação em QA e a homologação integrada com gravações sintéticas seguem pendentes.
+
+## Reversão após publicação
+
+1. Antes da liberação, registre o último commit e a execução saudável do GitHub Pages, a versão ativa do Worker de produção e a versão da implantação do Apps Script. Confirme FECHADA antes da mudança.
+2. Em caso de regressão do frontend, reverta o commit de publicação e publique o conteúdo correspondente à execução saudável anterior. Se o problema estiver no Worker, restaure sua implantação anterior. No Apps Script, em **Implantar → Gerenciar implantações**, edite a implantação existente para voltar à versão anterior. Preserve a URL da implantação, as propriedades e a planilha.
+3. Verifique o catálogo, o formulário público e os dois rankings em leitura. Confirme novamente FECHADA na interface e no gateway, quando disponível. Registre o motivo da reversão e as versões restauradas. A reversão de código não reverte dados da planilha.
