@@ -41,3 +41,22 @@ Resultado: **PASS**.
 - Erros JavaScript observados: **0**.
 
 O probe temporário foi removido após a execução. Este teste confirma o fluxo anônimo/publicado, mas não reproduz uma sessão Chrome já autenticada em múltiplas contas Google; por isso o reteste físico da mitigação continua recomendado.
+
+
+## Reteste físico Android — 25/11/2026 (Kêmilly)
+
+Evidência fornecida pela operadora em aparelho Android físico, com captura da tela do Chrome mostrando `script.google.com` e a mensagem do Google Drive **“Não foi possível abrir o arquivo. Verifique o endereço e tente novamente.”**
+
+Resultados:
+- Avaliação no PC, Chrome normal: **PASS**.
+- Avaliação no Android, Chrome normal: **FAIL** — erro do Google Drive.
+- Link copiado no PC: **PASS**.
+- Link copiado no Android: **FAIL** — mesmo erro.
+- Ranking no PC, Chrome normal: **PASS**.
+- Ranking no Android, Chrome normal: **FAIL** — mesmo erro.
+- Ranking em guia anônima no PC: **PASS**.
+- Ranking em guia anônima no Android: **FAIL** — mesmo erro.
+
+Conclusão: o contorno por guia anônima não resolve neste aparelho Android. O problema ocorre antes da interface do Apps Script carregar e não depende apenas do estado de login da sessão. O frontend do GitHub Pages permanece funcional; a incompatibilidade está no acesso móvel ao endpoint `script.google.com/macros/.../exec` neste dispositivo/contexto.
+
+Manter votação **FECHADA**. Não classificar o acesso móvel ao formulário/ranking como homologado até haver correção ou alternativa confirmada em aparelho físico.
