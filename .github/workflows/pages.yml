@@ -26,10 +26,33 @@ jobs:
       - run: npm test
       - run: node scripts/validar_catalogo.mjs
       - run: node --check < backend/Code.gs
+      - name: Confirmar gateway de produção e votação fechada
+        if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/feat/universo-if-avalia-mvp')
+        env:
+          GATEWAY: ${{ vars.VITE_AVALIA_GATEWAY_URL }}
+          QA_GATEWAY: https://universo-if-avalia-qa.rayssagabriela.workers.dev
+        run: |
+          node --input-type=module <<'JS'
+          import assert from 'node:assert/strict';
+          const gateway = new URL(process.env.GATEWAY);
+          assert.equal(gateway.protocol, 'https:');
+          assert.equal(gateway.href, gateway.origin + '/');
+          assert.notEqual(gateway.origin, process.env.QA_GATEWAY);
+          const origin = 'https://rayssa-gm.github.io';
+          const response = await fetch(new URL('/bootstrap', gateway), {
+            headers: { Origin: origin }, redirect: 'error', signal: AbortSignal.timeout(30000),
+          });
+          assert(response.ok, 'Bootstrap de produção indisponível');
+          assert.equal(response.headers.get('access-control-allow-origin'), origin);
+          const envelope = await response.json();
+          assert.equal(envelope.ok, true);
+          assert.equal(envelope.data.status, 'FECHADA');
+          assert.equal(envelope.data.minRanking, 5);
+          JS
       - run: npm run build
         env:
           GITHUB_PAGES: 'true'
-          VITE_APPS_SCRIPT_URL: ${{ vars.VITE_APPS_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbydHsI_vFZdPun-cwrk7Pz7Bkoua_T2kKsOMIizu67gJCTcyKTD1QXRS10ISrlDyc6i/exec' }}
+          VITE_AVALIA_GATEWAY_URL: ${{ vars.VITE_AVALIA_GATEWAY_URL }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist

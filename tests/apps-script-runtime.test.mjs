@@ -123,6 +123,11 @@ test('Apps Script emite recibo idempotente e ranking sem hash de token',()=>{
   const retry=context.submitVote(payload('req_72345678901234567890'));
   assert.equal(retry.idempotent,true);
   assert.equal(retry.receipt,first.receipt);
+  assert.equal(retry.score,first.score);
+  assert.throws(
+    ()=>context.submitVote({...payload('req_72345678901234567890'),notas:[5,5,5,5]}),
+    /ID_REQUISICAO_REUTILIZADO/,
+  );
   const ranking=context.getPublicRanking('Mostra Nacional');
   assert.equal(ranking.items.length,24);
   const underSample=ranking.items.find(x=>x.id==='NAC-001');
@@ -170,4 +175,18 @@ test('Ranking ordena médias e desempata por título, ocultando amostra insufici
   assert.equal(items[1].posicao,2);
   assert.equal(items[2].posicao,3);
   assert.equal(items.find(p=>p.id==='EXT-004').posicao,null);
+});
+
+test('ranking usa uma única leitura da configuração e reaproveita o cache',()=>{
+  const {context,ss}=makeRuntime();
+  const config=ss.getSheetByName('Configuracao');
+  const original=config.getRange.bind(config);
+  let reads=0;
+  config.getRange=(...args)=>{reads++;return original(...args);};
+  const ranking=context.getPublicRanking('Mostra Nacional');
+  assert.equal(ranking.items.length,24);
+  assert.equal(ranking.minimum,5);
+  assert.equal(reads,1);
+  assert.equal(context.getPublicRanking('Mostra Nacional').items.length,24);
+  assert.equal(reads,1);
 });
