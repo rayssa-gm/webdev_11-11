@@ -34,3 +34,12 @@ O código revisado elimina os redirecionamentos, mantém o formulário desabilit
 - Commit `186c621` acrescentou três testes do Worker com respostas sintéticas: preflight CORS, bootstrap fechado e rankings por modalidade, e falha do serviço a montante. Resultado local: 30 testes aprovados, build e catálogo de 46 projetos validados.
 - A leitura no navegador confirmou QA `FECHADA` e botão de envio desabilitado no formulário público de produção.
 - A guia administrativa do navegador do Work continuou na tela de login. Uma nova abertura do endereço do projeto redirecionou à documentação do Apps Script. A duplicidade no projeto remoto e a implantação QA seguem sem verificação. Nenhum dado foi gravado e a publicação de produção continua condicionada à homologação QA.
+
+
+## QA v1.3 — validação após atualização manual
+
+- A operadora informou que implantou **Universo IF Avalia — QA v1.3 — Backend revisado** na implantação existente. Substituiu `Code.gs`, desativou `Gateway.gs`, preservou `Index.html`, URL, propriedades e segredos. Essa atualização não foi repetida.
+- Leituras independentes do Worker QA após a atualização, com a origem de QA: `/bootstrap` confirmou `FECHADA` e mínimo 5. Mostra Nacional retornou 24 identificadores únicos, sem projetos classificados. Mostra de Extensão retornou 22 e classificou EXT-001 em 1º, média 3,95, com 5 avaliações. Foram conferidas as modalidades e a ausência de posição e média abaixo do limiar.
+- Build com URL de QA a partir de `2de9d03` concluído. Navegação local no Chromium com respostas capturadas do Worker, em contextos novos sem conta Google: formulário pré-selecionou EXT-001, manteve o envio desabilitado, exibiu os rankings 24/22 e não abriu outra guia nem redirecionou. Formulário e ranking sem rolagem horizontal a 360, 768 e 1.366 px.
+- Teste de envio interceptado no navegador, sem gravação: a primeira tentativa simulou falha de rede. A segunda preservou o identificador e as quatro notas sintéticas [4, 5, 4, 3], exibiu recibo e nota 4,15 após a resposta simulada.
+- O Chromium do executor retornou `ERR_CERT_AUTHORITY_INVALID` ao acessar diretamente o Worker pelo proxy do ambiente. A chamada HTTP independente funcionou. A validação ponta a ponta no Edge com Worker real, a gravação sintética na planilha QA e o teste com múltiplas contas seguem pendentes. Este ciclo não implantou produção nem alterou planilhas.
