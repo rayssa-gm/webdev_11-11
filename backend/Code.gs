@@ -115,7 +115,8 @@ function getPublicRanking(modality) {
   });
   const items = Object.keys(groups).map(function(id) {
     const g = groups[id];
-    return {id:g.id,titulo:g.titulo,modalidade:g.modalidade,total:g.total,media:g.total?Number((g.sum/g.total).toFixed(2)):0,criterios:g.total?g.criteria.map(function(n){return Number((n/g.total).toFixed(2));}):[null,null,null,null],updatedAt:g.updatedAt};
+    const eligible = g.total >= Number(readConfig_().MIN_RANKING || MIN_RANKING);
+    return {id:g.id,titulo:g.titulo,modalidade:g.modalidade,total:g.total,media:eligible?Number((g.sum/g.total).toFixed(2)):null,criterios:eligible?g.criteria.map(function(n){return Number((n/g.total).toFixed(2));}):null,updatedAt:g.updatedAt};
   }).sort(function(a,b){return b.media-a.media || a.titulo.localeCompare(b.titulo,'pt-BR') || a.id.localeCompare(b.id);});
   let position = 0;
   items.forEach(function(item) {
