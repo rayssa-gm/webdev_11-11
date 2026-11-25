@@ -1,6 +1,6 @@
 # Relatório final de andamento — Universo IF Avalia
 
-Atualização: 18/11/2026  
+Atualização: 24/11/2026  
 Branch de trabalho: `feat/universo-if-avalia-mvp`  
 Repositório: `rayssa-gm/webdev_11-11`  
 PR de revisão: #1 — Universo IF Avalia — MVP homologado para revisão final
@@ -12,10 +12,9 @@ O MVP do Universo IF Avalia está implementado e homologado no backend real do G
 A aplicação permanece em branch de homologação e a votação oficial continua fechada. O merge na `main` e a abertura pública da votação ainda não foram executados.
 
 Neste momento, os principais bloqueios restantes são externos à implementação:
-1. concluir a publicação temporária via GitHub Pages para o teste em aparelho físico;
-2. executar o teste humano em Android/iOS;
-3. fazer a conferência documental final contra os dois PDFs originais, que não estão acessíveis nesta conversa/biblioteca;
-4. receber autorização explícita da equipe para merge/publicação definitiva.
+1. executar o teste humano em aparelho físico Android/iOS;
+2. revisar visualmente os 36 títulos restantes dos PDFs (10 de 46 já foram conferidos nesta retomada);
+3. receber autorização explícita da equipe para merge em `main` e publicação definitiva.
 
 ## 2. Arquitetura implementada
 
@@ -44,8 +43,9 @@ Neste momento, os principais bloqueios restantes são externos à implementaçã
 - `src/catalogo.json`, `public/data/catalogo.json` e `universo_if_catalogo_46_projetos_v1.0.json`: **idênticos, 46 projetos em cada cópia**.
 
 Pendência documental:
-- os PDFs `trabalhos-mostra-nacional-extensao.pdf` e `trabalhos-mostra-nacional.pdf` não estão acessíveis nesta conversa/biblioteca;
-- portanto, a conferência visual final dos registros contra os PDFs continua pendente.
+- os dois PDFs foram reabertos a partir do kit anexado em 24/11/2026;
+- amostra visual de `EXT-001` a `EXT-005` e `NAC-001` a `NAC-005`: 10 títulos conferidos, sem divergências;
+- a revisão dos 36 títulos restantes continua pendente; detalhes em `docs/AUDITORIA_CATALOGO.md`.
 
 ## 4. Avaliação e regras de voto
 
@@ -212,17 +212,15 @@ O PR não deve ser mesclado até o teste físico, a revisão documental final e 
 ## 10. GitHub Pages
 
 O workflow de Pages:
-- builda a branch de homologação;
-- executa testes, typecheck, catálogo e build;
-- foi temporariamente ajustado para permitir deploy da branch de homologação.
+- executa testes, typecheck, validação do catálogo e build nas branches de trabalho e em PRs;
+- publica somente a partir da branch `main`, após merge autorizado;
+- a alteração foi registrada no commit `3b06252de1941d9ff0ddee40d6ff14e15be5a684`.
 
 Situação:
 - GitHub Pages foi habilitado pela proprietária;
-- o build passa;
-- o deploy ainda depende da regra do ambiente `github-pages` permitir a branch `feat/universo-if-avalia-mvp`;
-- o workflow foi corrigido para separar a concorrência de runs `push` e `pull_request`, evitando que o PR cancele o run de publicação;
-- commit da correção de concorrência: `23ff73718001a942320347095c24163ccc8dd3e5`;
-- após a correção, o build do run de `push` passou, mas o job de deploy continuou recusado pelo ambiente, indicando que a regra administrativa ainda não havia sido aplicada/propagada naquele momento.
+- CI da branch: run `45518706578` (push do commit `3b06252de1941d9ff0ddee40d6ff14e15be5a684`) concluiu `build: success`; o job `deploy` ficou `skipped`, conforme a nova regra que restringe publicação a `main`;
+- execução da PR para o mesmo commit também executa build, sem publicar;
+- o deploy definitivo só ocorrerá após autorização explícita e merge em `main`.
 
 A publicação temporária é somente para QA; não equivale a abrir a votação oficial.
 
@@ -231,12 +229,12 @@ A publicação temporária é somente para QA; não equivale a abrir a votação
 | Gate | Estado | Situação |
 |---|---|---|
 | G0 — GitHub/autorização | PASS | Repo e branch corretos; escrita autorizada |
-| G1 — catálogo | PASS estrutural / revisão PDF pendente | 46 = 24 NAC + 22 EXT, sem duplicados |
+| G1 — catálogo | PASS estrutural / amostra visual 10 de 46 | 46 = 24 NAC + 22 EXT, sem duplicados; 10 títulos conferidos sem divergências, 36 restantes pendentes |
 | G2 — interface/testes/build | PASS | Frontend funcional e testado |
 | G3 — backend offline | PASS | Regras, validações e testes aprovados |
 | G4 — runtime conectado | PASS / CONNECTED_HOMOLOGATED | voto, readback, duplicidade, Modelo B, concorrência, idempotência e ranking |
-| G5 — Pages | PARTIAL / DEPLOY_PENDING | build PASS; publicação temporária aguardando regra do ambiente |
-| G6 — QA independente | PARTIAL / AUTOMATED_PASS | QA automatizado independente PASS; aparelho físico e revisão PDF pendentes |
+| G5 — Pages | BUILD_PASS / DEPLOY_RESTRICTED_TO_MAIN | build PASS; deploy da branch de trabalho intencionalmente bloqueado; publicação após merge autorizado |
+| G6 — QA independente | PARTIAL / AUTOMATED_PASS | QA automatizado independente PASS; aparelho físico e revisão dos 36 títulos restantes pendentes |
 
 ## 12. O que já está pronto
 
@@ -266,17 +264,16 @@ A publicação temporária é somente para QA; não equivale a abrir a votação
 ## 13. O que falta fazer
 
 ### Dependências externas/imediatas
-1. A proprietária finalizar a regra do ambiente `github-pages` para permitir a branch de homologação.
-2. Publicar e verificar a URL temporária do GitHub Pages.
-3. Testar em aparelho físico Android e/ou iPhone.
-4. Disponibilizar os dois PDFs originais para conferência documental final.
+1. Obter autorização explícita para merge/publicação em `main`.
+2. Após o merge autorizado, verificar a URL publicada do GitHub Pages.
+3. Testar em aparelho físico Android e/ou iPhone, sem enviar voto oficial.
+4. Revisar visualmente os 36 títulos restantes dos PDFs.
 
 ### Antes do merge
 5. Registrar o resultado do teste físico no QA.
-6. Conferir pelo menos 10 projetos diretamente contra os PDFs originais.
-7. Confirmar CI final verde.
-8. Remover/normalizar a permissão temporária de deploy da branch, se necessário.
-9. Obter autorização explícita da equipe para merge/publicação definitiva.
+6. Registrar a revisão dos 36 títulos restantes.
+7. Confirmar CI final verde após todas as atualizações.
+8. Obter autorização explícita da equipe para merge/publicação definitiva.
 
 ### Somente depois da autorização final
 10. Fazer merge da branch em `main`.
@@ -287,7 +284,7 @@ A publicação temporária é somente para QA; não equivale a abrir a votação
 
 ## 14. Roteiro para o teste físico
 
-Quando a URL temporária estiver disponível:
+Após a publicação autorizada em `main`:
 
 1. abrir no Chrome Android ou Safari iOS;
 2. confirmar os 46 projetos;
@@ -303,6 +300,18 @@ Quando a URL temporária estiver disponível:
 
 **Estado atual recomendado:** `MVP_READY_FOR_REVIEW / CONNECTED_BACKEND_HOMOLOGATED`.
 
-Ainda não usar `PUBLICADO_HOMOLOGADO` enquanto a URL do GitHub Pages e o teste humano em aparelho físico não estiverem concluídos.
+Ainda não usar `PUBLICADO_HOMOLOGADO`: a URL do GitHub Pages não foi verificada publicamente e o teste humano em aparelho físico permanece pendente.
 
 Também não abrir a votação oficial antes da autorização explícita da equipe.
+
+
+## 16. Retomada de execução — 24/11/2026
+
+- Conta GitHub autenticada: `rayssa-gm`; permissões de escrita no repositório confirmadas.
+- PR #1 permanece Draft, aberta e sem merge.
+- PDF original anexado foi reaberto; 10 títulos foram conferidos visualmente sem divergências; 36 aguardam revisão humana.
+- Documentação de auditoria e gates atualizada.
+- Workflow Pages ajustado para publicar somente a partir de `main`; commits na branch de trabalho não publicam o site.
+- CI de push do commit `3b06252de1941d9ff0ddee40d6ff14e15be5a684`: build success, deploy skipped intencionalmente.
+- A votação permanece fechada conforme a última evidência registrada; nenhuma abertura de votação ou novo voto foi realizado nesta retomada.
+- O projeto continua em `MVP_READY_FOR_REVIEW`, não em `PUBLICADO_HOMOLOGADO`.
