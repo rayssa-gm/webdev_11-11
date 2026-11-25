@@ -1,0 +1,5 @@
+name = "universo-if-avalia-qa"
+main = "src/index.js"
+compatibility_date = "2026-11-25"
+[vars]
+ALLOWED_ORIGIN = "http://localhost:5173"
