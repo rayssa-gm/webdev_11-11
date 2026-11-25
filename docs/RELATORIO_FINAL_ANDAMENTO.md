@@ -1,20 +1,20 @@
 # Relatório final de andamento — Universo IF Avalia
 
-Atualização: 24/11/2026  
-Branch de trabalho: `feat/universo-if-avalia-mvp`  
+Atualização: 25/11/2026
+Linha oficial atual: `main`
 Repositório: `rayssa-gm/webdev_11-11`  
-PR de revisão: #1 — Universo IF Avalia — MVP homologado para revisão final
+PR #1 — integrado à `main` em 25/11/2026
 
 ## 1. Resumo executivo
 
 O MVP do Universo IF Avalia está implementado e homologado no backend real do Google. O catálogo, a interface React/Vite/TypeScript, o Google Apps Script, o Google Sheets, a regra de voto Modelo B, a idempotência, a concorrência e o ranking conectado já foram testados com evidências reais.
 
-A aplicação permanece em branch de homologação e a votação oficial continua fechada. O merge na `main` e a abertura pública da votação ainda não foram executados.
+A aplicação já foi integrada à `main` e está publicada no GitHub Pages. A votação oficial continua fechada.
 
-Neste momento, os principais bloqueios restantes são externos à implementação:
-1. executar o teste humano em aparelho físico Android/iOS;
-2. revisar visualmente os 36 títulos restantes dos PDFs (10 de 46 já foram conferidos nesta retomada);
-3. receber autorização explícita da equipe para merge em `main` e publicação definitiva.
+Neste momento, os principais pontos restantes são:
+1. retestar em Android físico as novas alternativas de acesso ao Apps Script;
+2. testar Safari/iOS se houver aparelho disponível;
+3. obter aprovação institucional antes de abrir a votação oficial.
 
 ## 2. Arquitetura implementada
 
@@ -135,7 +135,7 @@ Resultado:
 ## 7. Testes automatizados e QA
 
 ### Suite principal
-- **18/18 testes aprovados**.
+- **26/26 testes aprovados**.
 - typecheck: PASS.
 - validador do catálogo: PASS.
 - sintaxe do Apps Script: PASS.
@@ -298,9 +298,9 @@ Após a publicação autorizada em `main`:
 
 ## 15. Estado de liberação
 
-**Estado atual recomendado:** `MVP_READY_FOR_REVIEW / CONNECTED_BACKEND_HOMOLOGATED`.
+**Estado atual recomendado:** `MVP_PUBLICADO / CONNECTED_BACKEND_HOMOLOGATED / VOTACAO_FECHADA`.
 
-Ainda não usar `PUBLICADO_HOMOLOGADO`: a URL do GitHub Pages não foi verificada publicamente e o teste humano em aparelho físico permanece pendente.
+O GitHub Pages está publicado e o backend está homologado. Ainda há ressalva de compatibilidade com sessão Google em Android normal; guia anônima funcionou e a mitigação foi publicada.
 
 Também não abrir a votação oficial antes da autorização explícita da equipe.
 
@@ -315,3 +315,18 @@ Também não abrir a votação oficial antes da autorização explícita da equi
 - CI de push do commit `3b06252de1941d9ff0ddee40d6ff14e15be5a684`: build success, deploy skipped intencionalmente.
 - A votação permanece fechada conforme a última evidência registrada; nenhuma abertura de votação ou novo voto foi realizado nesta retomada.
 - O projeto continua em `MVP_READY_FOR_REVIEW`, não em `PUBLICADO_HOMOLOGADO`.
+
+
+## 17. Atualização após merge e publicação — 25/11/2026
+
+- PR #1 foi integrado à `main` no commit `8b8408efbe7f7fcee0d7a1e95e0e78f02ef761fc`.
+- Site publicado: `https://rayssa-gm.github.io/webdev_11-11/`.
+- GitHub Actions run `45610275861`: build **success**, deploy **success**.
+- Workflow de sincronização do Apps Script também teve execução bem-sucedida.
+- Suíte atual do CI: **26 testes aprovados, 0 falhas**.
+- Conferência técnica dos 46 projetos contra os PDFs concluída sem divergências substantivas.
+- Teste Android físico confirmou responsividade nas telas Avaliar e Ranking.
+- Em sessão normal do Chrome Android houve erro de acesso Google; os dois serviços abriram em guia anônima.
+- A interface publicou alternativas de acesso: abrir na mesma guia, copiar link e endereço direto.
+- Planilha principal permanece com `STATUS_VOTACAO=FECHADA`.
+- Pendências reais: reteste físico das mitigações, Safari/iOS se disponível e aprovação institucional antes de abrir a votação.

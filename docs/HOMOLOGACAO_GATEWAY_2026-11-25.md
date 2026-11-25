@@ -57,3 +57,11 @@ O código revisado elimina os redirecionamentos, mantém o formulário desabilit
 No projeto Apps Script **Universo IF Avalia** de produção, confira `FECHADA` por leitura. Preserve `SPREADSHEET_ID`, `Index.html` e o histórico da implantação atual. Atualize o backend com `backend/Code.gs`, mantenha apenas uma definição de `doPost` e configure o segredo próprio de produção em `AVALIA_GATEWAY_SECRET`. Crie uma implantação de Web App separada para o gateway. Use a URL `/exec` dessa implantação em `APPS_SCRIPT_URL` e o mesmo segredo privado em `GATEWAY_SECRET` no Worker de produção. Mantenha `VOTING_DISABLED=true`. Não compartilhe o segredo pelo GitHub ou pelo chat.
 
 Após validar os endpoints de produção em leitura, defina `VITE_AVALIA_GATEWAY_URL` no GitHub com a origem do Worker de produção. A implantação definitiva depende da validação do workflow e da navegação anônima do site publicado. A URL pública permanece https://rayssa-gm.github.io/webdev_11-11/.
+
+## Última verificação antes da publicação
+
+- Worker de produção confirmado em leitura: HTTP 200, votação FECHADA e mínimo 5. O ranking de cada modalidade retornou HTTP 200 e 24 ou 22 identificadores únicos, respectivamente. Nenhum projeto atingiu o limiar de classificação.
+- Configuração Cloudflare conferida sem ler segredos: Workers distintos, origens separadas, bindings de segredos em cada ambiente e `VOTING_DISABLED=true` em produção. Nas leituras de bootstrap, produção aceitou a origem GitHub Pages e recusou a origem local. QA recusou a origem GitHub Pages. Nenhum POST de avaliação foi enviado.
+- O conflito com `main` em `src/App.tsx` foi resolvido preservando formulário e rankings integrados. A publicação deste workflow ficou restrita à `main`, em fila única, e verifica a origem exata do Worker de produção antes de consultar bootstrap e os dois rankings.
+- Build com a configuração de produção e 31 testes locais aprovados. Auditoria sem vulnerabilidades e catálogo de 46 projetos validado.
+- A variável de repositório `VITE_AVALIA_GATEWAY_URL` precisa estar presente antes do merge. A página de configuração do GitHub retornou 404 na sessão sem autenticação administrativa. Testes do site integrado já publicado e verificação final em sessão com múltiplas contas continuam pendentes.

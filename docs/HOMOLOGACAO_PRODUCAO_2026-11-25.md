@@ -21,3 +21,57 @@ Capturas fornecidas pela operadora confirmam interface responsiva nas telas Aval
 ## Mitigação de acesso
 
 Commits 373705b e 881f93a adicionam ajuda expansível em ambos os serviços, abertura na mesma guia, cópia do endereço e campo selecionável como alternativa. Preservam parâmetros de projeto/modalidade. Não eliminam necessariamente conflitos de sessão Google; guia anônima continua sendo contorno confirmado. Build e publicação dos novos commits e reteste físico ainda precisam ser confirmados. Nenhuma alteração no backend ou planilha.
+
+
+## Smoke público automatizado — 25/11/2026
+
+GitHub Actions run **45613535272** executou navegador Chromium contra a publicação real.
+
+Resultado: **PASS**.
+
+- GitHub Pages abriu corretamente.
+- Catálogo publicado: **46 projetos**.
+- Busca por `AGROSENTINELA`: PASS.
+- Filtro `Mostra de Extensão`: **22 projetos**.
+- Mitigação de acesso publicada: ajuda expansível, abertura na mesma guia, copiar link e endereço direto.
+- Avaliação no Apps Script abriu em contexto anônimo.
+- Ranking no Apps Script abriu em contexto anônimo.
+- Votação exibida como **FECHADA**.
+- Sem overflow horizontal em viewport móvel de 390 px.
+- Erros JavaScript observados: **0**.
+
+O probe temporário foi removido após a execução. Este teste confirma o fluxo anônimo/publicado, mas não reproduz uma sessão Chrome já autenticada em múltiplas contas Google; por isso o reteste físico da mitigação continua recomendado.
+
+
+## Reteste físico Android — 25/11/2026 (Kêmilly)
+
+Evidência fornecida pela operadora em aparelho Android físico, com captura da tela do Chrome mostrando `script.google.com` e a mensagem do Google Drive **“Não foi possível abrir o arquivo. Verifique o endereço e tente novamente.”**
+
+Resultados:
+- Avaliação no PC, Chrome normal: **PASS**.
+- Avaliação no Android, Chrome normal: **FAIL** — erro do Google Drive.
+- Link copiado no PC: **PASS**.
+- Link copiado no Android: **FAIL** — mesmo erro.
+- Ranking no PC, Chrome normal: **PASS**.
+- Ranking no Android, Chrome normal: **FAIL** — mesmo erro.
+- Ranking em guia anônima no PC: **PASS**.
+- Ranking em guia anônima no Android: **FAIL** — mesmo erro.
+
+Conclusão: o contorno por guia anônima não resolve neste aparelho Android. O problema ocorre antes da interface do Apps Script carregar e não depende apenas do estado de login da sessão. O frontend do GitHub Pages permanece funcional; a incompatibilidade está no acesso móvel ao endpoint `script.google.com/macros/.../exec` neste dispositivo/contexto.
+
+Manter votação **FECHADA**. Não classificar o acesso móvel ao formulário/ranking como homologado até haver correção ou alternativa confirmada em aparelho físico.
+
+
+## Diagnóstico provável — bug conhecido Google/Android
+
+A evidência física corresponde a um bug público do Google Issue Tracker em que URLs de Web Apps do Apps Script no Android são interceptadas/roteadas incorretamente pelo ecossistema Google Drive, exibindo a mensagem **“Não foi possível abrir o arquivo”** antes de o Web App carregar.
+
+Referências públicas:
+- Google Issue Tracker #520300212 — Apps Script Web App URLs on Android incorrectly opened by the Drive app.
+- Google Issue Tracker #574946511 — Web App com acesso público exibindo “unable to open file” para usuários não proprietários, inclusive em dispositivos móveis.
+
+O comportamento observado neste projeto é compatível: desktop e automação Chromium carregam o `/exec`, enquanto o Android físico falha antes de renderizar a interface do Apps Script.
+
+Mitigação adicionada ao frontend no commit `23cf5467c3b77e19c965d128645f4053205621b0`: instrução específica para Android, orientando colar o link diretamente na barra do Chrome e, se necessário, desativar a abertura automática de links compatíveis pelo app Google Drive em **Configurações > Apps > Drive > Abrir por padrão/Definir como padrão**.
+
+Essa mitigação ainda precisa ser retestada em aparelho físico.
