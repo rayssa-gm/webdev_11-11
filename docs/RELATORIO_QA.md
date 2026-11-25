@@ -2,13 +2,13 @@
 
 | Gate | Estado | Evidência / bloqueio |
 |---|---|---|
-| G0 — GitHub e autorização | PASS | Repositório `rayssa-gm/webdev_11-11` identificado; branch `feat/universo-if-avalia-mvp` ativa; escrita autorizada nesta conversa. |
-| G1 — Catálogo | PASS / VISUAL_SAMPLE_10_OF_46 | Validador aprovou 46 IDs únicos: 24 NAC + 22 EXT, campos obrigatórios, datas e proveniência. Os PDFs foram reabertos nesta retomada e 10 títulos (EXT-001–005 e NAC-001–005) foram conferidos visualmente sem divergências. Os 36 restantes ainda requerem revisão humana; ver `AUDITORIA_CATALOGO.md`. |
-| G2 — Interface, testes e build | PASS | GitHub Actions run **44159557349**: `npm ci`, typecheck, **18/18 testes**, validador do catálogo, `node --check` do Apps Script e build Vite concluídos com sucesso. QA responsivo automatizado passou em 320/375/768/1280 px. |
+| G0 — GitHub e autorização | PASS | PR #1 foi integrado à `main` em 25/11/2026; a `main` é agora a linha oficial do projeto. |
+| G1 — Catálogo | PASS / TECHNICAL_REVIEW_46_OF_46 | 46 IDs únicos: 24 NAC + 22 EXT; conferência integral assistida dos dois PDFs concluída em 25/11/2026, sem divergências substantivas. Aprovação institucional humana continua recomendada. |
+| G2 — Interface, testes e build | PASS | GitHub Actions run **45610275861**: build e deploy concluídos; suíte atual com **26/26 testes**, typecheck, catálogo e sintaxe do Apps Script aprovados. |
 | G3 — Backend offline | PASS | Testes automatizados exercitam Modelo B, repetição, token inválido, validação das notas, idempotência, ranking agregado e corrida simulada com mocks dos serviços Google. Isso não substitui o runtime real do Apps Script/Sheets. |
 | G4 — Voto real + readback | PASS / CONNECTED_HOMOLOGATED | Runtime Google real homologado: voto e readback, bloqueio de duplicidade, Modelo B, concorrência, idempotência e ranking conectado. O ranking foi validado com 5 avaliações em `NAC-004`: média 4,36, critérios 4,20/4,40/4,60/4,20, elegível e posição #1; a interface pública exibiu o agregado esperado. Os 5 votos/códigos exclusivos desse teste foram removidos após a evidência e a votação voltou a `FECHADA`. |
-| G5 — GitHub Actions / Pages | PASS_BUILD / URL_INTEGRATED / NOT_DEPLOYED | A URL `/exec` real está integrada ao build. GitHub Actions run **44159031990** passou com 18/18 testes, catálogo, sintaxe e build. O deploy continua corretamente `skipped` porque a branch não é `main`. O workflow manual de sincronização Apps Script via `clasp` foi preparado no commit `1a0ba2c583494808b4dad2facbf110a012e08f44`. |
-| G6 — QA independente | PARTIAL / INDEPENDENT_AUTOMATED_PASS / PHYSICAL_DEVICE_PENDING | QA móvel independente no GitHub Actions run **44211122128** passou em 320x800, 360x800, 390x844 e 430x932 com contexto touch/mobile: sem overflow, filtros e detalhes funcionais, links do Apps Script corretos, alvos da navegação inferior com 46 px de altura, foco visível por teclado, zero erros JS e zero violações axe WCAG A/AA. O probe encontrou e levou à correção de um contraste insuficiente nos rótulos pequenos. Ainda falta teste humano em aparelho físico Android/iOS e revisão dos 36 títulos restantes dos PDFs. |
+| G5 — GitHub Actions / Pages | PASS / PUBLISHED | GitHub Pages publicado em `https://rayssa-gm.github.io/webdev_11-11/`. Run **45610275861**: build **success** e deploy **success**. Apps Script também teve sincronizações manuais bem-sucedidas via workflow. |
+| G6 — QA independente | PARTIAL / ANDROID_TESTED / IOS_PENDING | QA automatizado independente aprovado; Android físico testado nas telas Avaliar e Ranking. Em sessão normal do Chrome houve falha de acesso Google, mas ambos os serviços abriram em guia anônima. Mitigações de acesso foram adicionadas e publicadas; falta reteste físico dessas mitigações e teste em Safari/iOS, se disponível. |
 
 ## Evidências verificadas no CI
 
@@ -26,9 +26,9 @@
 
 ## Estado correto do projeto
 
-O código está em estado **MVP_READY_FOR_REVIEW**, mas ainda não deve ser classificado como `PUBLICADO_HOMOLOGADO`.
+O projeto está **PUBLICADO** no GitHub Pages e o backend conectado está homologado. A votação oficial continua `FECHADA`. Ainda não deve ser tratado como votação institucional aberta.
 
-G4 está concluído no runtime conectado. O QA móvel independente automatizado de G6 também passou; para a liberação final ainda faltam o teste humano em aparelho físico Android/iOS, a revisão humana dos 36 títulos restantes, o teste em aparelho físico e a autorização da equipe para merge/publicação definitiva.
+G4 e G5 estão concluídos. O QA físico Android foi iniciado e revelou uma ressalva de sessão Google; guia anônima funcionou e a interface recebeu alternativas de acesso. Restam o reteste físico das mitigações, teste iOS se disponível e aprovação institucional antes de abrir a votação.
 
 O roteiro operacional atualizado está em `docs/TESTES_E_QA.md` e a configuração manual do Google em `docs/CONFIGURAR_GOOGLE.md`.
 
@@ -155,3 +155,14 @@ Em 17/11/2026 foi constatado que a janela de homologação havia permanecido `AB
 - Erros JavaScript/console: **0**.
 - O primeiro probe detectou contraste insuficiente em `.prototype` / `.eyebrow` (`#6e866e` sobre fundo claro, ~3,68:1). Corrigido no commit `fcbbcf95220a228b9926494623650939dbfebaa1` para `var(--muted)`, ~4,61:1 no fundo claro.
 - Limitação restante: esta evidência usa emulação Chromium; não substitui interação humana em aparelho físico Android/iOS.
+
+
+## Atualização de produção — 25/11/2026
+
+- PR #1 integrado à `main` no commit de merge `8b8408efbe7f7fcee0d7a1e95e0e78f02ef761fc`.
+- GitHub Pages publicado e atualizado; run `45610275861`: build **success**, deploy **success**.
+- Suíte atual do CI: **26 testes aprovados, 0 falhas**.
+- Conferência técnica dos 46 projetos contra os PDFs concluída sem divergências substantivas.
+- Teste físico Android: interface responsiva nas telas Avaliar e Ranking; Apps Script abriu em guia anônima, mas falhou na sessão normal do Chrome.
+- Mitigações publicadas: abrir na mesma guia, copiar link e endereço direto, com orientação para guia privada/anônima.
+- Planilha principal verificada com `STATUS_VOTACAO=FECHADA`; votação oficial permanece fechada.
