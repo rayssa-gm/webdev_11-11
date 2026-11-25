@@ -21,3 +21,23 @@ Capturas fornecidas pela operadora confirmam interface responsiva nas telas Aval
 ## Mitigação de acesso
 
 Commits 373705b e 881f93a adicionam ajuda expansível em ambos os serviços, abertura na mesma guia, cópia do endereço e campo selecionável como alternativa. Preservam parâmetros de projeto/modalidade. Não eliminam necessariamente conflitos de sessão Google; guia anônima continua sendo contorno confirmado. Build e publicação dos novos commits e reteste físico ainda precisam ser confirmados. Nenhuma alteração no backend ou planilha.
+
+
+## Smoke público automatizado — 25/11/2026
+
+GitHub Actions run **45613535272** executou navegador Chromium contra a publicação real.
+
+Resultado: **PASS**.
+
+- GitHub Pages abriu corretamente.
+- Catálogo publicado: **46 projetos**.
+- Busca por `AGROSENTINELA`: PASS.
+- Filtro `Mostra de Extensão`: **22 projetos**.
+- Mitigação de acesso publicada: ajuda expansível, abertura na mesma guia, copiar link e endereço direto.
+- Avaliação no Apps Script abriu em contexto anônimo.
+- Ranking no Apps Script abriu em contexto anônimo.
+- Votação exibida como **FECHADA**.
+- Sem overflow horizontal em viewport móvel de 390 px.
+- Erros JavaScript observados: **0**.
+
+O probe temporário foi removido após a execução. Este teste confirma o fluxo anônimo/publicado, mas não reproduz uma sessão Chrome já autenticada em múltiplas contas Google; por isso o reteste físico da mitigação continua recomendado.
