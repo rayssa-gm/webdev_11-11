@@ -39,15 +39,27 @@ jobs:
           assert.equal(gateway.href, gateway.origin + '/');
           assert.notEqual(gateway.origin, process.env.QA_GATEWAY);
           const origin = 'https://rayssa-gm.github.io';
-          const response = await fetch(new URL('/bootstrap', gateway), {
-            headers: { Origin: origin }, redirect: 'error', signal: AbortSignal.timeout(30000),
-          });
-          assert(response.ok, 'Bootstrap de produção indisponível');
-          assert.equal(response.headers.get('access-control-allow-origin'), origin);
-          const envelope = await response.json();
-          assert.equal(envelope.ok, true);
-          assert.equal(envelope.data.status, 'FECHADA');
-          assert.equal(envelope.data.minRanking, 5);
+          async function read(path) {
+            const response = await fetch(new URL(path, gateway), {
+              headers: { Origin: origin }, redirect: 'error', signal: AbortSignal.timeout(30000),
+            });
+            assert(response.ok, 'API de produção indisponível');
+            assert.equal(response.headers.get('access-control-allow-origin'), origin);
+            const envelope = await response.json();
+            assert.equal(envelope.ok, true);
+            return envelope.data;
+          }
+          const bootstrap = await read('/bootstrap');
+          assert.equal(bootstrap.status, 'FECHADA');
+          assert.equal(bootstrap.minRanking, 5);
+          for (const [modality, total] of [['Mostra Nacional', 24], ['Mostra de Extensão', 22]]) {
+            const ranking = await read('/ranking?' + new URLSearchParams({ modalidade: modality }));
+            assert.equal(ranking.modality, modality);
+            assert.equal(ranking.minimum, 5);
+            assert.equal(ranking.items.length, total);
+            assert.equal(new Set(ranking.items.map(item => item.id)).size, total);
+            assert(ranking.items.every(item => item.modalidade === modality));
+          }
           JS
       - run: npm run build
         env:

@@ -15,6 +15,7 @@ export default {
         if(!['Mostra Nacional','Mostra de Extensão'].includes(modality)) return reply({ok:false,error:'MODALIDADE_INVALIDA'},400);
         body={action:'ranking',modality};
       } else if(request.method==='POST' && url.pathname==='/vote') {
+        if(env.VOTING_DISABLED === 'true') return reply({ok:false,error:'VOTACAO_FECHADA'},403);
         if(!origin || !request.headers.get('Content-Type')?.startsWith('application/json')) return reply({ok:false,error:'REQUISICAO_INVALIDA'},400);
         const reader=request.body?.getReader(); if(!reader) return reply({ok:false,error:'REQUISICAO_INVALIDA'},400);
         let size=0;const decoder=new TextDecoder();let raw='';

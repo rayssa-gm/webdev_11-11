@@ -62,3 +62,17 @@ test('gateway apresenta indisponibilidade quando o serviço a montante falha', a
   assert.equal(response.headers.get('Access-Control-Allow-Origin'), origin);
   assert.deepEqual(await response.json(), { ok: false, error: 'SERVICO_INDISPONIVEL' });
 });
+
+test('perfil de produção recusa gravação com votação desabilitada', async t => {
+  const upstream = t.mock.method(globalThis, 'fetch', async () => {
+    throw new Error('Envio de produção não deve chegar ao backend');
+  });
+  const response = await worker.fetch(new Request(gateway + '/vote', {
+    method: 'POST',
+    headers: { Origin: origin, 'Content-Type': 'application/json' },
+    body: '{}',
+  }), { ...env, VOTING_DISABLED: 'true' });
+  assert.equal(response.status, 403);
+  assert.deepEqual(await response.json(), { ok: false, error: 'VOTACAO_FECHADA' });
+  assert.equal(upstream.mock.callCount(), 0);
+});

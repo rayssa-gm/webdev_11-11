@@ -43,3 +43,17 @@ O código revisado elimina os redirecionamentos, mantém o formulário desabilit
 - Build com URL de QA a partir de `2de9d03` concluído. Navegação local no Chromium com respostas capturadas do Worker, em contextos novos sem conta Google: formulário pré-selecionou EXT-001, manteve o envio desabilitado, exibiu os rankings 24/22 e não abriu outra guia nem redirecionou. Formulário e ranking sem rolagem horizontal a 360, 768 e 1.366 px.
 - Teste de envio interceptado no navegador, sem gravação: a primeira tentativa simulou falha de rede. A segunda preservou o identificador e as quatro notas sintéticas [4, 5, 4, 3], exibiu recibo e nota 4,15 após a resposta simulada.
 - O Chromium do executor retornou `ERR_CERT_AUTHORITY_INVALID` ao acessar diretamente o Worker pelo proxy do ambiente. A chamada HTTP independente funcionou. A validação ponta a ponta no Edge com Worker real, a gravação sintética na planilha QA e o teste com múltiplas contas seguem pendentes. Este ciclo não implantou produção nem alterou planilhas.
+
+## Validação no Edge e preparação de produção
+
+- Evidência informada pela operadora: Edge normal e InPrivate carregaram formulário e rankings integrados. Avaliação sintética de EXT-003 com notas 4, 5, 4 e 3 gerou nota 4,15 e recibo. O status de QA foi restaurado para FECHADA.
+- Conferência independente após o teste: `/bootstrap` confirmou FECHADA e mínimo 5. O ranking Mostra de Extensão mostrou uma avaliação em EXT-003, com média e posição ocultas. Os dois rankings retornaram 24 e 22 IDs únicos. O recibo e as notas individuais são evidência da operadora, pois não integram a API pública.
+- Revisão do código: o segredo pertence aos servidores e os clientes usam o gateway sem cookies. O Apps Script valida notas, aplica o Modelo B e verifica o estado antes de gravar. O perfil `production` do Worker adota origem específica e recusa envios antes de chamar o Apps Script. Um teste sintético confirma que essa recusa não gera chamada ao backend.
+- O workflow de publicação exige bootstrap FECHADA, mínimo 5, origem esperada e resposta válida dos dois rankings com 24 e 22 projetos únicos. Os testes locais passaram (31 de 31), assim como o build e a validação do catálogo.
+- A conta Cloudflare conectada mostrou apenas o Worker QA. O perfil de produção está versionado. A implantação real exige uma URL de Apps Script de produção e um segredo exclusivo configurado de forma privada nos dois serviços. QA e produção devem manter vínculos de planilha separados. A homologação da configuração implantada é pré-requisito para publicar. Nenhum voto real foi enviado e os dados de produção foram preservados.
+
+### Preparação no Edge
+
+No projeto Apps Script **Universo IF Avalia** de produção, confira `FECHADA` por leitura. Preserve `SPREADSHEET_ID`, `Index.html` e o histórico da implantação atual. Atualize o backend com `backend/Code.gs`, mantenha apenas uma definição de `doPost` e configure o segredo próprio de produção em `AVALIA_GATEWAY_SECRET`. Crie uma implantação de Web App separada para o gateway. Use a URL `/exec` dessa implantação em `APPS_SCRIPT_URL` e o mesmo segredo privado em `GATEWAY_SECRET` no Worker de produção. Mantenha `VOTING_DISABLED=true`. Não compartilhe o segredo pelo GitHub ou pelo chat.
+
+Após validar os endpoints de produção em leitura, defina `VITE_AVALIA_GATEWAY_URL` no GitHub com a origem do Worker de produção. A implantação definitiva depende da validação do workflow e da navegação anônima do site publicado. A URL pública permanece https://rayssa-gm.github.io/webdev_11-11/.
