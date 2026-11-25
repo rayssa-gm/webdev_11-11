@@ -26,7 +26,9 @@ jobs:
       - run: node scripts/validar_catalogo.mjs
       - run: node --check < backend/Code.gs
       - name: Confirmar gateway de produção e votação fechada
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        if: >-
+          (github.event_name != 'pull_request' && github.ref == 'refs/heads/main') ||
+          (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'feat/avalia-worker-qa')
         env:
           GATEWAY: ${{ vars.VITE_AVALIA_GATEWAY_URL }}
           QA_GATEWAY: https://universo-if-avalia-qa.rayssagabriela.workers.dev
