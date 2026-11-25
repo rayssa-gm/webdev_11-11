@@ -25,3 +25,15 @@ Comando independente: `node scripts/validar_catalogo.mjs`.
 - Divergências encontradas: **0**.
 - As três cópias JSON versionadas (`src/catalogo.json`, `public/data/catalogo.json` e `universo_if_catalogo_46_projetos_v1.0.json`) são estruturalmente idênticas e contêm os mesmos 46 projetos.
 - A conferência visual contra os PDFs originais continua pendente porque os dois PDFs não estão acessíveis nesta conversa/biblioteca.
+
+
+## Conferência documental complementar — 24/11/2026
+
+Os dois PDFs originais foram disponibilizados novamente no kit anexado a esta execução e foram reabertos para inspeção:
+
+- `trabalhos-mostra-nacional-extensao.pdf`: 5 páginas.
+- `trabalhos-mostra-nacional.pdf`: 3 páginas.
+
+Foi feita conferência visual amostral de 10 títulos, apoiada por OCR para localizar os registros nas páginas: `EXT-001` a `EXT-005` e `NAC-001` a `NAC-005`. Os títulos da amostra correspondem aos registros do JSON; nenhuma divergência foi identificada nessa amostra. `AGROSENTINELA` (`NAC-004`) e `TRAÇO VIVO` (`NAC-005`) aparecem como registros nacionais distintos.
+
+**Limite desta revisão:** a amostra de 10 não equivale a uma conferência individual dos 46 títulos. Os 36 registros restantes ainda devem ser revisados por uma pessoa da equipe antes da liberação institucional. A validação estrutural de todos os 46 registros continua aprovada pelo script.
