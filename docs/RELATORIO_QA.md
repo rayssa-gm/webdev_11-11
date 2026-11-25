@@ -3,12 +3,12 @@
 | Gate | Estado | Evidência / bloqueio |
 |---|---|---|
 | G0 — GitHub e autorização | PASS | Repositório `rayssa-gm/webdev_11-11` identificado; branch `feat/universo-if-avalia-mvp` ativa; escrita autorizada nesta conversa. |
-| G1 — Catálogo | PASS | Validador aprovou 46 IDs únicos: 24 NAC + 22 EXT, campos obrigatórios, datas e proveniência. A conferência visual independente dos 46 títulos nos PDFs permanece como etapa de QA humano documentada em `AUDITORIA_CATALOGO.md`. |
+| G1 — Catálogo | PASS / VISUAL_SAMPLE_10_OF_46 | Validador aprovou 46 IDs únicos: 24 NAC + 22 EXT, campos obrigatórios, datas e proveniência. Os PDFs foram reabertos nesta retomada e 10 títulos (EXT-001–005 e NAC-001–005) foram conferidos visualmente sem divergências. Os 36 restantes ainda requerem revisão humana; ver `AUDITORIA_CATALOGO.md`. |
 | G2 — Interface, testes e build | PASS | GitHub Actions run **44159557349**: `npm ci`, typecheck, **18/18 testes**, validador do catálogo, `node --check` do Apps Script e build Vite concluídos com sucesso. QA responsivo automatizado passou em 320/375/768/1280 px. |
 | G3 — Backend offline | PASS | Testes automatizados exercitam Modelo B, repetição, token inválido, validação das notas, idempotência, ranking agregado e corrida simulada com mocks dos serviços Google. Isso não substitui o runtime real do Apps Script/Sheets. |
 | G4 — Voto real + readback | PASS / CONNECTED_HOMOLOGATED | Runtime Google real homologado: voto e readback, bloqueio de duplicidade, Modelo B, concorrência, idempotência e ranking conectado. O ranking foi validado com 5 avaliações em `NAC-004`: média 4,36, critérios 4,20/4,40/4,60/4,20, elegível e posição #1; a interface pública exibiu o agregado esperado. Os 5 votos/códigos exclusivos desse teste foram removidos após a evidência e a votação voltou a `FECHADA`. |
 | G5 — GitHub Actions / Pages | PASS_BUILD / URL_INTEGRATED / NOT_DEPLOYED | A URL `/exec` real está integrada ao build. GitHub Actions run **44159031990** passou com 18/18 testes, catálogo, sintaxe e build. O deploy continua corretamente `skipped` porque a branch não é `main`. O workflow manual de sincronização Apps Script via `clasp` foi preparado no commit `1a0ba2c583494808b4dad2facbf110a012e08f44`. |
-| G6 — QA independente | PARTIAL / INDEPENDENT_AUTOMATED_PASS / PHYSICAL_DEVICE_PENDING | QA móvel independente no GitHub Actions run **44211122128** passou em 320x800, 360x800, 390x844 e 430x932 com contexto touch/mobile: sem overflow, filtros e detalhes funcionais, links do Apps Script corretos, alvos da navegação inferior com 46 px de altura, foco visível por teclado, zero erros JS e zero violações axe WCAG A/AA. O probe encontrou e levou à correção de um contraste insuficiente nos rótulos pequenos. Ainda falta teste humano em aparelho físico Android/iOS e conferência documental final. |
+| G6 — QA independente | PARTIAL / INDEPENDENT_AUTOMATED_PASS / PHYSICAL_DEVICE_PENDING | QA móvel independente no GitHub Actions run **44211122128** passou em 320x800, 360x800, 390x844 e 430x932 com contexto touch/mobile: sem overflow, filtros e detalhes funcionais, links do Apps Script corretos, alvos da navegação inferior com 46 px de altura, foco visível por teclado, zero erros JS e zero violações axe WCAG A/AA. O probe encontrou e levou à correção de um contraste insuficiente nos rótulos pequenos. Ainda falta teste humano em aparelho físico Android/iOS e revisão dos 36 títulos restantes dos PDFs. |
 
 ## Evidências verificadas no CI
 
@@ -28,7 +28,7 @@
 
 O código está em estado **MVP_READY_FOR_REVIEW**, mas ainda não deve ser classificado como `PUBLICADO_HOMOLOGADO`.
 
-G4 está concluído no runtime conectado. O QA móvel independente automatizado de G6 também passou; para a liberação final ainda faltam o teste humano em aparelho físico Android/iOS, a conferência documental final e a autorização da equipe para merge/publicação definitiva.
+G4 está concluído no runtime conectado. O QA móvel independente automatizado de G6 também passou; para a liberação final ainda faltam o teste humano em aparelho físico Android/iOS, a revisão humana dos 36 títulos restantes, o teste em aparelho físico e a autorização da equipe para merge/publicação definitiva.
 
 O roteiro operacional atualizado está em `docs/TESTES_E_QA.md` e a configuração manual do Google em `docs/CONFIGURAR_GOOGLE.md`.
 
