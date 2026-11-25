@@ -49,4 +49,4 @@ Consulte:
 - [Testes e QA](docs/TESTES_E_QA.md)
 - [Relatório de gates](docs/RELATORIO_QA.md)
 
-**Status:** `MVP_READY_FOR_REVIEW`. Planilha real e Web App `/exec` estão configurados, 18/18 testes passam e o QA responsivo automatizado passou em 320/375/768/1280 px. Ainda faltam a submissão conectada de homologação com recibo/readback, QA humano independente e aprovação final antes de merge em `main`/publicação definitiva.
+**Status:** `MVP_READY_FOR_REVIEW`. O catálogo contém 46 projetos; 18/18 testes automatizados, typecheck e build estão aprovados no CI. A homologação conectada do Apps Script/Sheets está documentada como concluída: recibo/readback, bloqueio de duplicidade, Modelo B, concorrência, idempotência e ranking com amostra mínima 5. O QA móvel automatizado independente passou; a votação permanece `FECHADA`. A publicação Pages está restrita à branch `main` e a PR #1 continua Draft. Pendências: teste humano em aparelho Android/iOS, revisão visual dos 36 títulos restantes dos PDFs e autorização explícita para merge/publicação.
