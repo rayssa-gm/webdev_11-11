@@ -23,3 +23,11 @@ Ambiente separado, planilha QA vinculada por SPREADSHEET_ID. Evidências observa
 - Confirmar configuração e permissões antes da entrega; aprovação do PR e publicação dependem de autorização.
 
 Não publicar códigos, hashes, recibos ou identificadores privados. Não sincronizar a implantação original durante testes QA. Manter votação fechada fora de testes controlados.
+
+## Revalidação QA v1.1
+
+- Impressão: captura confirma modalidade Mostra de Extensão e média 3,95 preservada.
+- Mensagens de duplicidade e código inválido: aprovadas segundo confirmação da operadora.
+- Auditoria posterior: captura confirma nove registros, sem novas linhas indevidas.
+- Votação QA novamente FECHADA segundo confirmação da operadora.
+- Permanecem pendentes testes de limiar 2–4, regressão automatizada, revisão do catálogo e aprovação final.
