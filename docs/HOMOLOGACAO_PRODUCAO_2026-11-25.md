@@ -17,3 +17,7 @@ Não houve teste de envio no servidor de produção, nem classificação com amo
 ## Teste físico Android — complemento
 
 Capturas fornecidas pela operadora confirmam interface responsiva nas telas Avaliar e Ranking. Ambos os links do Apps Script falharam na sessão normal do Chrome com erro do Google Drive; a operadora confirmou que ambos abriram em guia anônima. Causa provável: conflito de sessões Google, não comprovada. Acesso em sessão normal permanece uma ressalva de compatibilidade; guia anônima é contorno validado. Não houve confirmação adicional de todos os filtros ou detalhes em aparelho físico. Manter votação fechada.
+
+## Mitigação de acesso
+
+Commits 373705b e 881f93a adicionam ajuda expansível em ambos os serviços, abertura na mesma guia, cópia do endereço e campo selecionável como alternativa. Preservam parâmetros de projeto/modalidade. Não eliminam necessariamente conflitos de sessão Google; guia anônima continua sendo contorno confirmado. Build e publicação dos novos commits e reteste físico ainda precisam ser confirmados. Nenhuma alteração no backend ou planilha.
