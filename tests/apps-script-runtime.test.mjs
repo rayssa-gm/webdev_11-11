@@ -145,3 +145,29 @@ test('duas submissões concorrentes do mesmo par geram uma única linha',async()
   assert.equal(results.filter(r=>r.status==='rejected').length,1);
   assert.equal(ss.getSheetByName('Avaliacoes').getLastRow(),2);
 });
+
+test('Servidor rejeita nova avaliação com votação fechada sem gravar',()=>{
+  const {context,ss}=makeRuntime({openVoting:false});
+  context.registerVoteCode_(token);
+  const before=ss.getSheetByName('Avaliacoes').getLastRow();
+  assert.throws(()=>context.submitVote(payload('req_closed_123456789012345')), /VOTACAO_FECHADA/);
+  assert.equal(ss.getSheetByName('Avaliacoes').getLastRow(),before);
+});
+
+test('Ranking ordena médias e desempata por título, ocultando amostra insuficiente',()=>{
+  const {context,ss}=makeRuntime();
+  const votes=ss.getSheetByName('Avaliacoes');
+  for(const [id,score,count] of [['EXT-001',4,5],['EXT-002',4,5],['EXT-003',5,5],['EXT-004',5,4]]){
+    for(let i=0;i<count;i++) votes.appendRow([id+i,'synthetic',id,score,score,score,score,score,new Date(),'VALIDO']);
+  }
+  const items=context.getPublicRanking('Mostra de Extensão').items;
+  assert.equal(items[0].id,'EXT-003');
+  assert.equal(items[0].media,5);
+  assert.equal(items[0].posicao,1);
+  assert.equal(items[1].id,'EXT-001');
+  assert.equal(items[2].id,'EXT-002');
+  assert.equal(items[1].media,4);
+  assert.equal(items[1].posicao,2);
+  assert.equal(items[2].posicao,3);
+  assert.equal(items.find(p=>p.id==='EXT-004').posicao,null);
+});
