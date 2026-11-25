@@ -1,8 +1,7 @@
 name: Build and deploy GitHub Pages
-# Temporary Pages deployment for QA is allowed from the team feature branch and main.
 on:
   push:
-    branches: [main, feat/universo-if-avalia-mvp]
+    branches: [main]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -26,16 +25,57 @@ jobs:
       - run: npm test
       - run: node scripts/validar_catalogo.mjs
       - run: node --check < backend/Code.gs
+      - name: Confirmar gateway de produção e votação fechada
+        if: >-
+          (github.event_name != 'pull_request' && github.ref == 'refs/heads/main') ||
+          (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'feat/avalia-worker-qa')
+        env:
+          GATEWAY: ${{ vars.VITE_AVALIA_GATEWAY_URL }}
+          QA_GATEWAY: https://universo-if-avalia-qa.rayssagabriela.workers.dev
+        run: |
+          node --input-type=module <<'JS'
+          import assert from 'node:assert/strict';
+          const gateway = new URL(process.env.GATEWAY);
+          assert.equal(gateway.protocol, 'https:');
+          assert.equal(gateway.href, gateway.origin + '/');
+          assert.notEqual(gateway.origin, process.env.QA_GATEWAY);
+          assert.equal(gateway.origin, 'https://universo-if-avalia-producao.rayssagabriela.workers.dev');
+          const origin = 'https://rayssa-gm.github.io';
+          async function read(path) {
+            const response = await fetch(new URL(path, gateway), {
+              headers: { Origin: origin }, redirect: 'error', signal: AbortSignal.timeout(30000),
+            });
+            assert(response.ok, 'API de produção indisponível');
+            assert.equal(response.headers.get('access-control-allow-origin'), origin);
+            const envelope = await response.json();
+            assert.equal(envelope.ok, true);
+            return envelope.data;
+          }
+          const bootstrap = await read('/bootstrap');
+          assert.equal(bootstrap.status, 'FECHADA');
+          assert.equal(bootstrap.minRanking, 5);
+          for (const [modality, total] of [['Mostra Nacional', 24], ['Mostra de Extensão', 22]]) {
+            const ranking = await read('/ranking?' + new URLSearchParams({ modalidade: modality }));
+            assert.equal(ranking.modality, modality);
+            assert.equal(ranking.minimum, 5);
+            assert.equal(ranking.items.length, total);
+            assert.equal(new Set(ranking.items.map(item => item.id)).size, total);
+            assert(ranking.items.every(item => item.modalidade === modality));
+          }
+          JS
       - run: npm run build
         env:
           GITHUB_PAGES: 'true'
-          VITE_APPS_SCRIPT_URL: ${{ vars.VITE_APPS_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbydHsI_vFZdPun-cwrk7Pz7Bkoua_T2kKsOMIizu67gJCTcyKTD1QXRS10ISrlDyc6i/exec' }}
+          VITE_AVALIA_GATEWAY_URL: ${{ vars.VITE_AVALIA_GATEWAY_URL }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
   deploy:
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/feat/universo-if-avalia-mvp'
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: build
+    concurrency:
+      group: github-pages-production
+      cancel-in-progress: false
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

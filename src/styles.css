@@ -8,3 +8,16 @@
 
 /* Recuperação de acesso ao serviço externo */
 .service-access{min-width:0;max-width:100%}.access-help{margin-top:1rem;font-size:.9rem;line-height:1.5}.access-help summary{cursor:pointer;font-weight:600;text-decoration:underline;text-underline-offset:3px}.access-actions{display:flex;flex-wrap:wrap;gap:.5rem;margin:.75rem 0}.access-actions .button{white-space:normal;text-align:center}.access-address{display:block;min-width:0;font-size:.85rem}.access-address input{display:block;width:100%;min-width:0;box-sizing:border-box;margin-top:.35rem;padding:.5rem;border:1px solid #aabbb4;border-radius:.4rem;background:white;color:#173b35}.access-help [role=status]{display:block;margin-top:.5rem;overflow-wrap:anywhere}.service-card>div:last-child{min-width:0}
+
+.service-card > div:last-child { flex: 1; }
+.gateway-form fieldset { display: grid; gap: 12px; min-width: 0; border: 0; padding: 0; margin: 0 0 12px; }
+.gateway-form label { display: grid; gap: 5px; font-size: 13px; font-weight: 600; min-width: 0; }
+.gateway-form input, .gateway-form select { width: 100%; min-width: 0; max-width: 100%; padding: 9px; border: 1px solid var(--line); border-radius: 8px; color: var(--green); background: #f5f7f3; }
+.gateway-form button:disabled { opacity: .65; cursor: default; }
+.gateway-form [role="status"] { overflow-wrap: anywhere; }
+.gateway-rank { padding-left: 0; list-style: none; }
+@media print {
+  .topbar, .hero, .tabs, .mobile-nav, footer, .rank-switch, .print-ranking { display: none !important; }
+  .app-shell, .main-content, .section { padding: 0; }
+  .gateway-rank li { break-inside: avoid; }
+}

@@ -113,17 +113,18 @@ function getPublicRanking(modality) {
   PROJECTS.filter(function(p){return p.modalidade===modality;}).forEach(function(p){
     if (!groups[p.id]) groups[p.id] = {id:p.id,titulo:p.titulo,modalidade:modality,total:0,sum:0,criteria:[0,0,0,0],updatedAt:null};
   });
+  const minimum = Number(readConfig_().MIN_RANKING || MIN_RANKING);
   const items = Object.keys(groups).map(function(id) {
     const g = groups[id];
-    const eligible = g.total >= Number(readConfig_().MIN_RANKING || MIN_RANKING);
+    const eligible = g.total >= minimum;
     return {id:g.id,titulo:g.titulo,modalidade:g.modalidade,total:g.total,media:eligible?Number((g.sum/g.total).toFixed(2)):null,criterios:eligible?g.criteria.map(function(n){return Number((n/g.total).toFixed(2));}):null,updatedAt:g.updatedAt};
   }).sort(function(a,b){return b.media-a.media || a.titulo.localeCompare(b.titulo,'pt-BR') || a.id.localeCompare(b.id);});
   let position = 0;
   items.forEach(function(item) {
-    item.elegivel = item.total >= Number(readConfig_().MIN_RANKING || MIN_RANKING);
+    item.elegivel = item.total >= minimum;
     item.posicao = item.elegivel ? ++position : null;
   });
-  const result = {modality:modality,minimum:Number(readConfig_().MIN_RANKING || MIN_RANKING),updatedAt:items.reduce(function(max,item){return item.updatedAt && (!max || item.updatedAt>max)?item.updatedAt:max;},null),items:items};
+  const result = {modality:modality,minimum:minimum,updatedAt:items.reduce(function(max,item){return item.updatedAt && (!max || item.updatedAt>max)?item.updatedAt:max;},null),items:items};
   cache.put(cacheKey, JSON.stringify(result), 30);
   return result;
 }
@@ -149,8 +150,8 @@ function submitVote(payload) {
     const existing = votes.getLastRow() > 1 ? votes.getRange(2,1,votes.getLastRow()-1,10).getValues() : [];
     const sameRequest = existing.find(function(r){return String(r[0])===requestId;});
     if (sameRequest) {
-      if (String(sameRequest[1])===hash && String(sameRequest[2])===projectId) {
-        return {ok:true,receipt:requestId,score:Number(sameRequest[7]),idempotent:true};
+      if (String(sameRequest[1])===hash && String(sameRequest[2])===projectId && scores.every(function(n,i){return n===Number(sameRequest[3+i]);})) {
+        return {ok:true,receipt:requestId,score:Number(Number(sameRequest[7]).toFixed(2)),idempotent:true};
       }
       throw new Error('ID_REQUISICAO_REUTILIZADO');
     }
@@ -193,4 +194,25 @@ function spreadsheet_() {
 function hashToken_(token) {
   const bytes = Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, token, Utilities.Charset.UTF_8);
   return bytes.map(function(b){const v=(b+256)%256;return ('0'+v.toString(16)).slice(-2);}).join('');
+}
+
+/** API exclusiva do gateway; segredo em Script Properties, nunca no frontend. */
+function doPost(e) {
+  function reply(data) { return ContentService.createTextOutput(JSON.stringify(data)).setMimeType(ContentService.MimeType.JSON); }
+  try {
+    const body = JSON.parse(e.postData.contents);
+    const secret = PropertiesService.getScriptProperties().getProperty('AVALIA_GATEWAY_SECRET');
+    if (!secret || secret.length < 32 || typeof body.secret !== 'string' || body.secret !== secret) return reply({ok:false,error:'NAO_AUTORIZADO'});
+    if (body.action === 'bootstrap') {
+      const cfg = getUiBootstrap();
+      return reply({ok:true,data:{status:cfg.status === 'ABERTA' ? 'ABERTA' : 'FECHADA',minRanking:cfg.minRanking}});
+    }
+    if (body.action === 'ranking') return reply({ok:true,data:getPublicRanking(body.modality)});
+    if (body.action === 'vote') return reply({ok:true,data:submitVote(body.payload)});
+    return reply({ok:false,error:'ACAO_INVALIDA'});
+  } catch (err) {
+    const message = String(err.message || '');
+    const allowed = ['VOTACAO_FECHADA','VOTO_DUPLICADO','CODIGO_INVALIDO_OU_DESABILITADO','ID_REQUISICAO_REUTILIZADO','LIMITE_DE_TAXA_TEMPORARIO'];
+    return reply({ok:false,error:allowed.indexOf(message)>=0?message:'REQUISICAO_INVALIDA'});
+  }
 }

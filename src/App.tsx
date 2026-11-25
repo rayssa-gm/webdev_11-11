@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ArrowLeft, ArrowUpRight, BookOpen, CalendarDays, Filter, GraduationCap, Search, Star, Trophy } from 'lucide-react';
 import catalog from './catalogo.json';
-import { CRITERIA, filterProjects, formatDate, type Project } from './domain';
+import { CRITERIA, WEIGHTS, filterProjects, formatDate, type Project } from './domain';
 
+import { GatewayPanel } from './GatewayPanel';
+const gatewayUrl = import.meta.env.VITE_AVALIA_GATEWAY_URL as string | undefined;
 type View = 'projetos' | 'avaliar' | 'ranking';
 const projects = (catalog as { projetos: Project[] }).projetos;
-const scriptUrl = import.meta.env.VITE_APPS_SCRIPT_URL as string | undefined;
 const views: { id: View; label: string; icon: typeof BookOpen }[] = [
   { id: 'projetos', label: 'Projetos', icon: BookOpen },
   { id: 'avaliar', label: 'Avaliar', icon: Star },
@@ -37,7 +38,6 @@ function App() {
     location.hash = project ? `/${next}/${project.id}` : `/${next}`;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-  const dynamicLink = (params: string) => scriptUrl ? `${scriptUrl}${scriptUrl.includes('?') ? '&' : '?'}${params}` : '';
   return <div className="app-shell">
     <header className="topbar">
       <a className="brand" href="#/projetos" onClick={() => navigate('projetos')} aria-label="Universo IF Avalia, início">
@@ -70,42 +70,20 @@ function App() {
           {filtered.length ? <div className="project-grid">{filtered.map(p=><ProjectCard key={p.id} project={p} onClick={()=>navigate('projetos',p)}/>)}</div> : <div className="empty"><Filter size={28}/><h3>Nenhum projeto encontrado</h3><p>Tente alterar os filtros ou a busca.</p><button className="button secondary" onClick={()=>{setQuery('');setModality('');setArea('');setDay('')}}>Limpar filtros</button></div>}
         </>}
       </section>}
-      {view === 'avaliar' && <section className="section"><div className="section-heading"><div><span className="eyebrow">PARTICIPE</span><h2>Avalie um projeto</h2><p>As avaliações são registradas no serviço seguro do Apps Script.</p></div></div>
+      {view === 'avaliar' && <section className="section"><div className="section-heading"><div><span className="eyebrow">PARTICIPE</span><h2>Avalie um projeto</h2></div></div>
         {selected && <div className="selected-project"><span>PROJETO SELECIONADO</span><b>{selected.titulo}</b><small>{selected.id} · {selected.modalidade}</small></div>}
-        <div className="service-card"><div className="service-icon"><Star size={26}/></div><div><h3>Formulário de avaliação</h3><p>Para confirmar o recebimento do voto e evitar problemas de CORS, a avaliação é realizada na tela do Google Apps Script, usando comunicação autenticada entre a página e o servidor.</p>{scriptUrl ? <ServiceAccess href={dynamicLink(selected ? `view=avaliar&projectId=${encodeURIComponent(selected.id)}` : 'view=avaliar')} label="Abrir avaliação segura"/> : <p className="warning-text">Integração ainda não configurada. O endereço do Web App será informado em <code>VITE_APPS_SCRIPT_URL</code> após a implantação autorizada.</p>}</div></div>
-        <div className="criteria-list">{CRITERIA.map((c,i)=><div key={c}><span>{i+1}. {c}</span><b>{[30,30,25,15][i]}%</b></div>)}</div>
+        <div className="service-card"><div className="service-icon"><Star size={26}/></div><div><h3>Formulário de avaliação</h3>{gatewayUrl ? <GatewayPanel key={selected?.id || 'vote'} url={gatewayUrl} projectId={selected?.id} projects={projects}/> : <p role="status">Serviço de avaliação indisponível.</p>}</div></div>
+        <div className="criteria-list">{CRITERIA.map((c,i)=><div key={c}><span>{i+1}. {c}</span><b>{Math.round(WEIGHTS[i]*100)}%</b></div>)}</div>
         <p className="note">Modelo B: um mesmo código pode avaliar projetos diferentes, mas não pode avaliar o mesmo projeto duas vezes. O código é um token ao portador, não identifica uma pessoa.</p>
       </section>}
       {view === 'ranking' && <section className="section"><div className="section-heading"><div><span className="eyebrow">RESULTADOS INDICATIVOS</span><h2>Ranking das mostras</h2><p>Classificação independente por modalidade, sem misturar os resultados.</p></div></div>
-        <div className="rank-switch">{['Mostra Nacional','Mostra de Extensão'].map(m=><button key={m} className={rankMode===m?'selected':''} onClick={()=>setRankMode(m)}>{m}</button>)}</div>
-        <div className="service-card ranking-card"><div className="service-icon"><Trophy size={26}/></div><div><h3>Consultar resultados atualizados</h3><p>O ranking público é calculado no servidor e exibe apenas agregados. Projetos com menos de cinco avaliações aguardam amostra mínima.</p>{scriptUrl ? <ServiceAccess href={dynamicLink(`view=ranking&modalidade=${encodeURIComponent(rankMode)}`)} label="Abrir ranking público"/> : <p className="warning-text">Integração pendente: configure <code>VITE_APPS_SCRIPT_URL</code>.</p>}</div></div>
+        <div className="rank-switch">{['Mostra Nacional','Mostra de Extensão'].map(m=><button key={m} aria-pressed={rankMode===m} className={rankMode===m?'selected':''} onClick={()=>setRankMode(m)}>{m}</button>)}</div>
+        <div className="service-card ranking-card"><div className="service-icon"><Trophy size={26}/></div><div><h3>Consultar resultados atualizados</h3><p>O ranking público é calculado no servidor e exibe apenas agregados. Projetos com menos de cinco avaliações aguardam amostra mínima.</p>{gatewayUrl ? <GatewayPanel key={rankMode} url={gatewayUrl} modality={rankMode} projects={projects}/> : <p role="status">Ranking indisponível.</p>}</div></div>
         <div className="ranking-rules"><b>Como a classificação funciona</b><p>Média ponderada: 30% criatividade, 30% clareza, 25% relevância e 15% demonstração. Empates são ordenados pelo título e, depois, pelo ID. A posição só aparece a partir de cinco avaliações válidas.</p></div>
       </section>}
     </main>
     <footer><div><b>Universo IF Avalia</b><span>Participação popular educativa · IFMA 2026.2</span></div><p>Este protótipo não representa votação ou julgamento oficial do evento.</p></footer>
     <nav className="mobile-nav" aria-label="Navegação inferior">{views.map(({id,label,icon:Icon})=><button key={id} className={view===id?'active':''} onClick={()=>navigate(id)}><Icon size={20}/><span>{label}</span></button>)}</nav>
-  </div>;
-}
-function ServiceAccess({href,label}:{href:string;label:string}) {
-  const [message,setMessage]=useState('');
-  useEffect(()=>setMessage(''),[href]);
-  async function copyLink(){
-    try {
-      await navigator.clipboard.writeText(href);
-      setMessage('Link copiado. Abra uma guia anônima e cole o endereço.');
-    } catch {
-      setMessage('Não foi possível copiar automaticamente. Selecione e copie o endereço abaixo.');
-    }
-  }
-  return <div className="service-access">
-    <a className="button primary" href={href} target="_blank" rel="noopener noreferrer">{label} <ArrowUpRight size={17}/></a>
-    <details className="access-help">
-      <summary>Problemas para acessar?</summary>
-      <p>Se o Google mostrar “Não foi possível abrir o arquivo”, no Android isso pode ocorrer por um problema conhecido de roteamento entre Apps Script e Google Drive. Primeiro, copie o link e cole diretamente na barra de endereços do Chrome. Se o Android continuar abrindo a tela do Drive, abra as Configurações do aparelho &gt; Apps &gt; Drive &gt; Abrir por padrão (ou Definir como padrão) e desative “Abrir links compatíveis”; depois tente novamente no Chrome. Não é necessário fazer login.</p>
-      <div className="access-actions"><a className="button secondary" href={href}>Abrir nesta guia</a><button type="button" className="button secondary" onClick={copyLink}>Copiar link</button></div>
-      <label className="access-address">Endereço direto<input aria-label="Endereço direto do serviço" readOnly value={href} onFocus={e=>e.currentTarget.select()}/></label>
-      <span role="status">{message}</span>
-    </details>
   </div>;
 }
 function ProjectCard({project:p,onClick}:{project:Project;onClick:()=>void}) {

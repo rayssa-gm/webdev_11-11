@@ -1,7 +1,7 @@
 # Relatório final de andamento — Universo IF Avalia
 
-Atualização: 25/11/2026  
-Linha oficial atual: `main`  
+Atualização: 25/11/2026
+Linha oficial atual: `main`
 Repositório: `rayssa-gm/webdev_11-11`  
 PR #1 — integrado à `main` em 25/11/2026
 
