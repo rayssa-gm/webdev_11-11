@@ -65,3 +65,23 @@ Após validar os endpoints de produção em leitura, defina `VITE_AVALIA_GATEWAY
 - O conflito com `main` em `src/App.tsx` foi resolvido preservando formulário e rankings integrados. A publicação deste workflow ficou restrita à `main`, em fila única, e verifica a origem exata do Worker de produção antes de consultar bootstrap e os dois rankings.
 - Build com a configuração de produção e 31 testes locais aprovados. Auditoria sem vulnerabilidades e catálogo de 46 projetos validado.
 - A variável de repositório `VITE_AVALIA_GATEWAY_URL` precisa estar presente antes do merge. A página de configuração do GitHub retornou 404 na sessão sem autenticação administrativa. Testes do site integrado já publicado e verificação final em sessão com múltiplas contas continuam pendentes.
+
+## Homologação final da versão publicada
+
+- PR nº 2 aprovado no workflow [45630047110](https://github.com/rayssa-gm/webdev_11-11/actions/runs/45630047110). A etapa de pré-publicação confirmou a variável `VITE_AVALIA_GATEWAY_URL`, o bootstrap FECHADA, mínimo 5 e os dois rankings. A suíte de 31 testes, TypeScript, build, catálogo e sintaxe do Apps Script passaram.
+- Merge em `main`: `e4234c46cdfed0b97412e5a37808adf1b74cbb19`. Build e implantação do GitHub Pages concluídos no workflow [45630217619](https://github.com/rayssa-gm/webdev_11-11/actions/runs/45630217619). O site público serviu o asset `index-Cg8WC5Ez.js` apontando para o Worker exclusivo de produção.
+- Navegação em Chromium, em perfis novos sem sessão Google, com HTML, JavaScript, CSS e respostas do Worker obtidos por GET dos endpoints públicos e entregues ao navegador pelo executor. Todas as larguras de 360, 768 e 1.366 px passaram: 46 cards, pesquisa com 1 resultado, filtros das modalidades com 24 e 22 resultados e combinação de Extensão, Ciências Humanas e 17/11 com 6 resultados. O detalhe de EXT-001 abriu, o formulário preservou o projeto e mostrou FECHADA com envio desabilitado. Os painéis exibiram 24 e 22 projetos na mesma guia, sem redirecionamento ou rolagem horizontal.
+- `VOTING_DISABLED=true` confirmado nas configurações do Worker após publicação. Nenhuma avaliação foi enviada e nenhuma planilha foi alterada.
+
+Endereço definitivo: https://rayssa-gm.github.io/webdev_11-11/.
+
+## Encerramento da homologação — 25/11/2026
+
+| Evidência manual | Resultado confirmado pela responsável pela homologação |
+|---|---|
+| Celular físico | 13 de 13 testes aprovados, incluindo abertura dos formulários das duas modalidades, rankings, catálogo, pesquisa e filtros. A navegação ocorreu sem solicitação de login no Google. |
+| Computador com múltiplas contas Google | Teste manual aprovado. A confirmação anterior da responsável registrou navegação integrada sem solicitação de login no Google. |
+
+**Resultado final: homologação encerrada e aprovada para a operação publicada com recebimento de avaliações fechado.** A versão homologada é a implantação do GitHub Pages vinculada ao merge `e4234c46cdfed0b97412e5a37808adf1b74cbb19`. Os resultados manuais acima complementam os testes automatizados e a validação da versão publicada.
+
+Condição operacional preservada neste encerramento: `FECHADA` e `VOTING_DISABLED=true`. Esta atualização é exclusivamente documental.
