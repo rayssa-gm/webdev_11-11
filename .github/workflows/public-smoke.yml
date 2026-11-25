@@ -1,0 +1,27 @@
+name: Public production smoke
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/public-smoke.yml'
+      - 'scripts/public_smoke.mjs'
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install browser
+        run: |
+          npm install --no-save playwright@1.65.1
+          npx playwright install --with-deps chromium
+      - name: Validate published Pages and anonymous Apps Script access
+        run: node scripts/public_smoke.mjs
