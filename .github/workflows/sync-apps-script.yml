@@ -26,7 +26,7 @@ concurrency:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    if: ${{ inputs.mode == 'status' || inputs.confirm == 'SYNC' }}
+    if: ${{ github.ref == 'refs/heads/feat/universo-if-avalia-mvp' && (inputs.mode == 'status' || inputs.confirm == 'SYNC') }}
     steps:
       - uses: actions/checkout@v4
 
