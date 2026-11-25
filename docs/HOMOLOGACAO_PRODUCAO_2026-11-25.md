@@ -13,3 +13,7 @@ Fonte: relatório de execução em navegador fornecido pela operadora.
 ## Limites
 
 Não houve teste de envio no servidor de produção, nem classificação com amostra suficiente em produção. Testes adicionais simulados de fechamento e desempate foram adicionados no commit 978649a; execução local confirmada no commit 749b162: 26/26 testes aprovados. Dispositivos físicos e aprovação institucional permanecem pendentes. Manter votação fechada até autorização específica.
+
+## Teste físico Android — complemento
+
+Capturas fornecidas pela operadora confirmam interface responsiva nas telas Avaliar e Ranking. Ambos os links do Apps Script falharam na sessão normal do Chrome com erro do Google Drive; a operadora confirmou que ambos abriram em guia anônima. Causa provável: conflito de sessões Google, não comprovada. Acesso em sessão normal permanece uma ressalva de compatibilidade; guia anônima é contorno validado. Não houve confirmação adicional de todos os filtros ou detalhes em aparelho físico. Manter votação fechada.
